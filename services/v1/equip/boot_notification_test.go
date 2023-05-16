@@ -6,130 +6,14 @@ import (
 
 	"github.com/Kotodian/gokit/id"
 	"github.com/stretchr/testify/assert"
+	"github.com/ForbiddenR/jx-api/services"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/internal/log"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
 )
 
-func TestBootNotificationRequest(t *testing.T) {
-	config.TestConfig()
-	api.Init()
-	ctx := context.TODO()
-
-	p := services.OCPP16()
-	reqOnline := newTestEquipOnlineRequest(services.TestSN, p, services.TestAccessPod, id.Next().String())
-	err := OnlineRequest(ctx, reqOnline)
-
-	assert.Nil(t, err)
-
-	//remoteAddress := "127.0.0.1"
-	modelCode := "NJC0P121B0"
-	manufacturerCode := "MT01CNJQX0"
-	firmwareVersion := "0.0.1"
-	iccid := "123000000001"
-	req := []*equipBootNotificationRequest{
-		{
-			Base: services.Base{
-				EquipmentSn: services.TestSN,
-				Protocol:    p,
-				Category:    services.BootNotification.FirstUpper(),
-				AccessPod:   services.TestAccessPod,
-				MsgID:       "1",
-			},
-			Data: &equipBootNotificationRequestDetail{
-				ModelCode:        modelCode,
-				ManufacturerCode: manufacturerCode,
-				FirmwareVersion:  nil,
-				Iccid:            nil,
-			},
-		},
-		{
-			Base: services.Base{
-				EquipmentSn: services.TestSN,
-				Protocol:    p,
-				Category:    services.BootNotification.FirstUpper(),
-				AccessPod:   services.TestAccessPod,
-				MsgID:       "1",
-			},
-			Data: &equipBootNotificationRequestDetail{
-				ModelCode:        modelCode,
-				ManufacturerCode: manufacturerCode,
-				FirmwareVersion:  nil,
-				Iccid:            nil,
-			},
-		},
-		{
-			Base: services.Base{
-				EquipmentSn: services.TestSN,
-				AccessPod:   services.TestAccessPod,
-				Category:    services.BootNotification.FirstUpper(),
-				Protocol:    p,
-				MsgID:       "1",
-			},
-			Data: &equipBootNotificationRequestDetail{
-				ModelCode:        modelCode,
-				ManufacturerCode: manufacturerCode,
-				FirmwareVersion:  &firmwareVersion,
-				Iccid:            nil,
-			},
-		},
-		{
-			Base: services.Base{
-				EquipmentSn: services.TestSN,
-				AccessPod:   services.TestAccessPod,
-				Category:    services.BootNotification.FirstUpper(),
-				Protocol:    p,
-				MsgID:       "1",
-			},
-			Data: &equipBootNotificationRequestDetail{
-				ModelCode:        modelCode,
-				ManufacturerCode: manufacturerCode,
-				FirmwareVersion:  nil,
-				Iccid:            &iccid,
-			},
-		},
-		{
-			Base: services.Base{
-				EquipmentSn: services.TestSN,
-				AccessPod:   services.TestAccessPod,
-				Category:    services.BootNotification.FirstUpper(),
-				Protocol:    p,
-				MsgID:       "1",
-			},
-			Data: &equipBootNotificationRequestDetail{
-				ModelCode:        modelCode,
-				ManufacturerCode: manufacturerCode,
-				FirmwareVersion:  &firmwareVersion,
-				Iccid:            &iccid,
-			},
-		},
-	}
-
-	for _, v := range req {
-		err = BootNotificationRequest(ctx, v)
-
-		assert.Nil(t, err)
-	}
-
-	reqOffline := &equipOfflineRequest{
-		Base: services.Base{
-			EquipmentSn: services.TestSN,
-			Protocol:    p,
-			AccessPod:   services.TestAccessPod,
-			MsgID:       "1",
-		},
-	}
-
-	err = OfflineRequest(ctx, reqOffline)
-	assert.Nil(t, err)
-}
-
 func TestBootNotificationRequestWithGeneric(t *testing.T) {
-	config.TestConfig()
-	api.Init()
-	log.InitNopLogger()
+	// config.TestConfig()
+	// api.Init()
+	// log.InitNopLogger()
 
 	ctx := context.TODO()
 	p := services.OCPP16()
@@ -176,3 +60,116 @@ func newTestEquipBootNotificationRequestWithICCID(p *services.Protocol, modelCod
 	r.Data.Iccid = &iccid
 	return r
 }
+
+// func TestBootNotificationRequest(t *testing.T) {
+// 	config.TestConfig()
+// 	api.Init()
+// 	ctx := context.TODO()
+
+// 	p := services.OCPP16()
+// 	reqOnline := newTestEquipOnlineRequest(services.TestSN, p, services.TestAccessPod, id.Next().String())
+// 	err := OnlineRequest(ctx, reqOnline)
+
+// 	assert.Nil(t, err)
+
+// 	//remoteAddress := "127.0.0.1"
+// 	modelCode := "NJC0P121B0"
+// 	manufacturerCode := "MT01CNJQX0"
+// 	firmwareVersion := "0.0.1"
+// 	iccid := "123000000001"
+// 	req := []*equipBootNotificationRequest{
+// 		{
+// 			Base: services.Base{
+// 				EquipmentSn: services.TestSN,
+// 				Protocol:    p,
+// 				Category:    services.BootNotification.FirstUpper(),
+// 				AccessPod:   services.TestAccessPod,
+// 				MsgID:       "1",
+// 			},
+// 			Data: &equipBootNotificationRequestDetail{
+// 				ModelCode:        modelCode,
+// 				ManufacturerCode: manufacturerCode,
+// 				FirmwareVersion:  nil,
+// 				Iccid:            nil,
+// 			},
+// 		},
+// 		{
+// 			Base: services.Base{
+// 				EquipmentSn: services.TestSN,
+// 				Protocol:    p,
+// 				Category:    services.BootNotification.FirstUpper(),
+// 				AccessPod:   services.TestAccessPod,
+// 				MsgID:       "1",
+// 			},
+// 			Data: &equipBootNotificationRequestDetail{
+// 				ModelCode:        modelCode,
+// 				ManufacturerCode: manufacturerCode,
+// 				FirmwareVersion:  nil,
+// 				Iccid:            nil,
+// 			},
+// 		},
+// 		{
+// 			Base: services.Base{
+// 				EquipmentSn: services.TestSN,
+// 				AccessPod:   services.TestAccessPod,
+// 				Category:    services.BootNotification.FirstUpper(),
+// 				Protocol:    p,
+// 				MsgID:       "1",
+// 			},
+// 			Data: &equipBootNotificationRequestDetail{
+// 				ModelCode:        modelCode,
+// 				ManufacturerCode: manufacturerCode,
+// 				FirmwareVersion:  &firmwareVersion,
+// 				Iccid:            nil,
+// 			},
+// 		},
+// 		{
+// 			Base: services.Base{
+// 				EquipmentSn: services.TestSN,
+// 				AccessPod:   services.TestAccessPod,
+// 				Category:    services.BootNotification.FirstUpper(),
+// 				Protocol:    p,
+// 				MsgID:       "1",
+// 			},
+// 			Data: &equipBootNotificationRequestDetail{
+// 				ModelCode:        modelCode,
+// 				ManufacturerCode: manufacturerCode,
+// 				FirmwareVersion:  nil,
+// 				Iccid:            &iccid,
+// 			},
+// 		},
+// 		{
+// 			Base: services.Base{
+// 				EquipmentSn: services.TestSN,
+// 				AccessPod:   services.TestAccessPod,
+// 				Category:    services.BootNotification.FirstUpper(),
+// 				Protocol:    p,
+// 				MsgID:       "1",
+// 			},
+// 			Data: &equipBootNotificationRequestDetail{
+// 				ModelCode:        modelCode,
+// 				ManufacturerCode: manufacturerCode,
+// 				FirmwareVersion:  &firmwareVersion,
+// 				Iccid:            &iccid,
+// 			},
+// 		},
+// 	}
+
+// 	for _, v := range req {
+// 		err = BootNotificationRequest(ctx, v)
+
+// 		assert.Nil(t, err)
+// 	}
+
+// 	reqOffline := &equipOfflineRequest{
+// 		Base: services.Base{
+// 			EquipmentSn: services.TestSN,
+// 			Protocol:    p,
+// 			AccessPod:   services.TestAccessPod,
+// 			MsgID:       "1",
+// 		},
+// 	}
+
+// 	err = OfflineRequest(ctx, reqOffline)
+// 	assert.Nil(t, err)
+// }

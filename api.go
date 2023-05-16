@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"gitee.com/csms/jxeu-ocpp/internal/validate"
+	"github.com/go-playground/validator/v10"
 )
 
 type OcppVersion int
@@ -47,11 +47,11 @@ type Response struct {
 	Timestamp int64  `json:"timestamp"`
 }
 
-func UnmarshalAndVerify(payload []byte, req any) error {
+func UnmarshalAndVerify(payload []byte, req any, validate *validator.Validate) error {
 	if err := json.Unmarshal(payload, req); err != nil {
 		return err
 	}
-	if err := validate.Validate.Struct(req); err != nil {
+	if err := validate.Struct(req); err != nil {
 		return err
 	}
 	return nil

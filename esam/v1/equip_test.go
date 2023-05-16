@@ -6,15 +6,15 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/internal/log"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
+	// api "github.com/ForbiddenR/jx-api"
+
+	// "gitee.com/csms/jxeu-ocpp/pkg/api"
 )
 
 func TestAccessVerifyRequest(t *testing.T) {
-	config.TestConfig()
-	api.Init()
-	log.InitNopLogger()
+	// config.TestConfig()
+	// api.Init()
+	// log.InitNopLogger()
 	requests := []*accessVerifyRequest{
 		{
 			EquipmentSn:      "JK000000006",

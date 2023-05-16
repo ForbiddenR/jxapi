@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"gitee.com/csms/jxeu-ocpp/internal/config"
-	callback "gitee.com/csms/jxeu-ocpp/internal/errors"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipResetCallbackRequest struct {
@@ -40,7 +40,7 @@ func NewEquipResetCallbackRequest(sn, pod, msgID string, p *services.Protocol, s
 	return req
 }
 
-func NewEquipResetCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *callback.CallbackError) *equipResetCallbackRequest {
+func NewEquipResetCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) *equipResetCallbackRequest {
 	req := &equipResetCallbackRequest{
 		Base: services.Base{
 			EquipmentSn: sn,

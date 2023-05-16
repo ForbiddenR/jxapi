@@ -2,14 +2,9 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
-	protocol "gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type FirmwareStatusNotificationType int
@@ -24,27 +19,27 @@ const (
 	InstallationFailed FirmwareStatusNotificationType = 7
 )
 
-func OCPP16GetFirmwareStatus(status protocol.FirmwareStatusNotificationJsonStatus) FirmwareStatusNotificationType {
-	var result FirmwareStatusNotificationType
-	switch status {
-	case protocol.FirmwareStatusNotificationJsonStatusIdle:
-		result = Idle
-	case protocol.FirmwareStatusNotificationJsonStatusDownloading:
-		result = Downloading
-	case protocol.FirmwareStatusNotificationJsonStatusDownloadFailed:
-		result = DownloadFailed
-	case protocol.FirmwareStatusNotificationJsonStatusDownloaded:
-		result = Downloaded
-	case protocol.FirmwareStatusNotificationJsonStatusInstalling:
-		result = Installing
-	case protocol.FirmwareStatusNotificationJsonStatusInstallationFailed:
-		result = InstallationFailed
-	case protocol.FirmwareStatusNotificationJsonStatusInstalled:
-		result = Installed
-	}
+// func OCPP16GetFirmwareStatus(status protocol.FirmwareStatusNotificationJsonStatus) FirmwareStatusNotificationType {
+// 	var result FirmwareStatusNotificationType
+// 	switch status {
+// 	case protocol.FirmwareStatusNotificationJsonStatusIdle:
+// 		result = Idle
+// 	case protocol.FirmwareStatusNotificationJsonStatusDownloading:
+// 		result = Downloading
+// 	case protocol.FirmwareStatusNotificationJsonStatusDownloadFailed:
+// 		result = DownloadFailed
+// 	case protocol.FirmwareStatusNotificationJsonStatusDownloaded:
+// 		result = Downloaded
+// 	case protocol.FirmwareStatusNotificationJsonStatusInstalling:
+// 		result = Installing
+// 	case protocol.FirmwareStatusNotificationJsonStatusInstallationFailed:
+// 		result = InstallationFailed
+// 	case protocol.FirmwareStatusNotificationJsonStatusInstalled:
+// 		result = Installed
+// 	}
 
-	return result
-}
+// 	return result
+// }
 
 type equipFirmwareStatusNotificationRequest struct {
 	services.Base
@@ -103,32 +98,6 @@ func (resp *equipFirmwareStatusNotificationResponse) GetStatus() int {
 
 func (resp *equipFirmwareStatusNotificationResponse) GetMsg() string {
 	return resp.Msg
-}
-
-func FirmwareStatusNotificationRequest(ctx context.Context, req services.Request) error {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services)
-	headerValue = append(headerValue, services.FirmwareStatusNotification.Split()...)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-
-	response := &equipFirmwareStatusNotificationResponse{}
-	if err = json.Unmarshal(message, response); err != nil {
-		return err
-	}
-
-	if response.Status == 1 {
-		return errors.New(response.Msg)
-	}
-
-	return nil
 }
 
 func FirmwareStatusNotificationRequestWithGeneric(ctx context.Context, req services.Request) error {

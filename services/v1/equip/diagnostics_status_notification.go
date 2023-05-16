@@ -3,9 +3,12 @@ package equip
 import (
 	"context"
 
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
-	"gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/services"
+
+	// "gitee.com/csms/jxeu-ocpp/pkg/api"
+	// "gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	// "gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
 )
 
 type DiagnosticsStatusNotificationType int
@@ -17,20 +20,20 @@ const (
 	DiagnosticsStatusNotificationTypeUploading    DiagnosticsStatusNotificationType = 4
 )
 
-func OCPP16GetDiagnosticsStatus(status protocol.DiagnosticsStatusNotificationJsonStatus) DiagnosticsStatusNotificationType {
-	var result DiagnosticsStatusNotificationType
-	switch status {
-	case protocol.DiagnosticsStatusNotificationJsonStatusIdle:
-		result = DiagnosticsStatusNotificationTypeIdle
-	case protocol.DiagnosticsStatusNotificationJsonStatusUploadFailed:
-		result = DiagnosticsStatusNotificationTypeUploadFailed
-	case protocol.DiagnosticsStatusNotificationJsonStatusUploaded:
-		result = DiagnosticsStatusNotificationTypeUploaded
-	case protocol.DiagnosticsStatusNotificationJsonStatusUploading:
-		result = DiagnosticsStatusNotificationTypeUploading
-	}
-	return result
-}
+// func OCPP16GetDiagnosticsStatus(status protocol.DiagnosticsStatusNotificationJsonStatus) DiagnosticsStatusNotificationType {
+// 	var result DiagnosticsStatusNotificationType
+// 	switch status {
+// 	case protocol.DiagnosticsStatusNotificationJsonStatusIdle:
+// 		result = DiagnosticsStatusNotificationTypeIdle
+// 	case protocol.DiagnosticsStatusNotificationJsonStatusUploadFailed:
+// 		result = DiagnosticsStatusNotificationTypeUploadFailed
+// 	case protocol.DiagnosticsStatusNotificationJsonStatusUploaded:
+// 		result = DiagnosticsStatusNotificationTypeUploaded
+// 	case protocol.DiagnosticsStatusNotificationJsonStatusUploading:
+// 		result = DiagnosticsStatusNotificationTypeUploading
+// 	}
+// 	return result
+// }
 
 type equipDiagnosticsStatusNotificationRequest struct {
 	services.Base

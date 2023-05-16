@@ -2,14 +2,10 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	callback "gitee.com/csms/jxeu-ocpp/internal/errors"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipRemoteStartTransactionCallbackRequest struct {
@@ -35,7 +31,7 @@ func NewEquipRemoteStartTransactionCallbackRequest(sn, pod, msgID string, p *ser
 	return req
 }
 
-func NewEquipRemoteStartTransactionCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *callback.CallbackError) *equipRemoteStartTransactionCallbackRequest {
+func NewEquipRemoteStartTransactionCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) *equipRemoteStartTransactionCallbackRequest {
 	req := &equipRemoteStartTransactionCallbackRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -61,34 +57,6 @@ func (resp *equipRemoteStartTransactionCallbackResponse) GetStatus() int {
 
 func (resp *equipRemoteStartTransactionCallbackResponse) GetMsg() string {
 	return resp.Msg
-}
-
-func RemoteStartTransactionCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
-	headerValue := make([]string, 0)
-	//headerValue = append(headerValue, api.Services, "remote", "start", services.Callback)
-	headerValue = append(headerValue, api.Services)
-	headerValue = append(headerValue, services.RemoteStartTransaction.Split()...)
-	headerValue = append(headerValue, services.Callback)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-	url := config.App.ServicesUrl + services.Equip + "/" + services.Callback + "/" + req.GetName() + "Callback"
-
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-
-	resp := &equipRemoteStartTransactionCallbackResponse{}
-	err = json.Unmarshal(message, resp)
-	if err != nil {
-		return err
-	}
-
-	if resp.Status == 1 {
-		return errors.New(resp.Msg)
-	}
-
-	return nil
 }
 
 func RemoteStartTransactionCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {

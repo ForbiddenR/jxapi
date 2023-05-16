@@ -2,14 +2,10 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	callback "gitee.com/csms/jxeu-ocpp/internal/errors"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipSetChargingTimerCallbackRequest struct {
@@ -42,7 +38,7 @@ func NewEquipSetChargingTimerCallbackRequest(sn, pod, msgID string, p *services.
 	return req
 }
 
-func NewEquipSetChargingTimerCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *callback.CallbackError) *equipSetChargingTimerCallbackRequest {
+func NewEquipSetChargingTimerCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) *equipSetChargingTimerCallbackRequest {
 	req := &equipSetChargingTimerCallbackRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -68,34 +64,6 @@ func (resp *equipSetChargingTimerCallbackResponse) GetStatus() int {
 
 func (resp *equipSetChargingTimerCallbackResponse) GetMsg() string {
 	return resp.Msg
-}
-
-func SetChargingTimerCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services)
-	headerValue = append(headerValue, services.SetChargingTimer.Split()...)
-	headerValue = append(headerValue, services.Callback)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + services.Callback + "/" + req.GetName() + "Callback"
-
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-
-	resp := &equipSetChargingTimerCallbackResponse{}
-	err = json.Unmarshal(message, resp)
-	if err != nil {
-		return err
-	}
-
-	if resp.Status == 1 {
-		return errors.New(resp.Msg)
-	}
-
-	return nil
 }
 
 func SetChargingTimerCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {

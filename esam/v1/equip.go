@@ -7,13 +7,18 @@ import (
 	"strings"
 	"time"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/esam"
-	"gitee.com/csms/jxeu-ocpp/pkg/utils"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/esam"
+	"github.com/ForbiddenR/jx-api/utils"
+
+	// "gitee.com/csms/jxeu-ocpp/internal/config"
+	// "gitee.com/csms/jxeu-ocpp/pkg/api/esam"
+	// "gitee.com/csms/jxeu-ocpp/pkg/utils"
 )
 
 const readWait = 80 * time.Second
+
+var EsamUrl string
 
 type accessVerifyRequest struct {
 	EquipmentSn      string  `json:"equipmentSn"`
@@ -58,7 +63,7 @@ func AccessVerifyRequest(ctx context.Context, ticket string, request *accessVeri
 
 	header := map[string]string{api.Perms: strings.Join(headerValue, ":"), esam.TicketKey: ticket}
 	//header := map[string]string{"Perms": "esam:equip:access:verify"}
-	url := config.App.EsamUrl + esam.Equip + "/verify"
+	url := EsamUrl + esam.Equip + "/verify"
 	resp, err := api.SendRequest(ctx, url, request, header)
 	if err != nil {
 		return nil, err

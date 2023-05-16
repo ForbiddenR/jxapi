@@ -7,78 +7,14 @@ import (
 	"github.com/Kotodian/gokit/id"
 	"github.com/stretchr/testify/assert"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/internal/log"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
+	// api "github.com/ForbiddenR/jx-api"
 	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
 )
 
-func TestAuthorizeTransactionRequest(t *testing.T) {
-	config.TestConfig()
-	api.Init()
-	log.InitNopLogger()
-
-	ctx := context.TODO()
-	p := services.OCPP16()
-
-	reqOnline := &equipOnlineRequest{
-		Base: services.Base{
-			EquipmentSn: services.TestSN,
-			Protocol:    p,
-			Category:    services.Online.FirstUpper(),
-			AccessPod:   services.TestAccessPod,
-			MsgID:       id.Next().String(),
-		},
-		Data: &equipOnlineRequestDetail{
-			RemoteAddress: nil,
-		},
-	}
-
-	err := OnlineRequest(ctx, reqOnline)
-
-	assert.Nil(t, err)
-
-	idToken := "b361e850"
-	req := []*equipAuthorizeTransactionRequest{
-		{
-			Base: services.Base{
-				EquipmentSn: services.TestSN,
-				Protocol:    p,
-				Category:    services.Authorize.FirstUpper(),
-				AccessPod:   services.TestAccessPod,
-			},
-			Data: &equipAuthorizeTransactionRequestDetail{
-				IdTokenType: IdTokenType{
-					IdToken: idToken,
-				},
-			},
-		},
-	}
-
-	for _, v := range req {
-		resp, err := AuthorizeTransactionRequest(ctx, v)
-		assert.Nil(t, err)
-		assert.NotNil(t, resp)
-		t.Log(resp.Data)
-	}
-
-	reqOffline := &equipOfflineRequest{
-		Base: services.Base{
-			EquipmentSn: services.TestSN,
-			Protocol:    p,
-			AccessPod:   services.TestAccessPod,
-			MsgID:       id.Next().String(),
-		},
-	}
-
-	err = OfflineRequest(ctx, reqOffline)
-	assert.Nil(t, err)
-}
-
 func TestAuthorizeTransactionRequestWithGeneric(t *testing.T) {
-	config.TestConfig()
-	api.Init()
-	log.InitNopLogger()
+	// config.TestConfig()
+	// api.Init()
+	// log.InitNopLogger()
 
 	ctx := context.TODO()
 	p := services.OCPP16()
@@ -118,3 +54,65 @@ func newTestEquipAuthorizeTransactionRequest(p *services.Protocol, idToken strin
 	}
 	return req
 }
+
+// func TestAuthorizeTransactionRequest(t *testing.T) {
+// 	// config.TestConfig()
+// 	// api.Init()
+// 	// log.InitNopLogger()
+
+// 	ctx := context.TODO()
+// 	p := services.OCPP16()
+
+// 	reqOnline := &equipOnlineRequest{
+// 		Base: services.Base{
+// 			EquipmentSn: services.TestSN,
+// 			Protocol:    p,
+// 			Category:    services.Online.FirstUpper(),
+// 			AccessPod:   services.TestAccessPod,
+// 			MsgID:       id.Next().String(),
+// 		},
+// 		Data: &equipOnlineRequestDetail{
+// 			RemoteAddress: nil,
+// 		},
+// 	}
+
+// 	err := OnlineRequest(ctx, reqOnline)
+
+// 	assert.Nil(t, err)
+
+// 	idToken := "b361e850"
+// 	req := []*equipAuthorizeTransactionRequest{
+// 		{
+// 			Base: services.Base{
+// 				EquipmentSn: services.TestSN,
+// 				Protocol:    p,
+// 				Category:    services.Authorize.FirstUpper(),
+// 				AccessPod:   services.TestAccessPod,
+// 			},
+// 			Data: &equipAuthorizeTransactionRequestDetail{
+// 				IdTokenType: IdTokenType{
+// 					IdToken: idToken,
+// 				},
+// 			},
+// 		},
+// 	}
+
+// 	for _, v := range req {
+// 		resp, err := AuthorizeTransactionRequest(ctx, v)
+// 		assert.Nil(t, err)
+// 		assert.NotNil(t, resp)
+// 		t.Log(resp.Data)
+// 	}
+
+// 	reqOffline := &equipOfflineRequest{
+// 		Base: services.Base{
+// 			EquipmentSn: services.TestSN,
+// 			Protocol:    p,
+// 			AccessPod:   services.TestAccessPod,
+// 			MsgID:       id.Next().String(),
+// 		},
+// 	}
+
+// 	err = OfflineRequest(ctx, reqOffline)
+// 	assert.Nil(t, err)
+// }

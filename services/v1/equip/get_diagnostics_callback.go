@@ -3,9 +3,9 @@ package equip
 import (
 	"context"
 
-	callback "gitee.com/csms/jxeu-ocpp/internal/errors"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipGetDiagnosticsCallbackRequest struct {
@@ -38,7 +38,7 @@ func NewEquipGetDiagnosticsCallbackRequest(sn, pod, msgId string, p *services.Pr
 	return req
 }
 
-func NewEquipGetDiagnosticsCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *callback.CallbackError) *equipGetDiagnosticsCallbackRequest {
+func NewEquipGetDiagnosticsCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) *equipGetDiagnosticsCallbackRequest {
 	req := &equipGetDiagnosticsCallbackRequest{
 		Base: services.Base{
 			EquipmentSn: sn,

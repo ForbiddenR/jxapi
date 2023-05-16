@@ -2,13 +2,10 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
 	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type OfflineReason string
@@ -72,35 +69,6 @@ func (resp *equipOfflineResponse) GetStatus() int {
 
 func (resp *equipOfflineResponse) GetMsg() string {
 	return resp.Msg
-}
-
-func OfflineRequest(ctx context.Context, req *equipOfflineRequest) error {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services, services.Equip)
-	headerValue = append(headerValue, services.Offline.Split()...)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-
-	resp := &equipOfflineResponse{}
-
-	err = json.Unmarshal(message, resp)
-
-	if err != nil {
-		return err
-	}
-
-	if resp.Status == 1 {
-		return errors.New(resp.Msg)
-	}
-
-	return nil
 }
 
 func OfflineRequestWithGeneric(ctx context.Context, req *equipOfflineRequest) error {

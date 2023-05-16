@@ -2,13 +2,9 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipStartTransactionOCPP16Request struct {
@@ -66,40 +62,6 @@ func (resp *equipStartTransactionResponse) GetMsg() string {
 type equipStartTransactionResponseDetail struct {
 	TransactionId string      `json:"transactionId"`
 	IdTokenInfo   IdTokenInfo `json:"idTokenInfo"`
-}
-
-//type StartTransactionResponse interface {
-//	startTransaction()
-//}
-
-func StartTransactionOCPP16Request(ctx context.Context, req *equipStartTransactionOCPP16Request) (*equipStartTransactionResponse, error) {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services)
-	headerValue = append(headerValue, services.StartTransaction.Split()...)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-	message, err := api.SendRequest(ctx, url, req, header)
-
-	if err != nil {
-		return nil, err
-	}
-
-	resp := &equipStartTransactionResponse{}
-
-	err = json.Unmarshal(message, resp)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.Status == 1 {
-		return nil, errors.New(resp.Msg)
-	}
-
-	return resp, nil
 }
 
 func StartTransactionOCPP16RequestWithGeneric(ctx context.Context, req services.Request) (*equipStartTransactionResponse, error) {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type ResetType int

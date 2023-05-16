@@ -2,14 +2,10 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	callback "gitee.com/csms/jxeu-ocpp/internal/errors"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipUpdateFirmwareCallbackRequest struct {
@@ -39,7 +35,7 @@ func NewEquipUpdateFirmwareCallbackRequest(sn, pod, msgID string, p *services.Pr
 	}
 }
 
-func NewEquipUpdateFirmwareCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *callback.CallbackError) *equipUpdateFirmwareCallbackRequest {
+func NewEquipUpdateFirmwareCallbackRequestError(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) *equipUpdateFirmwareCallbackRequest {
 	return &equipUpdateFirmwareCallbackRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -65,34 +61,6 @@ func (resp *equipUpdateFirmwareCallbackResponse) GetStatus() int {
 
 func (resp *equipUpdateFirmwareCallbackResponse) GetMsg() string {
 	return resp.Msg
-}
-
-func UpdateFirmwareCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services)
-	headerValue = append(headerValue, services.UpdateFirmware.Split()...)
-	headerValue = append(headerValue, services.Callback)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + services.Callback + "/" + req.GetName() + "Callback"
-
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-
-	response := &equipUpdateFirmwareCallbackResponse{}
-
-	if err = json.Unmarshal(message, response); err != nil {
-		return err
-	}
-
-	if response.Status == 1 {
-		return errors.New(response.Msg)
-	}
-
-	return nil
 }
 
 func UpdateFirmwareCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {
