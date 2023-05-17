@@ -57,7 +57,7 @@ func AccessVerifyRequest(ctx context.Context, ticket string, request *accessVeri
 
 	header := map[string]string{api.Perms: strings.Join(headerValue, ":"), esam.TicketKey: ticket}
 	//header := map[string]string{"Perms": "esam:equip:access:verify"}
-	url := esam.EsamUrl + esam.Equip + "/verify"
+	url := api.EsamUrl + esam.Equip + "/verify"
 	resp, err := api.SendRequest(ctx, url, request, header)
 	if err != nil {
 		return nil, err

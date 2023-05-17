@@ -13,15 +13,6 @@ var headerContentTypeJson = []byte("application/json")
 
 var client *fasthttp.Client
 
-func ClientInit(readTimeout, writeTimeout, maxIdleConnDuration time.Duration, maxConnsPerHost int) {
-	client = &fasthttp.Client{
-		ReadTimeout:         readTimeout,
-		WriteTimeout:        writeTimeout,
-		MaxIdleConnDuration: maxIdleConnDuration,
-		MaxConnsPerHost:     maxConnsPerHost,
-	}
-}
-
 func SendRequest(ctx context.Context, url string, protocol interface{}, header map[string]string) ([]byte, error) {
 	reqEntityBytes, err := json.Marshal(protocol)
 	if err != nil {

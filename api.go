@@ -7,6 +7,8 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
+var EsamUrl, ServicesUrl string
+
 type OcppVersion int
 
 const (

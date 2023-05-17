@@ -10,8 +10,6 @@ import (
 	"github.com/ForbiddenR/jx-api/apierrors"
 )
 
-var ServicesUrl string
-
 // These constants are usually used in services package many times.
 const (
 	Equip           = "ac"
@@ -364,11 +362,11 @@ func GetCallbackHeaderValue(alias Request2ServicesNameType) map[string]string {
 }
 
 func GetSimpleURL(req Request) string {
-	return ServicesUrl + Equip + "/" + req.GetName()
+	return api.ServicesUrl + Equip + "/" + req.GetName()
 }
 
 func GetCallbackURL(req Request) string {
-	return ServicesUrl + Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
+	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
 }
 
 func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
