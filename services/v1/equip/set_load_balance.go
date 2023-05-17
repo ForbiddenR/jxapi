@@ -2,9 +2,10 @@ package equip
 
 import (
 	"context"
-	internalError "gitee.com/csms/jxeu-ocpp/internal/errors"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipSetLoadBalanceRequest struct {
@@ -35,7 +36,7 @@ func NewEquipSetLoadBalanceRequest(sn, pod, msgID string, p *services.Protocol, 
 	return req
 }
 
-func NewEquipSetLoadBalanceRequestError(sn, pod, msgID string, p *services.Protocol, err *internalError.CallbackError) *equipSetLoadBalanceRequest {
+func NewEquipSetLoadBalanceRequestError(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) *equipSetLoadBalanceRequest {
 	req := &equipSetLoadBalanceRequest{
 		Base: services.Base{
 			EquipmentSn: sn,

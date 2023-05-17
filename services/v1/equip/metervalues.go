@@ -3,41 +3,41 @@ package equip
 import (
 	"context"
 
-	"gitee.com/csms/jxeu-ocpp/internal/rabbitmq"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
-	ocpp16 "gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
+	// "gitee.com/csms/jxeu-ocpp/internal/rabbitmq"
+	"github.com/Kotodian/gokit/datasource/rabbitmq"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
-func OCPP16SampledValueToEquipSampledValue(s ocpp16.MeterValueElemSampledValueElem) MeterValueElemSampledValueElem {
-	e := MeterValueElemSampledValueElem{}
-	if s.Context != nil {
-		ctx := MeterValueElemSampledValueElemContext(*s.Context)
-		e.Context = &ctx
-	}
-	if s.Format != nil {
-		f := MeterValueElemSampledValueElemFormat(*s.Format)
-		e.Format = &f
-	}
-	if s.Location != nil {
-		l := MeterValueElemSampledValueElemLocation(*s.Location)
-		e.Location = &l
-	}
-	if s.Measurand != nil {
-		m := MeterValueElemSampledValueElemMeasurand(*s.Measurand)
-		e.Measurand = &m
-	}
-	if s.Phase != nil {
-		p := MeterValueElemSampledValueElemPhase(*s.Phase)
-		e.Phase = &p
-	}
-	if s.Unit != nil {
-		u := MeterValueElemSampledValueElemUnit(*s.Unit)
-		e.Unit = &u
-	}
-	e.Value = s.Value
-	return e
+// func OCPP16SampledValueToEquipSampledValue(s ocpp16.MeterValueElemSampledValueElem) MeterValueElemSampledValueElem {
+// 	e := MeterValueElemSampledValueElem{}
+// 	if s.Context != nil {
+// 		ctx := MeterValueElemSampledValueElemContext(*s.Context)
+// 		e.Context = &ctx
+// 	}
+// 	if s.Format != nil {
+// 		f := MeterValueElemSampledValueElemFormat(*s.Format)
+// 		e.Format = &f
+// 	}
+// 	if s.Location != nil {
+// 		l := MeterValueElemSampledValueElemLocation(*s.Location)
+// 		e.Location = &l
+// 	}
+// 	if s.Measurand != nil {
+// 		m := MeterValueElemSampledValueElemMeasurand(*s.Measurand)
+// 		e.Measurand = &m
+// 	}
+// 	if s.Phase != nil {
+// 		p := MeterValueElemSampledValueElemPhase(*s.Phase)
+// 		e.Phase = &p
+// 	}
+// 	if s.Unit != nil {
+// 		u := MeterValueElemSampledValueElemUnit(*s.Unit)
+// 		e.Unit = &u
+// 	}
+// 	e.Value = s.Value
+// 	return e
 
-}
+// }
 
 type MeterValueElemSampledValueElem struct {
 	// Context corresponds to the JSON schema field "context".
@@ -209,36 +209,10 @@ func NewEquipMeterValuesRequest(sn, pod, msgID string, p *services.Protocol, evs
 
 func MeterValuesRequest(req *equipMeterValuesRequest) error {
 	ctx := context.Background()
-	err := rabbitmq.PublishNoHeader(ctx, meterQueue, req)
+	// err := rabbitmq.PublishNoHeader(ctx, meterQueue, req)
+	err := rabbitmq.Publish(ctx, meterQueue, nil, req)
 	if err != nil {
 		return err
 	}
 	return nil
 }
-
-//type equipMeterValuesResponse struct {
-//	api.Response
-//}
-//
-//func MeterValuesRequest(req *equipMeterValuesRequest) error {
-//	url := config.AppConfig.ServicesUrl + services.Equip + "/" + req.getName()
-//
-//	message, err := api.SendRequest(url, req, nil)
-//	if err != nil {
-//		return err
-//	}
-//
-//	resp := &equipMeterValuesResponse{}
-//
-//	err = json.Unmarshal(message, resp)
-//
-//	if err != nil {
-//		return err
-//	}
-//
-//	if resp.Status == 1 {
-//		return errors.New(resp.Msg)
-//	}
-//
-//	return nil
-//}

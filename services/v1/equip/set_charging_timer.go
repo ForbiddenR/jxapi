@@ -3,7 +3,7 @@ package equip
 import (
 	"encoding/json"
 
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type EquipSetChargingTimerRequest struct {

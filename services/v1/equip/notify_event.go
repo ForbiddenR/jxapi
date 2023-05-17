@@ -2,12 +2,8 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
 	api "github.com/ForbiddenR/jx-api"
-	"github.com/ForbiddenR/jx-api/apierrors"
 	"github.com/ForbiddenR/jx-api/services"
 )
 
@@ -59,32 +55,40 @@ func NewNotifyEventRequest(sn, pod, msgID string, p *services.Protocol, code int
 	}
 }
 
-func NotifyEventRequest(ctx context.Context, req *equipNotifyEventRequest) error {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services, services.Equip)
-	headerValue = append(headerValue, services.NotifyEvent.Split()...)
+func NotifyEventRequestWithGeneric(ctx context.Context, req *equipBootNotificationRequest) error {
+	header := services.GetSimpleHeaderValue(services.NotifyEvent)
 
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
+	url := services.GetSimpleURL(req)
 
-	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-
-	resp := &equipNotifyEventResponse{}
-
-	err = json.Unmarshal(message, resp)
-
-	if err != nil {
-		return err
-	}
-
-	if resp.Status == 1 {
-		return errors.New(resp.Msg)
-	}
-
-	return nil
-
+	return services.RequestWithoutResponse(ctx, req, url, header, &equipNotifyEventResponse{})
 }
+
+// func NotifyEventRequest(ctx context.Context, req *equipNotifyEventRequest) error {
+// 	headerValue := make([]string, 0)
+// 	headerValue = append(headerValue, api.Services, services.Equip)
+// 	headerValue = append(headerValue, services.NotifyEvent.Split()...)
+
+// 	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
+
+// 	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
+
+// 	message, err := api.SendRequest(ctx, url, req, header)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	resp := &equipNotifyEventResponse{}
+
+// 	err = json.Unmarshal(message, resp)
+
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	if resp.Status == 1 {
+// 		return errors.New(resp.Msg)
+// 	}
+
+// 	return nil
+
+// }

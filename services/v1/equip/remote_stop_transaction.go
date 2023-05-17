@@ -1,6 +1,6 @@
 package equip
 
-import "gitee.com/csms/jxeu-ocpp/pkg/api/services"
+import "github.com/ForbiddenR/jx-api/services"
 
 type EquipRemoteStopTransactionRequest struct {
 	services.Base

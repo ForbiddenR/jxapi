@@ -2,11 +2,7 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
 	api "github.com/ForbiddenR/jx-api"
 	"github.com/ForbiddenR/jx-api/apierrors"
 	"github.com/ForbiddenR/jx-api/services"
@@ -69,36 +65,6 @@ func (resp *equipResetResponse) GetMsg() string {
 }
 
 type equipResetResponseDetail struct {
-}
-
-func ResetCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
-	headerValue := make([]string, 0)
-	//headerValue = append(headerValue, "services", "equip", "reset", services.Callback)
-	headerValue = append(headerValue, api.Services, "equip")
-	headerValue = append(headerValue, services.Reset.Split()...)
-	headerValue = append(headerValue, services.Callback)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + services.Callback + "/" + req.GetName() + "Callback"
-
-	message, err := api.SendRequest(ctx, url, req, header)
-
-	if err != nil {
-		return err
-	}
-
-	resp := &equipResetResponse{}
-	err = json.Unmarshal(message, resp)
-	if err != nil {
-		return err
-	}
-
-	if resp.Status == 1 {
-		return errors.New(resp.Msg)
-	}
-
-	return nil
 }
 
 func ResetCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {

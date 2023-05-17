@@ -2,14 +2,9 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
-	"gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 // This feature only supports for the version "OCPP1.6".
@@ -30,35 +25,35 @@ const (
 	StopReasonTypeUnlockCommand                     = StopReasonTypeSoftReset + 1
 )
 
-// OCPP16StopReason is a transfer function turning "protocol.StopTransaction" into "StopReasonTypeMenu".
-func OCPP16StopReason(r protocol.StopTransactionJsonReason) StopReasonTypeMenu {
-	switch r {
-	case protocol.StopTransactionJsonReasonDeAuthorized:
-		return StopReasonTypeDeAuthorized
-	case protocol.StopTransactionJsonReasonEVDisconnected:
-		return StopReasonTypeEVDisconnected
-	case protocol.StopTransactionJsonReasonEmergencyStop:
-		return StopReasonTypeEmergencyStop
-	case protocol.StopTransactionJsonReasonHardReset:
-		return StopReasonTypeHardReset
-	case protocol.StopTransactionJsonReasonLocal:
-		return StopReasonTypeLocal
-	case protocol.StopTransactionJsonReasonOther:
-		return StopReasonTypeOther
-	case protocol.StopTransactionJsonReasonPowerLoss:
-		return StopReasonTypePowerLoss
-	case protocol.StopTransactionJsonReasonReboot:
-		return StopReasonTypeReboot
-	case protocol.StopTransactionJsonReasonRemote:
-		return StopReasonTypeRemote
-	case protocol.StopTransactionJsonReasonSoftReset:
-		return StopReasonTypeSoftReset
-	case protocol.StopTransactionJsonReasonUnlockCommand:
-		return StopReasonTypeUnlockCommand
-	default:
-		return StopReasonTypeOther
-	}
-}
+// // OCPP16StopReason is a transfer function turning "protocol.StopTransaction" into "StopReasonTypeMenu".
+// func OCPP16StopReason(r protocol.StopTransactionJsonReason) StopReasonTypeMenu {
+// 	switch r {
+// 	case protocol.StopTransactionJsonReasonDeAuthorized:
+// 		return StopReasonTypeDeAuthorized
+// 	case protocol.StopTransactionJsonReasonEVDisconnected:
+// 		return StopReasonTypeEVDisconnected
+// 	case protocol.StopTransactionJsonReasonEmergencyStop:
+// 		return StopReasonTypeEmergencyStop
+// 	case protocol.StopTransactionJsonReasonHardReset:
+// 		return StopReasonTypeHardReset
+// 	case protocol.StopTransactionJsonReasonLocal:
+// 		return StopReasonTypeLocal
+// 	case protocol.StopTransactionJsonReasonOther:
+// 		return StopReasonTypeOther
+// 	case protocol.StopTransactionJsonReasonPowerLoss:
+// 		return StopReasonTypePowerLoss
+// 	case protocol.StopTransactionJsonReasonReboot:
+// 		return StopReasonTypeReboot
+// 	case protocol.StopTransactionJsonReasonRemote:
+// 		return StopReasonTypeRemote
+// 	case protocol.StopTransactionJsonReasonSoftReset:
+// 		return StopReasonTypeSoftReset
+// 	case protocol.StopTransactionJsonReasonUnlockCommand:
+// 		return StopReasonTypeUnlockCommand
+// 	default:
+// 		return StopReasonTypeOther
+// 	}
+// }
 
 type equipStopTransactionOCPP16Request struct {
 	services.Base
@@ -155,35 +150,6 @@ func (resp *equipStopTransactionOCPP16Response) GetMsg() string {
 
 type equipStopTransactionOCPP16ResponseDetail struct {
 	IdTokenInfo
-}
-
-func StopTransactionRequest(ctx context.Context, req *equipStopTransactionOCPP16Request) (*equipStopTransactionOCPP16Response, error) {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services)
-	headerValue = append(headerValue, services.StopTransaction.Split()...)
-
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-	message, err := api.SendRequest(ctx, url, req, header)
-
-	if err != nil {
-		return nil, err
-	}
-
-	resp := &equipStopTransactionOCPP16Response{}
-	err = json.Unmarshal(message, resp)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.Status == 1 {
-		return nil, errors.New(resp.Msg)
-	}
-
-	return resp, nil
 }
 
 func StopTransactionRequestWithGeneric(ctx context.Context, req *equipStopTransactionOCPP16Request) (*equipStopTransactionOCPP16Response, error) {

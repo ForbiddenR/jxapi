@@ -62,29 +62,3 @@ func BootNotificationRequestWithGeneric(ctx context.Context, req *equipBootNotif
 
 	return services.RequestWithoutResponse(ctx, req, url, header, &equipBootNotificationResponse{})
 }
-
-// func BootNotificationRequest(ctx context.Context, req *equipBootNotificationRequest) error {
-// 	headerValue := make([]string, 0)
-// 	headerValue = append(headerValue, api.Services, services.Equip)
-// 	headerValue = append(headerValue, services.Register.Split()...)
-// 	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-// 	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-// 	message, err := api.SendRequest(ctx, url, req, header)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	resp := &equipBootNotificationResponse{}
-// 	err = json.Unmarshal(message, resp)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	if resp.Status == 1 {
-// 		return errors.New(resp.Msg)
-// 	}
-
-// 	return nil
-// }

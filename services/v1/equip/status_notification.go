@@ -2,15 +2,11 @@ package equip
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"strings"
 
-	"gitee.com/csms/jxeu-ocpp/internal/config"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
-	ocpp16 "gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
-	ocpp201 "gitee.com/csms/jxeu-ocpp/pkg/ocpp2.0.1/protocol"
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/services"
+	// ocpp16 "gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
+	// ocpp201 "gitee.com/csms/jxeu-ocpp/pkg/ocpp2.0.1/protocol"
 )
 
 type equipStatusNotificationRequest struct {
@@ -82,43 +78,43 @@ const (
 	ConnectorStatusOccupied
 )
 
-func OCPP16ConnectorStatus(s ocpp16.StatusNotificationJsonStatus) ConnectorStatusTypeEnum {
-	switch s {
-	case ocpp16.StatusNotificationJsonStatusAvailable:
-		return ConnectorStatusAvailable
-	case ocpp16.StatusNotificationJsonStatusPreparing:
-		return ConnectorStatusPreparing
-	case ocpp16.StatusNotificationJsonStatusCharging:
-		return ConnectorStatusCharging
-	case ocpp16.StatusNotificationJsonStatusSuspendedEV:
-		return ConnectorStatusSuspendedEV
-	case ocpp16.StatusNotificationJsonStatusSuspendedEVSE:
-		return ConnectorStatusSuspendedEVSE
-	case ocpp16.StatusNotificationJsonStatusFinishing:
-		return ConnectorStatusFinishing
-	case ocpp16.StatusNotificationJsonStatusFaulted:
-		return ConnectorStatusFaulted
-	case ocpp16.StatusNotificationJsonStatusReserved:
-		return ConnectorStatusReserved
-	default:
-		return ConnectorStatusUnavailable
-	}
-}
+// func OCPP16ConnectorStatus(s ocpp16.StatusNotificationJsonStatus) ConnectorStatusTypeEnum {
+// 	switch s {
+// 	case ocpp16.StatusNotificationJsonStatusAvailable:
+// 		return ConnectorStatusAvailable
+// 	case ocpp16.StatusNotificationJsonStatusPreparing:
+// 		return ConnectorStatusPreparing
+// 	case ocpp16.StatusNotificationJsonStatusCharging:
+// 		return ConnectorStatusCharging
+// 	case ocpp16.StatusNotificationJsonStatusSuspendedEV:
+// 		return ConnectorStatusSuspendedEV
+// 	case ocpp16.StatusNotificationJsonStatusSuspendedEVSE:
+// 		return ConnectorStatusSuspendedEVSE
+// 	case ocpp16.StatusNotificationJsonStatusFinishing:
+// 		return ConnectorStatusFinishing
+// 	case ocpp16.StatusNotificationJsonStatusFaulted:
+// 		return ConnectorStatusFaulted
+// 	case ocpp16.StatusNotificationJsonStatusReserved:
+// 		return ConnectorStatusReserved
+// 	default:
+// 		return ConnectorStatusUnavailable
+// 	}
+// }
 
-func OCPP201ConnectorStatus(s ocpp201.ConnectorStatusEnumType) ConnectorStatusTypeEnum {
-	switch s {
-	case ocpp201.ConnectorStatusEnumTypeAvailable:
-		return ConnectorStatusAvailable
-	case ocpp201.ConnectorStatusEnumTypeOccupied:
-		return ConnectorStatusOccupied
-	case ocpp201.ConnectorStatusEnumTypeFaulted:
-		return ConnectorStatusFaulted
-	case ocpp201.ConnectorStatusEnumTypeReserved:
-		return ConnectorStatusReserved
-	default:
-		return ConnectorStatusUnavailable
-	}
-}
+// func OCPP201ConnectorStatus(s ocpp201.ConnectorStatusEnumType) ConnectorStatusTypeEnum {
+// 	switch s {
+// 	case ocpp201.ConnectorStatusEnumTypeAvailable:
+// 		return ConnectorStatusAvailable
+// 	case ocpp201.ConnectorStatusEnumTypeOccupied:
+// 		return ConnectorStatusOccupied
+// 	case ocpp201.ConnectorStatusEnumTypeFaulted:
+// 		return ConnectorStatusFaulted
+// 	case ocpp201.ConnectorStatusEnumTypeReserved:
+// 		return ConnectorStatusReserved
+// 	default:
+// 		return ConnectorStatusUnavailable
+// 	}
+// }
 
 type StatusNotificationErrorCodeEnum string
 
@@ -141,42 +137,42 @@ const (
 	StatusNotificationErrorCodeOtherError           StatusNotificationErrorCodeEnum = "OtherError"
 )
 
-func OCPP16StatusNotificationErrorCode(s ocpp16.StatusNotificationJsonErrorCode) StatusNotificationErrorCodeEnum {
-	switch s {
-	case ocpp16.StatusNotificationJsonErrorCodeNoError:
-		return StatusNotificationErrorCodeNoError
-	case ocpp16.StatusNotificationJsonErrorCodeConnectorLockFailure:
-		return StatusNotificationErrorCodeConnectorLockFailure
-	case ocpp16.StatusNotificationJsonErrorCodeEVCommunicationError:
-		return StatusNotificationErrorCodeEVCommunicationError
-	case ocpp16.StatusNotificationJsonErrorCodeGroundFailure:
-		return StatusNotificationErrorCodeGroundFailure
-	case ocpp16.StatusNotificationJsonErrorCodeHighTemperature:
-		return StatusNotificationErrorCodeHighTemperature
-	case ocpp16.StatusNotificationJsonErrorCodeInternalError:
-		return StatusNotificationErrorCodeInternalError
-	case ocpp16.StatusNotificationJsonErrorCodeLocalListConflict:
-		return StatusNotificationErrorCodeLocalListConflict
-	case ocpp16.StatusNotificationJsonErrorCodeOverCurrentFailure:
-		return StatusNotificationErrorCodeOverCurrentFailure
-	case ocpp16.StatusNotificationJsonErrorCodeOverVoltage:
-		return StatusNotificationErrorCodeOverVoltage
-	case ocpp16.StatusNotificationJsonErrorCodePowerMeterFailure:
-		return StatusNotificationErrorCodePowerMeterFailure
-	case ocpp16.StatusNotificationJsonErrorCodePowerSwitchFailure:
-		return StatusNotificationErrorCodePowerSwitchFailure
-	case ocpp16.StatusNotificationJsonErrorCodeReaderFailure:
-		return StatusNotificationErrorCodeReaderFailure
-	case ocpp16.StatusNotificationJsonErrorCodeResetFailure:
-		return StatusNotificationErrorCodeResetFailure
-	case ocpp16.StatusNotificationJsonErrorCodeWeakSignal:
-		return StatusNotificationErrorCodeWeakSignal
-	case ocpp16.StatusNotificationJsonErrorCodeUnderVoltage:
-		return StatusNotificationErrorCodeUnderVoltage
-	default:
-		return StatusNotificationErrorCodeOtherError
-	}
-}
+// func OCPP16StatusNotificationErrorCode(s ocpp16.StatusNotificationJsonErrorCode) StatusNotificationErrorCodeEnum {
+// 	switch s {
+// 	case ocpp16.StatusNotificationJsonErrorCodeNoError:
+// 		return StatusNotificationErrorCodeNoError
+// 	case ocpp16.StatusNotificationJsonErrorCodeConnectorLockFailure:
+// 		return StatusNotificationErrorCodeConnectorLockFailure
+// 	case ocpp16.StatusNotificationJsonErrorCodeEVCommunicationError:
+// 		return StatusNotificationErrorCodeEVCommunicationError
+// 	case ocpp16.StatusNotificationJsonErrorCodeGroundFailure:
+// 		return StatusNotificationErrorCodeGroundFailure
+// 	case ocpp16.StatusNotificationJsonErrorCodeHighTemperature:
+// 		return StatusNotificationErrorCodeHighTemperature
+// 	case ocpp16.StatusNotificationJsonErrorCodeInternalError:
+// 		return StatusNotificationErrorCodeInternalError
+// 	case ocpp16.StatusNotificationJsonErrorCodeLocalListConflict:
+// 		return StatusNotificationErrorCodeLocalListConflict
+// 	case ocpp16.StatusNotificationJsonErrorCodeOverCurrentFailure:
+// 		return StatusNotificationErrorCodeOverCurrentFailure
+// 	case ocpp16.StatusNotificationJsonErrorCodeOverVoltage:
+// 		return StatusNotificationErrorCodeOverVoltage
+// 	case ocpp16.StatusNotificationJsonErrorCodePowerMeterFailure:
+// 		return StatusNotificationErrorCodePowerMeterFailure
+// 	case ocpp16.StatusNotificationJsonErrorCodePowerSwitchFailure:
+// 		return StatusNotificationErrorCodePowerSwitchFailure
+// 	case ocpp16.StatusNotificationJsonErrorCodeReaderFailure:
+// 		return StatusNotificationErrorCodeReaderFailure
+// 	case ocpp16.StatusNotificationJsonErrorCodeResetFailure:
+// 		return StatusNotificationErrorCodeResetFailure
+// 	case ocpp16.StatusNotificationJsonErrorCodeWeakSignal:
+// 		return StatusNotificationErrorCodeWeakSignal
+// 	case ocpp16.StatusNotificationJsonErrorCodeUnderVoltage:
+// 		return StatusNotificationErrorCodeUnderVoltage
+// 	default:
+// 		return StatusNotificationErrorCodeOtherError
+// 	}
+// }
 
 var _ services.Response = &equipStatusNotificationResponse{}
 
@@ -190,32 +186,6 @@ func (resp *equipStatusNotificationResponse) GetStatus() int {
 
 func (resp *equipStatusNotificationResponse) GetMsg() string {
 	return resp.Msg
-}
-
-func StatusNotificationRequest(ctx context.Context, req *equipStatusNotificationRequest) error {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services, services.Equip)
-	headerValue = append(headerValue, services.Register.Split()...)
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-
-	resp := &equipStatusNotificationResponse{}
-	err = json.Unmarshal(message, resp)
-	if err != nil {
-		return err
-	}
-
-	if resp.Status == 1 {
-		return errors.New(resp.Msg)
-	}
-
-	return nil
 }
 
 func StatusNotificationRequestWithGeneric(ctx context.Context, req *equipStatusNotificationRequest) error {

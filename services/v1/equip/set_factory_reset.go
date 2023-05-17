@@ -2,9 +2,10 @@ package equip
 
 import (
 	"context"
-	internalError "gitee.com/csms/jxeu-ocpp/internal/errors"
-	"gitee.com/csms/jxeu-ocpp/pkg/api"
-	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
+	
+	api "github.com/ForbiddenR/jx-api"
+	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jx-api/services"
 )
 
 type equipSetFactoryResetRequest struct {
@@ -35,7 +36,7 @@ func NewEquipSetFactoryResetRequest(sn, pod, msgID string, p *services.Protocol,
 	return req
 }
 
-func NewEquipSetFactoryResetRequestError(sn, pod, msgID string, p *services.Protocol, err *internalError.CallbackError) *equipSetFactoryResetRequest {
+func NewEquipSetFactoryResetRequestError(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) *equipSetFactoryResetRequest {
 	req := &equipSetFactoryResetRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
