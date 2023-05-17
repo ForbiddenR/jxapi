@@ -13,6 +13,8 @@ const (
 	Access RequestNameEsamType = "accessVerify"
 )
 
+var EsamUrl string
+
 func (r RequestNameEsamType) String() string {
 	return string(r)
 }

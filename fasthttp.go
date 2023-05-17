@@ -5,25 +5,20 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/valyala/fasthttp"
 	"github.com/ForbiddenR/jx-api/apierrors"
-
-	// "gitee.com/csms/jxeu-ocpp/internal/config"
-	// ea "gitee.com/csms/jxeu-ocpp/internal/errors"
-	// "gitee.com/csms/jxeu-ocpp/internal/log"
-	// "gitee.com/csms/jxeu-ocpp/pkg/utils"
+	"github.com/valyala/fasthttp"
 )
 
 var headerContentTypeJson = []byte("application/json")
 
 var client *fasthttp.Client
 
-func Init(readTimeout, writeTimeout, maxIdleConnDuration time.Duration, maxConnsPerHost int) {
+func ClientInit(readTimeout, writeTimeout, maxIdleConnDuration time.Duration, maxConnsPerHost int) {
 	client = &fasthttp.Client{
-		ReadTimeout: readTimeout,
-		WriteTimeout: writeTimeout,
+		ReadTimeout:         readTimeout,
+		WriteTimeout:        writeTimeout,
 		MaxIdleConnDuration: maxIdleConnDuration,
-		MaxConnsPerHost: maxConnsPerHost,
+		MaxConnsPerHost:     maxConnsPerHost,
 	}
 }
 

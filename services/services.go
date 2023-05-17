@@ -8,10 +8,6 @@ import (
 
 	api "github.com/ForbiddenR/jx-api"
 	"github.com/ForbiddenR/jx-api/apierrors"
-	// "gitee.com/csms/jxeu-ocpp/internal/config"
-	// callerr "gitee.com/csms/jxeu-ocpp/internal/errors"
-	// "gitee.com/csms/jxeu-ocpp/pkg/ocpp"
-	// "gitee.com/csms/jxeu-ocpp/pkg/api"
 )
 
 var ServicesUrl string

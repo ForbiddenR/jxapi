@@ -5,16 +5,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	// api "github.com/ForbiddenR/jx-api"
-
-	// "gitee.com/csms/jxeu-ocpp/pkg/api"
 )
 
 func TestAccessVerifyRequest(t *testing.T) {
-	// config.TestConfig()
-	// api.Init()
-	// log.InitNopLogger()
 	requests := []*accessVerifyRequest{
 		{
 			EquipmentSn:      "JK000000006",
