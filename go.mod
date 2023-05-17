@@ -1,4 +1,4 @@
-module github.com/ForbiddenR/jx-api
+module github.com/ForbiddenR/jxapi
 
 go 1.20
 

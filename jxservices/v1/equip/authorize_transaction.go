@@ -1,0 +1,61 @@
+package equip
+
+import (
+	"context"
+
+	api "github.com/ForbiddenR/jxapi"
+	services "github.com/ForbiddenR/jxapi/jxservices"
+)
+
+type equipAuthorizeTransactionRequest struct {
+	services.Base
+	Data *equipAuthorizeTransactionRequestDetail `json:"data"`
+}
+
+type equipAuthorizeTransactionRequestDetail struct {
+	IdTokenType IdTokenType `json:"idTokenType"`
+}
+
+func (r equipAuthorizeTransactionRequest) GetName() string {
+	return services.Authorize.String()
+}
+
+func NewEquipAuthorizeTransactionRequest(sn, pod, msgID string, p *services.Protocol) *equipAuthorizeTransactionRequest {
+	return &equipAuthorizeTransactionRequest{
+		Base: services.Base{
+			EquipmentSn: sn,
+			Protocol:    p,
+			Category:    services.Authorize.FirstUpper(),
+			AccessPod:   pod,
+			MsgID:       msgID,
+		},
+		Data: &equipAuthorizeTransactionRequestDetail{},
+	}
+}
+
+var _ services.Response = &equipAuthorizeTransactionResponse{}
+
+type equipAuthorizeTransactionResponse struct {
+	api.Response
+	Data *equipAuthorizeTransactionResponseDetail `json:"data"`
+}
+
+func (resp *equipAuthorizeTransactionResponse) GetStatus() int {
+	return resp.Status
+}
+
+func (resp *equipAuthorizeTransactionResponse) GetMsg() string {
+	return resp.Msg
+}
+
+type equipAuthorizeTransactionResponseDetail struct {
+	IdTokenInfo IdTokenInfo `json:"idTokenInfo" validate:"required"`
+}
+
+func AuthorizeTransactionRequestWithGeneric(ctx context.Context, req *equipAuthorizeTransactionRequest) (*equipAuthorizeTransactionResponse, error) {
+	header := services.GetSimpleHeaderValue(services.Authorize)
+
+	url := services.GetSimpleURL(req)
+
+	return services.RequestWithResponse(ctx, req, url, header, &equipAuthorizeTransactionResponse{})
+}

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jxapi/apierrors"
 	"github.com/valyala/fasthttp"
 )
 

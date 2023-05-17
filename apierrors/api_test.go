@@ -2,7 +2,7 @@ package apierrors_test
 
 import (
 	"errors"
-	"github.com/ForbiddenR/jx-api/apierrors"
+	"github.com/ForbiddenR/jxapi/apierrors"
 	"testing"
 )
 
