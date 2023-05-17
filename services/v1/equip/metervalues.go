@@ -209,7 +209,6 @@ func NewEquipMeterValuesRequest(sn, pod, msgID string, p *services.Protocol, evs
 
 func MeterValuesRequest(req *equipMeterValuesRequest) error {
 	ctx := context.Background()
-	// err := rabbitmq.PublishNoHeader(ctx, meterQueue, req)
 	err := rabbitmq.Publish(ctx, meterQueue, nil, req)
 	if err != nil {
 		return err

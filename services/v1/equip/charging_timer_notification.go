@@ -5,9 +5,6 @@ import (
 
 	api "github.com/ForbiddenR/jx-api"
 	"github.com/ForbiddenR/jx-api/services"
-	// "gitee.com/csms/jxeu-ocpp/internal/config"
-	// "gitee.com/csms/jxeu-ocpp/pkg/api"
-	// "gitee.com/csms/jxeu-ocpp/pkg/api/services"
 )
 
 type equipChargingTimerNotificationRequest struct {
