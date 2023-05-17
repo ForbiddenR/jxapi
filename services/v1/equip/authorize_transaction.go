@@ -59,33 +59,3 @@ func AuthorizeTransactionRequestWithGeneric(ctx context.Context, req *equipAutho
 
 	return services.RequestWithResponse(ctx, req, url, header, &equipAuthorizeTransactionResponse{})
 }
-
-// // AuthorizeTransactionRequest needs to return the necessary response.
-// func AuthorizeTransactionRequest(ctx context.Context, req *equipAuthorizeTransactionRequest) (*equipAuthorizeTransactionResponse, error) {
-// 	headerValue := make([]string, 0)
-// 	headerValue = append(headerValue, api.Services, services.Equip)
-// 	headerValue = append(headerValue, services.Authorize.Split()...)
-// 	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-// 	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-// 	message, err := api.SendRequest(ctx, url, req, header)
-
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	resp := &equipAuthorizeTransactionResponse{}
-
-// 	err = json.Unmarshal(message, resp)
-
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	if resp.Status == 1 {
-// 		return nil, errors.New(resp.Msg)
-// 	}
-
-// 	return resp, nil
-// }
