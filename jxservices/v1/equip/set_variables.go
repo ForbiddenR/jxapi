@@ -36,5 +36,5 @@ func (r *EquipSetVariablesRequest) UnmarshalJSON(data []byte) error {
 type EquipSetVariablesRequestDetail struct {
 	Component *Component `json:"component,omitempty"`
 	Key       string     `json:"key" validate:"required"`
-	Value     string     `json:"value" validate:"requried"`
+	Value     string     `json:"value" validate:"required"`
 }
