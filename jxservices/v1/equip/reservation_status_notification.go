@@ -7,21 +7,28 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+type ReservationStatusNotificationRequestStautsType int
+
+const (
+	ReservationStatusNotificationRequestStautsTypeExpired ReservationStatusNotificationRequestStautsType = 1
+	ReservationStatusNotificationRequestStautsTypeRemoved ReservationStatusNotificationRequestStautsType = 2
+)
+
 type equipReservationStatusNotificationRequest struct {
 	services.Base
 	Data *equipReservationStatusNotificationRequestDetail `json:"data"`
 }
 
 type equipReservationStatusNotificationRequestDetail struct {
-	ReservationId int `json:"reservationId"`
-	Status        int `json:"status"`
+	ReservationId int                                            `json:"reservationId"`
+	Status        ReservationStatusNotificationRequestStautsType `json:"status"`
 }
 
 func (r equipReservationStatusNotificationRequest) GetName() string {
 	return services.ReservationStatusNotification.String()
 }
 
-func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Protocol) *equipReservationStatusNotificationRequest {
+func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Protocol, reservationId int, status ReservationStatusNotificationRequestStautsType) *equipReservationStatusNotificationRequest {
 	return &equipReservationStatusNotificationRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -29,6 +36,10 @@ func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Pr
 			Category:    services.ReservationStatusNotification.FirstUpper(),
 			AccessPod:   pod,
 			MsgID:       msgID,
+		},
+		Data: &equipReservationStatusNotificationRequestDetail{
+			ReservationId: reservationId,
+			Status:        status,
 		},
 	}
 }
