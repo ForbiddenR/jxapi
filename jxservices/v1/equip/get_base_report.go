@@ -22,7 +22,7 @@ type EquipGetBaseReportRequest struct {
 
 type EquipGetBaseReportRequestDetail struct {
 	Keys      []string           `json:"keys,omitempty"`
-	RequestId *string            `json:"requestId,omitempty"`
+	RequestId *uint64            `json:"requestId,omitempty"`
 	Type      *GetBaseReportType `json:"type,omitempty"`
 }
 
