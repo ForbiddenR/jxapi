@@ -20,7 +20,7 @@ type equipReservationStatusNotificationRequest struct {
 }
 
 type equipReservationStatusNotificationRequestDetail struct {
-	ReservationId int                                            `json:"reservationId"`
+	ReservationId uint64                                         `json:"reservationId"`
 	Status        ReservationStatusNotificationRequestStautsType `json:"status"`
 }
 
@@ -28,7 +28,7 @@ func (r equipReservationStatusNotificationRequest) GetName() string {
 	return services.ReservationStatusNotification.String()
 }
 
-func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Protocol, reservationId int, status ReservationStatusNotificationRequestStautsType) *equipReservationStatusNotificationRequest {
+func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Protocol, reservationId uint64, status ReservationStatusNotificationRequestStautsType) *equipReservationStatusNotificationRequest {
 	return &equipReservationStatusNotificationRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
