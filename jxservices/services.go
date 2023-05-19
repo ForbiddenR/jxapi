@@ -74,6 +74,7 @@ const (
 	Online                        Request2ServicesNameType = "equipOnline"
 	Offline                       Request2ServicesNameType = "equipOffline"
 	BootNotification              Request2ServicesNameType = "bootNotification"
+	ClearCache Request2ServicesNameType  = "clear"
 	StatusNotification            Request2ServicesNameType = "statusNotification"
 	Authorize                     Request2ServicesNameType = "authorize"
 	StartTransaction              Request2ServicesNameType = "startTransaction"
