@@ -1,6 +1,8 @@
 package equip
 
 import (
+	"context"
+
 	api "github.com/ForbiddenR/jxapi"
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
@@ -8,6 +10,10 @@ import (
 type equipNotifyReportRequest struct {
 	services.Base
 	Data *equipNotifyReportRequestDetail `json:"data"`
+}
+
+func (r equipNotifyReportRequest) GetName() string {
+	return services.NotifyReport.String()
 }
 
 type equipNotifyReportRequestDetail struct {
@@ -40,4 +46,20 @@ func NewEquipNotifyReportRequest(sn, pod, msgID string, requestId int64, tbc boo
 			ReportData: reportDatas,
 		},
 	}
+}
+
+func (resp *equipNotifyReportResponse) GetStatus() int {
+	return resp.Status
+}
+
+func (resp *equipNotifyReportResponse) GetMsg() string {
+	return resp.Msg
+}
+
+func NotifyReportRequest(ctx context.Context, req *equipNotifyReportRequest) error {
+	header := services.GetSimpleHeaderValue(services.ReservationStatusNotification)
+
+	url := services.GetSimpleURL(req)
+
+	return services.RequestWithoutResponse(ctx, req, url, header, &equipNotifyReportResponse{})
 }

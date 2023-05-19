@@ -82,6 +82,7 @@ const (
 	RemoteStartTransaction        Request2ServicesNameType = "remoteStartTransaction"
 	RemoteStopTransaction         Request2ServicesNameType = "remoteStopTransaction"
 	Reset                         Request2ServicesNameType = "reset"
+	ReservationStatusNotification Request2ServicesNameType = "reservationStatusNotification"
 	GetBaseReport                 Request2ServicesNameType = "getBaseReport"
 	GetConfiguration              Request2ServicesNameType = "getVariables"
 	ChangeConfiguration           Request2ServicesNameType = "setVariables"
