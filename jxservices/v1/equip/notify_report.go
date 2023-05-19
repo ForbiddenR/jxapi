@@ -57,7 +57,7 @@ func (resp *equipNotifyReportResponse) GetMsg() string {
 }
 
 func NotifyReportRequest(ctx context.Context, req *equipNotifyReportRequest) error {
-	header := services.GetSimpleHeaderValue(services.ReservationStatusNotification)
+	header := services.GetSimpleHeaderValue(services.NotifyReport)
 
 	url := services.GetSimpleURL(req)
 
