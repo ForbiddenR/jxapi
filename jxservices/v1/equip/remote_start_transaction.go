@@ -16,7 +16,7 @@ type EquipRemoteStartTransactionRequestDetail struct {
 	EvseId        *string     `json:"evseSerial,omitempty"`
 	ConnectorId   string      `json:"connectorSerial" validate:"required"`
 	IdTokenType   IdTokenType `json:"idTokenType" validate:"required"`
-	RemoteStartId *string     `json:"remoteStartId,omitempty"`
+	RemoteStartId *uint64     `json:"remoteStartId,omitempty"`
 	Intellect     *Intellect  `json:"intellect,omitempty"`
 }
 
