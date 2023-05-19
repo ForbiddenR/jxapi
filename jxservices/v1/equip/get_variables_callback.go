@@ -15,8 +15,8 @@ type equipGetVariablesCallbackRequest struct {
 
 type equipGetVariablesCallbackRequestDetail struct {
 	services.CB
-	Value      VariableAttribute `json:"value"`
-	UnknownKey []string          `json:"unknownKey,omitempty"`
+	Value      VariableAttribute `json:"variable"`
+	UnknownKey *string           `json:"unknownKey,omitempty"`
 }
 
 func (g *equipGetVariablesCallbackRequest) GetName() string {

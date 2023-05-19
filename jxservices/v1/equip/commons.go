@@ -1,6 +1,5 @@
 package equip
 
-
 type IdTokenStatusTypeEnum int
 
 const (
@@ -78,7 +77,7 @@ const (
 
 type VariableAttribute struct {
 	Value      string     `json:"value"`
-	Mutability Mutability `json:"mutability"`
+	Mutability Mutability `json:"readonly"`
 }
 
 type Mutability int
