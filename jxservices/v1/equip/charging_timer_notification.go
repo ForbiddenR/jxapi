@@ -71,33 +71,3 @@ func ChargingTimerNotificationRequestWithGeneric(ctx context.Context, req servic
 
 	return services.RequestWithoutResponse(ctx, req, url, header, &equipChargingTimerNotificationResponse{})
 }
-
-// func ChargingTimerNotificationRequest(ctx context.Context, req services.Request) error {
-// 	headerValue := make([]string, 0)
-// 	headerValue = append(headerValue, api.Services)
-// 	headerValue = append(headerValue, services.ChargingTimerNotification.Split()...)
-
-// 	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-
-// 	url := config.App.ServicesUrl + services.Equip + "/" + req.GetName()
-
-// 	message, err := api.SendRequest(ctx, url, req, header)
-
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	response := &equipChargingTimerNotificationResponse{}
-
-// 	err = json.Unmarshal(message, response)
-
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	if response.Status == 1 {
-// 		return errors.New(response.Msg)
-// 	}
-
-// 	return nil
-// }
