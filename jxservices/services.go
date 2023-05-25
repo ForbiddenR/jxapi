@@ -61,10 +61,15 @@ const (
 	GetCompositeScheduleFeatureName = "detCompositeSchedule"
 	SetChargingProfileFeatureName   = "setChargingProfile"
 	// Customize Features
-	SetChargingTimerFeatureName = "setChargingTimer"
-	SetLoadBalanceFeatureName   = "setLoadBalance"
-	SetFactoryResetFeatureName  = "setFactoryReset"
-	CloseFeatureName            = "close"
+	SetChargingTimerFeatureName      = "setChargingTimer"
+	SetLoadBalanceFeatureName        = "setLoadBalance"
+	SetFactoryResetFeatureName       = "setFactoryReset"
+	CloseFeatureName                 = "close"
+	SetIntellectChargeFeatureName    = "setIntellectCharge"
+	CancelIntellectChargeFeatureName = "cancelIntellectCharge"
+	SetPriceSchemeFeatureName        = "setPriceScheme"
+	// Customized Features about 104 protocol
+	SendQRCodeFeatureName = "sendQRCode"
 )
 
 type Request2ServicesNameType string
@@ -103,6 +108,11 @@ const (
 	NotifyReport                  Request2ServicesNameType = "notifyReport"
 	CancelReservation             Request2ServicesNameType = "cancelReservation"
 	ReserveNow                    Request2ServicesNameType = "reserveNow"
+	QRCode                        Request2ServicesNameType = "qrcode"
+	SendQRCode                    Request2ServicesNameType = "sendQRCode"
+	SetIntellectCharge            Request2ServicesNameType = "setIntellectCharge"
+	CancelIntellectCharge         Request2ServicesNameType = "cancelIntellectCharge"
+	SetPriceScheme                Request2ServicesNameType = "setPriceScheme"
 	//TriggerMessage             Request2ServicesNameType = "callStatusNotification"
 )
 
