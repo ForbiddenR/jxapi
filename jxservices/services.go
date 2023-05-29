@@ -82,6 +82,7 @@ const (
 	GetBaseReport                 Request2ServicesNameType = "getBaseReport"
 	GetConfiguration              Request2ServicesNameType = "getVariables"
 	MeterValues                   Request2ServicesNameType = "meterValues"
+	UpdateTransaction             Request2ServicesNameType = "updateTransaction"
 	Online                        Request2ServicesNameType = "equipOnline"
 	Offline                       Request2ServicesNameType = "equipOffline"
 	Register                      Request2ServicesNameType = "equipRegister"
