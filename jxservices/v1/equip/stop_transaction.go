@@ -82,52 +82,6 @@ const (
 	StoppedReasonTypePriceSchemeExepction                         StoppedReasonType = 67 // 计费模板异常
 )
 
-// type StopReasonTypeMenu int
-
-// const (
-// 	StopReasonTypeDeAuthorized   StopReasonTypeMenu = 1
-// 	StopReasonTypeEVDisconnected                    = StopReasonTypeDeAuthorized + 1
-// 	StopReasonTypeEmergencyStop                     = StopReasonTypeEVDisconnected + 1
-// 	StopReasonTypeHardReset                         = StopReasonTypeEmergencyStop + 1
-// 	StopReasonTypeLocal                             = StopReasonTypeHardReset + 1
-// 	StopReasonTypeOther                             = StopReasonTypeLocal + 1
-// 	StopReasonTypePowerLoss                         = StopReasonTypeOther + 1
-// 	StopReasonTypeReboot                            = StopReasonTypePowerLoss + 1
-// 	StopReasonTypeRemote                            = StopReasonTypeReboot + 1
-// 	StopReasonTypeSoftReset                         = StopReasonTypeRemote + 1
-// 	StopReasonTypeUnlockCommand                     = StopReasonTypeSoftReset + 1
-// )
-
-// // OCPP16StopReason is a transfer function turning "protocol.StopTransaction" into "StopReasonTypeMenu".
-// func OCPP16StopReason(r protocol.StopTransactionJsonReason) StopReasonTypeMenu {
-// 	switch r {
-// 	case protocol.StopTransactionJsonReasonDeAuthorized:
-// 		return StopReasonTypeDeAuthorized
-// 	case protocol.StopTransactionJsonReasonEVDisconnected:
-// 		return StopReasonTypeEVDisconnected
-// 	case protocol.StopTransactionJsonReasonEmergencyStop:
-// 		return StopReasonTypeEmergencyStop
-// 	case protocol.StopTransactionJsonReasonHardReset:
-// 		return StopReasonTypeHardReset
-// 	case protocol.StopTransactionJsonReasonLocal:
-// 		return StopReasonTypeLocal
-// 	case protocol.StopTransactionJsonReasonOther:
-// 		return StopReasonTypeOther
-// 	case protocol.StopTransactionJsonReasonPowerLoss:
-// 		return StopReasonTypePowerLoss
-// 	case protocol.StopTransactionJsonReasonReboot:
-// 		return StopReasonTypeReboot
-// 	case protocol.StopTransactionJsonReasonRemote:
-// 		return StopReasonTypeRemote
-// 	case protocol.StopTransactionJsonReasonSoftReset:
-// 		return StopReasonTypeSoftReset
-// 	case protocol.StopTransactionJsonReasonUnlockCommand:
-// 		return StopReasonTypeUnlockCommand
-// 	default:
-// 		return StopReasonTypeOther
-// 	}
-// }
-
 type equipStopTransactionRequest struct {
 	services.Base
 	Data *equipStopTransactionRequestDetail `json:"data"`
