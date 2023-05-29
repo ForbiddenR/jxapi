@@ -28,7 +28,7 @@ type equipStartTransactionRequestDetail struct {
 	ChargingState       *uint8      `json:"chargingState"`
 	Vin                 *string     `json:"vin"`
 	RemainingTime       *int        `json:"remainingTime"`
-	ChargingProfileId   *uint64     `json:"chargingProfileId"`
+	ChargingProfileId   *int64     `json:"chargingProfileId"`
 	ChargingProfileUnit *uint8      `json:"chargingProfileUnit"`
 }
 
