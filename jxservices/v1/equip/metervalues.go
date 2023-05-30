@@ -22,7 +22,7 @@ type equipMeterValuesRequestDetail struct {
 	TransactionId *int64      `json:"transactionId,omitempty"`
 	ConnectorId   *string     `json:"connectorSerial,omitempty"`
 	Timestamp     *int64      `json:"timestamp,omitempty"`
-	MeterValue    *MeterValue `json:"meterValue"`
+	MeterValue    []MeterValue `json:"meterValue"`
 }
 
 func (equipMeterValuesRequest) GetName() string {
@@ -40,10 +40,9 @@ func NewEquipMeterValuesOCPP16Request(sn, pod, msgID string, connectorId string)
 		},
 		Data: &equipMeterValuesRequestDetail{
 			ConnectorId: &connectorId,
-			MeterValue:  &MeterValue{},
+			MeterValue:  make([]MeterValue, 0),
 		},
 	}
-	meterValue.Data.MeterValue.SampleValue = make([]MeterValueElemSampledValueElem, 0)
 	return meterValue
 }
 
@@ -58,12 +57,9 @@ func NewEquipMeterValuesRequest(sn, pod, msgID string, p *services.Protocol, evs
 		},
 		Data: &equipMeterValuesRequestDetail{
 			EvseId: &evseId,
-			MeterValue: &MeterValue{
-				Timestamp: timestamp,
-			},
+			MeterValue: make([]MeterValue, 0),
 		},
 	}
-	meterValue.Data.MeterValue.SampleValue = make([]MeterValueElemSampledValueElem, 0)
 	return meterValue
 }
 

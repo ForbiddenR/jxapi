@@ -15,21 +15,21 @@ type equipStartTransactionRequest struct {
 type equipStartTransactionRequestDetail struct {
 	IdTokenType IdTokenType `json:"idTokenType"`
 	// IdToken         string `json:"idToken"`
-	MeterStart          int         `json:"meterStart"`
-	EvseSerial          *string     `json:"evseSerial"`
-	ConnectorSerial     string      `json:"connectorSerial"`
-	ReservationId       *int64      `json:"reservationId"`
-	TransactionId       *string     `json:"transactionId"`
-	RemoteStartId       *string     `json:"remoteStartId"`
-	Offline             *bool       `json:"offline"`
-	Timestamp           int64       `json:"timestamp"`
-	MeterValue          *MeterValue `json:"meterValue"`
-	Tariff              *Tariff     `json:"tariff"`
-	ChargingState       *uint8      `json:"chargingState"`
-	Vin                 *string     `json:"vin"`
-	RemainingTime       *int        `json:"remainingTime"`
-	ChargingProfileId   *int64     `json:"chargingProfileId"`
-	ChargingProfileUnit *uint8      `json:"chargingProfileUnit"`
+	MeterStart          *int         `json:"meterStart"`
+	EvseSerial          *string      `json:"evseSerial"`
+	ConnectorSerial     string       `json:"connectorSerial"`
+	ReservationId       *int64       `json:"reservationId"`
+	TransactionId       *string      `json:"transactionId"`
+	RemoteStartId       *string      `json:"remoteStartId"`
+	Offline             *bool        `json:"offline"`
+	Timestamp           int64        `json:"timestamp"`
+	MeterValue          []MeterValue `json:"meterValue"`
+	Tariff              *Tariff      `json:"tariff"`
+	ChargingState       *uint8       `json:"chargingState"`
+	Vin                 *string      `json:"vin"`
+	RemainingTime       *int         `json:"remainingTime"`
+	ChargingProfileId   *int64       `json:"chargingProfileId"`
+	ChargingProfileUnit *uint8       `json:"chargingProfileUnit"`
 }
 
 func (equipStartTransactionRequest) GetName() string {
@@ -37,7 +37,7 @@ func (equipStartTransactionRequest) GetName() string {
 }
 
 func NewEquipStartTransactionRequest(sn, pod, msgID string, p *services.Protocol,
-	idToken string, meterStart int, connectorId string,
+	idToken string, connectorId string,
 	timestamp int64) *equipStartTransactionRequest {
 	return &equipStartTransactionRequest{
 		Base: services.Base{
@@ -51,9 +51,10 @@ func NewEquipStartTransactionRequest(sn, pod, msgID string, p *services.Protocol
 			IdTokenType: IdTokenType{
 				IdToken: idToken,
 			},
-			MeterStart:      meterStart,
 			ConnectorSerial: connectorId,
 			Timestamp:       timestamp,
+			MeterValue:      make([]MeterValue, 0),
+			Tariff:          &Tariff{},
 		},
 	}
 }
