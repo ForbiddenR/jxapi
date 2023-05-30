@@ -89,7 +89,7 @@ type equipStopTransactionRequest struct {
 
 type equipStopTransactionRequestDetail struct {
 	IdTokenType     *IdTokenType      `json:"idTokenType,omitempty"`
-	MeterStop       int               `json:"meterStop"`
+	MeterStop       *int              `json:"meterStop"`
 	EvseSerial      *string           `json:"evseSerial,omitempty"`
 	ConnectorSerial *string           `json:"connectorSerial,omitempty"`
 	ReservationId   *string           `json:"reservationId,omitempty"`
@@ -97,7 +97,7 @@ type equipStopTransactionRequestDetail struct {
 	RemoteStartId   *uint64           `json:"remoteStartId,omitempty"`
 	Offline         bool              `json:"offline"`
 	Timestamp       int64             `json:"timestamp"`
-	MeterValue      []MeterValue       `json:"meterValue,omitempty"`
+	MeterValue      []MeterValue      `json:"meterValue,omitempty"`
 	Tariff          *Tariff           `json:"tariff,omitempty"`
 	ChargingState   uint8             `json:"chargingState"`
 	Vin             *string           `json:"vin,omitempty"`
@@ -140,7 +140,7 @@ func (*equipStopTransactionRequest) GetName() string {
 }
 
 func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
-	meterStop int, reason StoppedReasonType, transactionId string, isOffline bool, timestamp int64) *equipStopTransactionRequest {
+	reason StoppedReasonType, transactionId string, isOffline bool, timestamp int64) *equipStopTransactionRequest {
 	request := &equipStopTransactionRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -150,13 +150,12 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 			MsgID:       msgID,
 		},
 		Data: &equipStopTransactionRequestDetail{
-			MeterStop:     meterStop,
 			StopReason:    reason,
 			TransactionId: transactionId,
 			Timestamp:     timestamp,
 			Offline:       isOffline,
 			MeterValue:    make([]MeterValue, 0),
-			Tariff: &Tariff{},
+			Tariff:        &Tariff{},
 		},
 	}
 	return request
