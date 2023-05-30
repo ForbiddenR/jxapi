@@ -27,10 +27,10 @@ type equipUpdateTransactionReqeustDetail struct {
 	MeterValue    *MeterValue `json:"MeterValue"`
 	Tariff        Tariff      `json:"tariff"`
 	ChargingState uint8       `json:"chargingState"`
-	VIN           string      `json:"vin"`
+	VIN           *string      `json:"vin"`
 }
 
-func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, transactionId, connectorId, vin string, offline bool, timestamp int64, chargeStation uint8) *equipUpdateTransactionRequest {
+func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, transactionId, connectorId string, offline bool, timestamp int64, chargeStation uint8) *equipUpdateTransactionRequest {
 	updateTransaction := &equipUpdateTransactionRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -47,7 +47,6 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 			MeterValue:    &MeterValue{},
 			Tariff:        Tariff{},
 			ChargingState: chargeStation,
-			VIN:           vin,
 		},
 	}
 
