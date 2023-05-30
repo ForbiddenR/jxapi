@@ -53,7 +53,7 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 	return updateTransaction
 }
 
-func UpdateTransactionReqeust(req *services.Request) error {
+func UpdateTransactionReqeust(req services.Request) error {
 	ctx := context.Background()
 	err := rabbitmq.Publish(ctx, updateTransactionQueue, nil, req)
 	if err != nil {
