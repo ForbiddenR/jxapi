@@ -19,7 +19,7 @@ type equipMeterValuesRequest struct {
 
 type equipMeterValuesRequestDetail struct {
 	EvseId        *string      `json:"evseSerial,omitempty"`
-	TransactionId *int64       `json:"transactionId,omitempty"`
+	TransactionId *string      `json:"transactionId,omitempty"`
 	ConnectorId   *string      `json:"connectorSerial,omitempty"`
 	Timestamp     *int64       `json:"timestamp,omitempty"`
 	MeterValue    []MeterValue `json:"meterValue"`
