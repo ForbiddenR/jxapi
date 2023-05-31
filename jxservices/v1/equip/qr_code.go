@@ -13,7 +13,6 @@ type equipQRCodeRequest struct {
 }
 
 type equipQRCoeRequestDetail struct {
-	
 }
 
 func NewEquipQRCodeRequest(sn, pod, msgID string, protocol *services.Protocol) *equipQRCodeRequest {
@@ -41,6 +40,7 @@ type equipQRCodeResponse struct {
 }
 
 type equipQRCodeResponseDetail struct {
+	Qrcode string `json:"qrcode" validate:"required"`
 }
 
 func (q *equipQRCodeResponse) GetStatus() int {
@@ -51,10 +51,10 @@ func (q *equipQRCodeResponse) GetMsg() string {
 	return q.Msg
 }
 
-func QRCode(ctx context.Context, req services.Request) error {
+func QRCode(ctx context.Context, req services.Request) (*equipQRCodeResponse, error) {
 	header := services.GetSimpleHeaderValue(services.QRCode)
 
 	url := services.GetSimpleURL(req)
 
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipQRCodeResponse{})
+	return services.RequestWithResponse(ctx, req, url, header, &equipQRCodeResponse{})
 }
