@@ -20,7 +20,7 @@ type equipStartTransactionRequestDetail struct {
 	ConnectorSerial     string       `json:"connectorSerial"`
 	ReservationId       *int64       `json:"reservationId"`
 	TransactionId       *string      `json:"transactionId"`
-	RemoteStartId       *string      `json:"remoteStartId"`
+	RemoteStartId       *int64      `json:"remoteStartId"`
 	Offline             *bool        `json:"offline"`
 	Timestamp           int64        `json:"timestamp"`
 	MeterValue          []MeterValue `json:"meterValue"`
