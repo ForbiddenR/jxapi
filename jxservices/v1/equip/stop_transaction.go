@@ -92,7 +92,7 @@ type equipStopTransactionRequestDetail struct {
 	MeterStop       *int              `json:"meterStop"`
 	EvseSerial      *string           `json:"evseSerial,omitempty"`
 	ConnectorSerial *string           `json:"connectorSerial,omitempty"`
-	ReservationId   *string           `json:"reservationId,omitempty"`
+	ReservationId   *int64            `json:"reservationId,omitempty"`
 	TransactionId   string            `json:"transactionId"`
 	RemoteStartId   *uint64           `json:"remoteStartId,omitempty"`
 	Offline         bool              `json:"offline"`
