@@ -22,7 +22,6 @@ type equipMeterValuesRequestDetail struct {
 	TransactionId *int64       `json:"transactionId,omitempty"`
 	ConnectorId   *string      `json:"connectorSerial,omitempty"`
 	Timestamp     *int64       `json:"timestamp,omitempty"`
-	RemainingTime *int         `json:"remainingTime"`
 	MeterValue    []MeterValue `json:"meterValue"`
 }
 

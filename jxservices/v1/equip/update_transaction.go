@@ -27,6 +27,7 @@ type equipUpdateTransactionReqeustDetail struct {
 	MeterValue    []MeterValue `json:"MeterValue"`
 	Tariff        Tariff       `json:"tariff"`
 	ChargingState uint8        `json:"chargingState"`
+	RemainingTime *int         `json:"remainingTime"`
 	VIN           *string      `json:"vin"`
 }
 
