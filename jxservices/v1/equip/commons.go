@@ -33,8 +33,8 @@ type Component struct {
 }
 
 type EVSE struct {
-	Id          string `json:"serial"`
-	ConnectorId string `json:"connectorSerial"`
+	Id          int `json:"serial"`
+	ConnectorId int `json:"connectorSerial"`
 }
 
 type Intellect struct {
@@ -88,7 +88,7 @@ const (
 )
 
 type MeterValue struct {
-	Timestamp   int64                           `json:"timestamp"`
+	Timestamp   int64                            `json:"timestamp"`
 	SampleValue []MeterValueElemSampledValueElem `json:"sampleValue"`
 }
 
