@@ -13,7 +13,8 @@ type EquipSendQRCodeRequest struct {
 }
 
 type EquipSendQRCodeRequestDetail struct {
-	
+	ConnectorSerial string `json:"connectorSerial" validate:"required"`
+	Qrcode          string `json:"qrcode" validate:"required"`
 }
 
 func (s *EquipSendQRCodeRequest) UnmarshalJSON(data []byte) error {
