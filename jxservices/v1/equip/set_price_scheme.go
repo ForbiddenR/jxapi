@@ -15,7 +15,7 @@ type EquipSetPriceSchemeRequest struct {
 type EquipSetPriceSchemeRequestDetail struct {
 	VendorId      string         `json:"vendorId"`
 	TariffId      uint64         `json:"tariffId"`
-	BaseTime      uint64         `json:"baseTime"`
+	BaseTime      int64         `json:"baseTime"`
 	ChargeTariffs []ChargeTariff `json:"chargeTariffs"`
 	TimePrices    []TimePrice    `json:"timePrices"`
 }
