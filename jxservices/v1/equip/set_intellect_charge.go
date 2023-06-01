@@ -20,6 +20,7 @@ type EquipSetIntellectChargeRequestDetail struct {
 	StopEnergy  int64  `json:"stopEnergy"`
 	StopSoc     int64  `json:"stopSoc"`
 	TimingType  int64  `json:"timingType"`
+	Evse        EVSE   `json:"evse"`
 	// TODO: add remaining objects.
 }
 

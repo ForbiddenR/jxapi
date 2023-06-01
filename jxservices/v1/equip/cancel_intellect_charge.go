@@ -15,12 +15,7 @@ type EquipCancelIntellectChargeRequest struct {
 type EquipCancelIntellectChargeRequestDetail struct {
 	VendorId   string `json:"vendorId"`
 	TimingType int    `json:"timingType"`
-	Evse       Evse   `json:"evse"`
-}
-
-type Evse struct {
-	ConnectorId int `json:"connectorId"`
-	Id          int `json:"id"`
+	Evse       EVSE   `json:"evse"`
 }
 
 func (s *EquipCancelIntellectChargeRequest) Unmarshal(data []byte) error {
