@@ -33,8 +33,8 @@ type Component struct {
 }
 
 type EVSE struct {
-	Id          int `json:"serial"`
-	ConnectorId int `json:"connectorSerial"`
+	Id          string `json:"serial"`
+	ConnectorId string `json:"connectorSerial"`
 }
 
 type Intellect struct {
