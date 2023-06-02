@@ -115,6 +115,8 @@ const (
 	CancelIntellectCharge         Request2ServicesNameType = "cancelIntellectCharge"
 	SetPriceScheme                Request2ServicesNameType = "setPriceScheme"
 	//TriggerMessage             Request2ServicesNameType = "callStatusNotification"
+	// TODO: the name of this variable has not been difined.
+	ChargeEncryInfoNotification Request2ServicesNameType = ""
 )
 
 // FirstUpper is only for the interfaces having a regular category.
