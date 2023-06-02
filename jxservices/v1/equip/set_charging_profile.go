@@ -8,6 +8,7 @@ import (
 
 type EquipSetChargingProfileRequest struct {
 	services.Base
+	Data *EquipSetChargingProfileRequestDetail `json:"data"`
 }
 
 type EquipSetChargingProfileRequestDetail struct {
