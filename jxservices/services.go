@@ -117,6 +117,7 @@ const (
 	//TriggerMessage             Request2ServicesNameType = "callStatusNotification"
 	// TODO: the name of this variable has not been difined.
 	ChargeEncryInfoNotification Request2ServicesNameType = ""
+	SetChargingProfile          Request2ServicesNameType = ""
 )
 
 // FirstUpper is only for the interfaces having a regular category.
