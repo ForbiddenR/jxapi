@@ -13,7 +13,7 @@ type equipCallStatusNotificationCallbackRequest struct {
 	Callback services.CB `json:"callback"`
 }
 
-func (*equipCallStatusNotificationCallbackRequest) GetName() string {
+func (equipCallStatusNotificationCallbackRequest) GetName() string {
 	return services.CallStatusNotification.String()
 }
 
