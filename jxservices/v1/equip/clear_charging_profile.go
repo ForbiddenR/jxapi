@@ -8,10 +8,15 @@ import (
 
 type EquipClearChargingProfileRequest struct {
 	services.Base
+	Data *EquipClearchargingProfileRequestDetail `json:"data"`
+}
+
+type EquipClearchargingProfileRequestDetail struct {
+	ID int64 `json:"id"`
 }
 
 func (r *EquipClearChargingProfileRequest) UnmarshalJSON(data []byte) error {
-	type Alias EquipSetChargingProfileRequest
+	type Alias EquipClearChargingProfileRequest
 	aux := &struct {
 		*Alias
 	}{
