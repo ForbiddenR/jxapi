@@ -94,7 +94,7 @@ type equipStopTransactionRequestDetail struct {
 	ConnectorSerial *string           `json:"connectorSerial,omitempty"`
 	ReservationId   *int64            `json:"reservationId,omitempty"`
 	TransactionId   string            `json:"transactionId"`
-	RemoteStartId   *int64           `json:"remoteStartId,omitempty"`
+	RemoteStartId   *int64            `json:"remoteStartId,omitempty"`
 	Offline         bool              `json:"offline"`
 	Timestamp       int64             `json:"timestamp"`
 	MeterValue      []MeterValue      `json:"meterValue,omitempty"`
@@ -150,6 +150,7 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 			MsgID:       msgID,
 		},
 		Data: &equipStopTransactionRequestDetail{
+			IdTokenType:   &IdTokenType{},
 			StopReason:    reason,
 			TransactionId: transactionId,
 			Timestamp:     timestamp,
