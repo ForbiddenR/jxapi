@@ -10,7 +10,7 @@ import (
 type ResetType int
 
 const (
-	ResetTypeHard ResetType = iota
+	ResetTypeHard ResetType = iota + 1
 	ResetTypeSoft
 	ResetTypeImmediate
 	ResetTypeOnIdle
