@@ -97,7 +97,7 @@ type equipStopTransactionRequestDetail struct {
 	RemoteStartId   *int64            `json:"remoteStartId,omitempty"`
 	Offline         bool              `json:"offline"`
 	Timestamp       int64             `json:"timestamp"`
-	MeterValue      []MeterValue      `json:"meterValue,omitempty"`
+	MeterValue      *MeterValue      `json:"meterValue,omitempty"`
 	Tariff          *Tariff           `json:"tariff,omitempty"`
 	ChargingState   uint8             `json:"chargingState"`
 	Vin             *string           `json:"vin,omitempty"`
@@ -144,7 +144,7 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 	request := &equipStopTransactionRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
-			Protocol:    services.OCPP16(),
+			Protocol:    p,
 			Category:    services.StopTransaction.FirstUpper(),
 			AccessPod:   pod,
 			MsgID:       msgID,
@@ -155,7 +155,7 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 			TransactionId: transactionId,
 			Timestamp:     timestamp,
 			Offline:       isOffline,
-			MeterValue:    make([]MeterValue, 0),
+			MeterValue:    &MeterValue{},
 			Tariff:        &Tariff{},
 		},
 	}
