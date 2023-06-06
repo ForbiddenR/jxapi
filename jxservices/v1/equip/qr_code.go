@@ -13,7 +13,8 @@ type equipQRCodeRequest struct {
 }
 
 type equipQRCoeRequestDetail struct {
-	ConnectorId string `json:"connectorSerial"`
+	EvseSerial  *string `json:"evseSerial"`
+	ConnectorId string  `json:"connectorSerial"`
 }
 
 func NewEquipQRCodeRequest(sn, pod, msgID string, protocol *services.Protocol, connectorId string) *equipQRCodeRequest {
