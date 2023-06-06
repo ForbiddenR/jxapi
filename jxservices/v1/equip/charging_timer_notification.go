@@ -50,8 +50,8 @@ func NewEquipChargingTimerNotificationRequest(sn, pod, msgID string, connectorId
 			Charging: &Charging{
 				ConnectorSerial: connectorId,
 			},
-			TimerId:         timerId,
-			Status:          status,
+			TimerId: timerId,
+			Status:  status,
 		},
 	}
 }

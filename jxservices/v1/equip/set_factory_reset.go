@@ -2,7 +2,7 @@ package equip
 
 import (
 	"context"
-	
+
 	api "github.com/ForbiddenR/jxapi"
 	"github.com/ForbiddenR/jxapi/apierrors"
 	services "github.com/ForbiddenR/jxapi/jxservices"
