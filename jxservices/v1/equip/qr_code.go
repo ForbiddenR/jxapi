@@ -43,7 +43,7 @@ type equipQRCodeResponse struct {
 }
 
 type equipQRCodeResponseDetail struct {
-	Qrcode string `json:"qrcode" validate:"required"`
+	Qrcode string `json:"qrcode"`
 }
 
 func (q *equipQRCodeResponse) GetStatus() int {
