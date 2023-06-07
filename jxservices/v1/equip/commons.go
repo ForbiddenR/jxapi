@@ -212,7 +212,7 @@ const MeterValueElemSampledValueElemUnitWh MeterValueElemSampledValueElemUnit = 
 // }
 
 type Tariff struct {
-	Id            uint64  `json:"id"`
+	Id            int64   `json:"id"`
 	TotalMoney    float64 `json:"totalMoney"`
 	ServiceMoney  float64 `json:"serviceMoney"`
 	ElectricMoney float64 `json:"electricMoney"`
