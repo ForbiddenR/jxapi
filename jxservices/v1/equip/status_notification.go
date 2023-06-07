@@ -13,15 +13,15 @@ type equipStatusNotificationRequest struct {
 }
 
 type equipStatusNotificationRequestDetail struct {
-	EvseSerial      *int                    `json:"evseSerial,omitempty"`
-	ConnectorSerial string                  `json:"connectorSerial"`
-	Status          ConnectorStatusTypeEnum `json:"status"`
-	ErrorCode       *string                 `json:"errorCode,omitempty"`
-	VendorErrorCode *string                 `json:"vendorErrorCode"`
-	Timestamp       int64                   `json:"timestamp"`
+	EvseSerial      *int    `json:"evseSerial,omitempty"`
+	ConnectorSerial string  `json:"connectorSerial"`
+	Status          int     `json:"status"`
+	ErrorCode       *string `json:"errorCode,omitempty"`
+	VendorErrorCode *string `json:"vendorErrorCode"`
+	Timestamp       int64   `json:"timestamp"`
 }
 
-func NewEquipStatusNotificationRequestOCPP16(sn, pod, msgID string, connectorId string, status ConnectorStatusTypeEnum, errorCode StatusNotificationErrorCodeEnum, timestamp int64) *equipStatusNotificationRequest {
+func NewEquipStatusNotificationRequestOCPP16(sn, pod, msgID string, connectorId string, status int, errorCode StatusNotificationErrorCodeEnum, timestamp int64) *equipStatusNotificationRequest {
 	ec := string(errorCode)
 	return &equipStatusNotificationRequest{
 		Base: services.Base{
@@ -40,7 +40,7 @@ func NewEquipStatusNotificationRequestOCPP16(sn, pod, msgID string, connectorId 
 	}
 }
 
-func NewEquipStatusNotificationRequest(sn, pod, msgID string, p *services.Protocol, connectorId string, status ConnectorStatusTypeEnum, timestamp int64) *equipStatusNotificationRequest {
+func NewEquipStatusNotificationRequest(sn, pod, msgID string, p *services.Protocol, connectorId string, status int, timestamp int64) *equipStatusNotificationRequest {
 	return &equipStatusNotificationRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -80,15 +80,15 @@ type ConnectorStatus201TypeEnum int
 
 const (
 	ConnectorStatus201Unavailable   ConnectorStatus201TypeEnum = iota // 不可用
-	ConnectorStatus201Available      // 空闲可用
-	ConnectorStatus201Occupied       // 占用
-	ConnectorStatus201Reserved       // 预约
-	ConnectorStatus201Faulted        // 故障
-	ConnectorStatus201Preparing      // 准备中
-	ConnectorStatus201Charging       // 充电中
-	ConnectorStatus201SuspendedEV    // 车端挂起，不输入电能
-	ConnectorStatus201SuspendedEVSE  // 桩端挂起，不输出电能
-	ConnectorStatus201Finishing      // 结束中
+	ConnectorStatus201Available                                       // 空闲可用
+	ConnectorStatus201Occupied                                        // 占用
+	ConnectorStatus201Reserved                                        // 预约
+	ConnectorStatus201Faulted                                         // 故障
+	ConnectorStatus201Preparing                                       // 准备中
+	ConnectorStatus201Charging                                        // 充电中
+	ConnectorStatus201SuspendedEV                                     // 车端挂起，不输入电能
+	ConnectorStatus201SuspendedEVSE                                   // 桩端挂起，不输出电能
+	ConnectorStatus201Finishing                                       // 结束中
 )
 
 // func OCPP16ConnectorStatus(s ocpp16.StatusNotificationJsonStatus) ConnectorStatusTypeEnum {
