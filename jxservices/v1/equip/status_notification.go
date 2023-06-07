@@ -76,6 +76,21 @@ const (
 	ConnectorStatusOccupied
 )
 
+type ConnectorStatus201TypeEnum int
+
+const (
+	ConnectorStatus201Unavailable   ConnectorStatus201TypeEnum = iota // 不可用
+	ConnectorStatus201Available      // 空闲可用
+	ConnectorStatus201Occupied       // 占用
+	ConnectorStatus201Reserved       // 预约
+	ConnectorStatus201Faulted        // 故障
+	ConnectorStatus201Preparing      // 准备中
+	ConnectorStatus201Charging       // 充电中
+	ConnectorStatus201SuspendedEV    // 车端挂起，不输入电能
+	ConnectorStatus201SuspendedEVSE  // 桩端挂起，不输出电能
+	ConnectorStatus201Finishing      // 结束中
+)
+
 // func OCPP16ConnectorStatus(s ocpp16.StatusNotificationJsonStatus) ConnectorStatusTypeEnum {
 // 	switch s {
 // 	case ocpp16.StatusNotificationJsonStatusAvailable:
