@@ -2,10 +2,14 @@ package equip
 
 import (
 	"context"
+	"encoding/json"
 
 	// "gitee.com/csms/jxeu-ocpp/internal/rabbitmq"
 	services "github.com/ForbiddenR/jxapi/jxservices"
-	"github.com/Kotodian/gokit/datasource/rabbitmq"
+	// "github.com/Kotodian/gokit/datasource/rabbitmq"
+
+	"github.com/makasim/amqpextra/publisher"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 // This feature is transferred by rabbitmq.
@@ -62,9 +66,24 @@ func NewEquipMeterValuesRequest(sn, pod, msgID string, p *services.Protocol) *eq
 	return meterValue
 }
 
-func MeterValuesRequest(req *equipMeterValuesRequest) error {
+func MeterValuesRequest(req *equipMeterValuesRequest, p *publisher.Publisher) error {
 	ctx := context.Background()
-	err := rabbitmq.Publish(ctx, meterQueue, nil, req)
+
+	bytes, err := json.Marshal(req)
+	if err != nil {
+		return err
+	}
+
+	message := publisher.Message{
+		Context: ctx,
+		Key:     meterQueue,
+		Publishing: amqp.Publishing{
+			ContentType: "application/json",
+			Body:        bytes,
+		},
+	}
+	err = p.Publish(message)
+
 	if err != nil {
 		return err
 	}

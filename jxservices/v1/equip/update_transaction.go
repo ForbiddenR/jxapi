@@ -2,9 +2,12 @@ package equip
 
 import (
 	"context"
+	"encoding/json"
 
 	services "github.com/ForbiddenR/jxapi/jxservices"
-	"github.com/Kotodian/gokit/datasource/rabbitmq"
+
+	"github.com/makasim/amqpextra/publisher"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 const updateTransactionQueue = services.QueuePrefix + "transaction"
@@ -54,11 +57,32 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 	return updateTransaction
 }
 
-func UpdateTransactionReqeust(req services.Request) error {
+func UpdateTransactionReqeust(req services.Request, p *publisher.Publisher) error {
 	ctx := context.Background()
-	err := rabbitmq.Publish(ctx, updateTransactionQueue, nil, req)
+
+	bytes, err := json.Marshal(req)
+	if err != nil {
+		return err
+	}
+
+	message := publisher.Message{
+		Context: ctx,
+		Key:     meterQueue,
+		Publishing: amqp.Publishing{
+			ContentType: "application/json",
+			Body:        bytes,
+		},
+	}
+	err = p.Publish(message)
+
 	if err != nil {
 		return err
 	}
 	return nil
+	// ctx := context.Background()
+	// err := rabbitmq.Publish(ctx, updateTransactionQueue, nil, req)
+	// if err != nil {
+	// 	return err
+	// }
+	// return nil
 }
