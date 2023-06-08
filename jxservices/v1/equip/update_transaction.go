@@ -67,7 +67,7 @@ func UpdateTransactionReqeust(req services.Request, p *publisher.Publisher) erro
 
 	message := publisher.Message{
 		Context: ctx,
-		Key:     meterQueue,
+		Key:     updateTransactionQueue,
 		Publishing: amqp.Publishing{
 			ContentType: "application/json",
 			Body:        bytes,
