@@ -245,8 +245,10 @@ func (p *Protocol) UnmarshalJSON(data []byte) error {
 
 var ocpp16p = &Protocol{Name: "OCPP", Version: "1.6"}
 var ocpp201p = &Protocol{Name: "OCPP", Version: "2.0.1"}
-var iec001 = &Protocol{Name: "IEC104", Version: "0.0.1"}
-var iec002 = &Protocol{Name: "IEC104", Version: "0.0.2"}
+var iec001 = &Protocol{Name: "IEC104", Version: "0.1"}
+var iec002 = &Protocol{Name: "IEC104", Version: "0.2"}
+var iec003 = &Protocol{Name: "IEC104", Version: "0.3"}
+var iec004 = &Protocol{Name: "IEC104", Version: "0.4"}
 
 func OCPP16() *Protocol {
 	return ocpp16p
@@ -262,6 +264,14 @@ func IEC001() *Protocol {
 
 func IEC002() *Protocol {
 	return iec002
+}
+
+func IEC003() *Protocol {
+	return iec003
+}
+
+func IEC004() *Protocol {
+	return iec004
 }
 
 // CB includes callback information
