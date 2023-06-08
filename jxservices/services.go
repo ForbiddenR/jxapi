@@ -231,7 +231,7 @@ func (p *Protocol) UnmarshalJSON(data []byte) error {
 			return errors.New("invalid OCPP version: " + v.Version)
 		}
 	case "IEC104":
-		if v.Version != "0.0.1" && v.Version != "0.0.2" {
+		if v.Version != "0.1" && v.Version != "0.2" && v.Version != "0.3" && v.Version != "0.4" {
 			return errors.New("invalid IEC104 version: " + v.Version)
 		}
 	default:
