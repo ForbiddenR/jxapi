@@ -77,7 +77,7 @@ const (
 
 type VariableAttribute struct {
 	Value    string     `json:"value"`
-	Readonly Mutability `json:"readonly"`
+	Readonly Mutability `json:"mutability"`
 }
 
 type Mutability bool
