@@ -80,11 +80,11 @@ type VariableAttribute struct {
 	Readonly Mutability `json:"mutability"`
 }
 
-type Mutability bool
+type Mutability int
 
 const (
-	MutabilityReadOnly  Mutability = true
-	MutabilityReadWrite Mutability = false
+	MutabilityReadOnly  Mutability = 0
+	MutabilityReadWrite Mutability = 1
 )
 
 type MeterValue struct {
