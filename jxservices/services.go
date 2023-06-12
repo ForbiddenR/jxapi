@@ -77,7 +77,7 @@ type Request2ServicesNameType string
 const (
 	Authorize                     Request2ServicesNameType = "authorize"
 	BootNotification              Request2ServicesNameType = "bootNotification"
-	ClearCache                    Request2ServicesNameType = "clear"
+	ClearCache                    Request2ServicesNameType = "clearCache"
 	DataTransfer                  Request2ServicesNameType = "dataTransfer"
 	GetBaseReport                 Request2ServicesNameType = "getBaseReport"
 	GetConfiguration              Request2ServicesNameType = "getVariables"
