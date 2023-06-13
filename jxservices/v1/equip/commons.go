@@ -44,9 +44,28 @@ type Intellect struct {
 	StopTime  *int64 `json:"stopTime,omitempty"`
 }
 
+type IdTokenTypeEnums int
+
+const (
+	IdTokenTypeEnumsLocalPlug          IdTokenTypeEnums = 0
+	IdTokenTypeEnumsLocalAdmin         IdTokenTypeEnums = 1
+	IdTokenTypeEnumsLocalIdentityCard  IdTokenTypeEnums = 2
+	IdTokenTypeEnumsOnlineIdentityCard IdTokenTypeEnums = 3
+	IdTokenTypeEnumsLocalWalletCard    IdTokenTypeEnums = 4
+	IdTokenTypeEnumsLocalVIN           IdTokenTypeEnums = 5
+	IdTokenTypeEnumsOnlineVIN          IdTokenTypeEnums = 6
+	IdTokenTypeEnumsBluetooth          IdTokenTypeEnums = 7
+	IdTokenTypeEnumsMAC                IdTokenTypeEnums = 8
+	IdTokenTypeEnumsRemoteAdmin        IdTokenTypeEnums = 9
+	IdTokenTypeEnumsRemoteUser         IdTokenTypeEnums = 10
+	IdTokenTypeEnumsIntellect          IdTokenTypeEnums = 11
+)
+
+type AuthorizationMode int32
+
 type IdTokenType struct {
-	IdToken string           `json:"idToken"`
-	Type    *IdTokenTypeEnum `json:"type,omitempty"`
+	IdToken string            `json:"idToken"`
+	Type    *IdTokenTypeEnums `json:"type,omitempty"`
 }
 
 type IdTokenTypeEnum int
