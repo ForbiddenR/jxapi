@@ -39,6 +39,8 @@ func TestURL(t *testing.T) {
 
 	assert.Equal(t, "ac/callback/pushFirmwareCallback",
 		Equip+"/"+Callback+"/"+UpdateFirmware.String()+"Callback")
+
+	assert.Equal(t, "ac/callback/sendQRCodeCallback", Equip+"/"+Callback+"/"+SendQRCode.String()+"Callback")
 }
 
 //func TestTransferFeatureName(t *testing.T) {

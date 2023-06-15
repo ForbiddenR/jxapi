@@ -38,7 +38,7 @@ func (r *EquipReserveNowRequest) UnmarshalJSON(data []byte) error {
 }
 
 type EquipReserveNowRequestDetail struct {
-	ID            int64        `json:"id" validate:"required"`
+	ID            int64        `json:"reserveId" validate:"required"`
 	ExpireDate    int64        `json:"expireDate" validate:"required"`
 	ConnectorID   *string      `json:"connectorSerial,omitempty"`
 	EvseID        *string      `json:"evseSerial,omitempty"`

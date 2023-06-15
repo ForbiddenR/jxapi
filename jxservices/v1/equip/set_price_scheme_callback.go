@@ -14,7 +14,7 @@ type equipSetPriceSchemeRequest struct {
 }
 
 func (*equipSetPriceSchemeRequest) GetName() string {
-	return services.SetIntellectCharge.String()
+	return services.SetPriceScheme.String()
 }
 
 func NewEquipSetPriceSchemeCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSetPriceSchemeRequest {
@@ -22,7 +22,7 @@ func NewEquipSetPriceSchemeCallbackRequest(sn, pod, msgID string, p *services.Pr
 		Base: services.Base{
 			EquipmentSn: sn,
 			Protocol:    p,
-			Category:    services.SetIntellectCharge.FirstUpper(),
+			Category:    services.SetPriceScheme.FirstUpper(),
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
@@ -36,7 +36,7 @@ func NewEquipSetPriceSchemeCallbackRequestError(sn, pod, msgID string, p *servic
 		Base: services.Base{
 			EquipmentSn: sn,
 			Protocol:    p,
-			Category:    services.SetIntellectCharge.FirstUpper(),
+			Category:    services.SetPriceScheme.FirstUpper(),
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
@@ -60,7 +60,7 @@ func (resp *equipSetPriceSchemeResponse) GetMsg() string {
 }
 
 func SetPriceSchemeRequest(ctx context.Context, req services.CallbackRequest) error {
-	header := services.GetCallbackHeaderValue(services.SendQRCode)
+	header := services.GetCallbackHeaderValue(services.SetPriceScheme)
 
 	url := services.GetCallbackURL(req)
 
