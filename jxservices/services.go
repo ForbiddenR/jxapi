@@ -119,6 +119,8 @@ const (
 	ChargeEncryInfoNotification Request2ServicesNameType = ""
 	SetChargingProfile          Request2ServicesNameType = ""
 	ClearChargingProfile        Request2ServicesNameType = ""
+	BMSInfo                     Request2ServicesNameType = "bmsInfo"
+	BMSLimit                    Request2ServicesNameType = "bmsLimit"
 )
 
 // FirstUpper is only for the interfaces having a regular category.
