@@ -19,6 +19,11 @@ func (r equipDataTransferRequest) GetName() string {
 	return services.DataTransfer.String()
 }
 
+func NewEquipDataTransferRequest() *equipDataTransferRequest {
+	req := &equipDataTransferRequest{}
+	return req
+}
+
 type equipDataTransferResponse struct {
 	api.Response
 	Data *equipDataTransferResponseDetail `json:"data"`
