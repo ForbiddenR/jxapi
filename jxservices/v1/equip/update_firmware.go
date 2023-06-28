@@ -19,6 +19,7 @@ type EquipUpdateFirmwareRequestDetail struct {
 	RetryInterval   *int     `json:"retryInterval,omitempty"`
 	InstallDateTime *int64   `json:"installDateTime,omitempty"`
 	Params          []string `json:"params,omitempty"`
+	VendorId        *string  `json:"vendorId,omitempty"`
 }
 
 func (r *EquipUpdateFirmwareRequest) UnmarshalJSON(b []byte) error {
