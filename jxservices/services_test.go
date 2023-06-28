@@ -75,3 +75,11 @@ func TestRequestWithoutResponse(t *testing.T) {
 	//assert.Nil(t, err)
 	//t.Log(resp)
 }
+
+
+
+func TestFeatureCollection(t *testing.T) {
+	InitFC()
+	result, ok := FetchFC("test")
+	t.Log(result, ok)
+}

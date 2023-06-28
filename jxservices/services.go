@@ -10,6 +10,23 @@ import (
 	"github.com/ForbiddenR/jxapi/apierrors"
 )
 
+type GenerateCallbackfunc func(sn string,pod string,msgID string,p  *Protocol,err *apierrors.CallbackError) CallbackRequest
+
+var featureCollection map[string]GenerateCallbackfunc
+
+func InitFC() {
+	featureCollection = make(map[string]GenerateCallbackfunc)
+}
+
+func RegisterFC(name string, fun GenerateCallbackfunc) {
+	featureCollection[name] = fun
+}
+
+func FetchFC(name string) (GenerateCallbackfunc, bool) {
+	fun, ok := featureCollection[name]
+	return fun, ok
+}
+
 // These constants are usually used in services package many times.
 const (
 	Equip           = "ac"
@@ -190,13 +207,6 @@ func (r Request2ServicesNameType) GetCallbackCategory() string {
 	return r.FirstUpper() + CallbackSuffix
 }
 
-type RequestMeterValue struct {
-	// Timestamp is the time when the Charging Station starts to get meter datas.
-	Timestamp int64 `json:"timestamp"`
-	// SampledValue uses the type, "MeterValueElemSampledValueElem", directly.
-	SampledValue []MeterValueElemSampledValueElem `json:"sampledValue"`
-}
-
 type Base struct {
 	EquipmentSn string    `json:"equipmentSn"`
 	Protocol    *Protocol `json:"protocol"`
@@ -292,26 +302,6 @@ func NewCBError(err *apierrors.CallbackError) CB {
 	msg := err.Error()
 	return CB{Status: CallbackError, Code: &code, Msg: &msg}
 }
-
-// type IdTagInfoClass struct {
-// 	ExpiryDate    *int64         `json:"expiryDate"`
-// 	ParentIdToken *string        `json:"parentIdToken,omitempty"`
-// 	Status        StatusTypeEnum `json:"status"`
-// 	GroupIdToken  *GroupIdToken  `json:"groupIdToken,omitempty"`
-// }
-
-// type GroupIdToken struct {
-// 	IdToken string `json:"idToken"`
-// 	Type    string `json:"type"`
-// }
-
-// CallbackUniversalPortion is the common part of the callback request,
-// including "status", "code", and "msg".
-//type CallbackUniversalPortion struct {
-//	Status int                           `json:"status"`
-//	Code   *errors.CallbackErrorCodeType `json:"code"`
-//	Msg    *string                       `json:"msg"`
-//}
 
 // Request interface needs to be implemented by all api.
 type Request interface {
@@ -435,111 +425,6 @@ func RequestWithResponse[T Response](ctx context.Context, req Request, url strin
 		return resp, errors.New(resp.GetMsg())
 	}
 	return resp, err
-}
-
-type MeterValueElemSampledValueElemContext string
-
-const MeterValueElemSampledValueElemContextInterruptionBegin MeterValueElemSampledValueElemContext = "Interruption.Begin"
-const MeterValueElemSampledValueElemContextInterruptionEnd MeterValueElemSampledValueElemContext = "Interruption.End"
-const MeterValueElemSampledValueElemContextOther MeterValueElemSampledValueElemContext = "Other"
-const MeterValueElemSampledValueElemContextSampleClock MeterValueElemSampledValueElemContext = "Sample.Clock"
-const MeterValueElemSampledValueElemContextSamplePeriodic MeterValueElemSampledValueElemContext = "Sample.Periodic"
-const MeterValueElemSampledValueElemContextTransactionBegin MeterValueElemSampledValueElemContext = "Transaction.Begin"
-const MeterValueElemSampledValueElemContextTransactionEnd MeterValueElemSampledValueElemContext = "Transaction.End"
-const MeterValueElemSampledValueElemContextTrigger MeterValueElemSampledValueElemContext = "Trigger"
-
-type MeterValueElemSampledValueElemFormat string
-
-const MeterValueElemSampledValueElemFormatRaw MeterValueElemSampledValueElemFormat = "Raw"
-const MeterValueElemSampledValueElemFormatSignedData MeterValueElemSampledValueElemFormat = "SignedData"
-
-type MeterValueElemSampledValueElemLocation string
-
-const MeterValueElemSampledValueElemLocationBody MeterValueElemSampledValueElemLocation = "Body"
-const MeterValueElemSampledValueElemLocationCable MeterValueElemSampledValueElemLocation = "Cable"
-const MeterValueElemSampledValueElemLocationEV MeterValueElemSampledValueElemLocation = "EV"
-const MeterValueElemSampledValueElemLocationInlet MeterValueElemSampledValueElemLocation = "Inlet"
-const MeterValueElemSampledValueElemLocationOutlet MeterValueElemSampledValueElemLocation = "Outlet"
-
-type MeterValueElemSampledValueElemMeasurand string
-
-const MeterValueElemSampledValueElemMeasurandCurrentExport MeterValueElemSampledValueElemMeasurand = "Current.Export"
-const MeterValueElemSampledValueElemMeasurandCurrentImport MeterValueElemSampledValueElemMeasurand = "Current.Import"
-const MeterValueElemSampledValueElemMeasurandCurrentOffered MeterValueElemSampledValueElemMeasurand = "Current.Offered"
-const MeterValueElemSampledValueElemMeasurandEnergyActiveExportInterval MeterValueElemSampledValueElemMeasurand = "Energy.Active.Export.Interval"
-const MeterValueElemSampledValueElemMeasurandEnergyActiveExportRegister MeterValueElemSampledValueElemMeasurand = "Energy.Active.Export.Register"
-const MeterValueElemSampledValueElemMeasurandEnergyActiveImportRegister MeterValueElemSampledValueElemMeasurand = "Energy.Active.Import.Register"
-const MeterValueElemSampledValueElemMeasurandEnergyReactiveExportInterval MeterValueElemSampledValueElemMeasurand = "Energy.Reactive.Export.Interval"
-const MeterValueElemSampledValueElemMeasurandEnergyActiveImportInterval MeterValueElemSampledValueElemMeasurand = "Energy.Active.Import.Interval"
-const MeterValueElemSampledValueElemMeasurandEnergyReactiveExportRegister MeterValueElemSampledValueElemMeasurand = "Energy.Reactive.Export.Register"
-const MeterValueElemSampledValueElemMeasurandEnergyReactiveImportInterval MeterValueElemSampledValueElemMeasurand = "Energy.Reactive.Import.Interval"
-const MeterValueElemSampledValueElemMeasurandEnergyReactiveImportRegister MeterValueElemSampledValueElemMeasurand = "Energy.Reactive.Import.Register"
-const MeterValueElemSampledValueElemMeasurandFrequency MeterValueElemSampledValueElemMeasurand = "Frequency"
-const MeterValueElemSampledValueElemMeasurandPowerActiveExport MeterValueElemSampledValueElemMeasurand = "Power.Active.Export"
-const MeterValueElemSampledValueElemMeasurandPowerActiveImport MeterValueElemSampledValueElemMeasurand = "Power.Active.Import"
-const MeterValueElemSampledValueElemMeasurandPowerFactor MeterValueElemSampledValueElemMeasurand = "Power.Factor"
-const MeterValueElemSampledValueElemMeasurandPowerOffered MeterValueElemSampledValueElemMeasurand = "Power.Offered"
-const MeterValueElemSampledValueElemMeasurandPowerReactiveExport MeterValueElemSampledValueElemMeasurand = "Power.Reactive.Export"
-const MeterValueElemSampledValueElemMeasurandPowerReactiveImport MeterValueElemSampledValueElemMeasurand = "Power.Reactive.Import"
-const MeterValueElemSampledValueElemMeasurandRPM MeterValueElemSampledValueElemMeasurand = "RPM"
-const MeterValueElemSampledValueElemMeasurandSoC MeterValueElemSampledValueElemMeasurand = "SoC"
-const MeterValueElemSampledValueElemMeasurandTemperature MeterValueElemSampledValueElemMeasurand = "Temperature"
-const MeterValueElemSampledValueElemMeasurandVoltage MeterValueElemSampledValueElemMeasurand = "Voltage"
-
-type MeterValueElemSampledValueElemPhase string
-
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL1 MeterValueElemSampledValueElemPhase = "L1"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL1L2 MeterValueElemSampledValueElemPhase = "L1-L2"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL1N MeterValueElemSampledValueElemPhase = "L1-N"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL2 MeterValueElemSampledValueElemPhase = "L2"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL2L3 MeterValueElemSampledValueElemPhase = "L2-L3"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL2N MeterValueElemSampledValueElemPhase = "L2-N"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL3 MeterValueElemSampledValueElemPhase = "L3"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL3L1 MeterValueElemSampledValueElemPhase = "L3-L1"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseL3N MeterValueElemSampledValueElemPhase = "L3-N"
-const MeterValuesJsonMeterValueElemSampledValueElemPhaseN MeterValueElemSampledValueElemPhase = "N"
-
-type MeterValueElemSampledValueElemUnit string
-
-const MeterValueElemSampledValueElemUnitA MeterValueElemSampledValueElemUnit = "A"
-const MeterValueElemSampledValueElemUnitCelcius MeterValueElemSampledValueElemUnit = "Celcius"
-const MeterValueElemSampledValueElemUnitCelsius MeterValueElemSampledValueElemUnit = "Celsius"
-const MeterValueElemSampledValueElemUnitFahrenheit MeterValueElemSampledValueElemUnit = "Fahrenheit"
-const MeterValueElemSampledValueElemUnitK MeterValueElemSampledValueElemUnit = "K"
-const MeterValueElemSampledValueElemUnitKVA MeterValueElemSampledValueElemUnit = "kVA"
-const MeterValueElemSampledValueElemUnitKW MeterValueElemSampledValueElemUnit = "kW"
-const MeterValueElemSampledValueElemUnitKWh MeterValueElemSampledValueElemUnit = "kWh"
-const MeterValueElemSampledValueElemUnitKvar MeterValueElemSampledValueElemUnit = "kvar"
-const MeterValueElemSampledValueElemUnitKvarh MeterValueElemSampledValueElemUnit = "kvarh"
-const MeterValueElemSampledValueElemUnitPercent MeterValueElemSampledValueElemUnit = "Percent"
-const MeterValueElemSampledValueElemUnitV MeterValueElemSampledValueElemUnit = "V"
-const MeterValueElemSampledValueElemUnitVA MeterValueElemSampledValueElemUnit = "VA"
-const MeterValueElemSampledValueElemUnitVar MeterValueElemSampledValueElemUnit = "var"
-const MeterValueElemSampledValueElemUnitVarh MeterValueElemSampledValueElemUnit = "varh"
-const MeterValueElemSampledValueElemUnitW MeterValueElemSampledValueElemUnit = "W"
-const MeterValueElemSampledValueElemUnitWh MeterValueElemSampledValueElemUnit = "Wh"
-
-type MeterValueElemSampledValueElem struct {
-	// Context corresponds to the JSON schema field "context".
-	Context *MeterValueElemSampledValueElemContext `json:"context,omitempty" yaml:"context,omitempty"`
-
-	// Format corresponds to the JSON schema field "format".
-	Format *MeterValueElemSampledValueElemFormat `json:"format,omitempty" yaml:"format,omitempty"`
-
-	// Location corresponds to the JSON schema field "location".
-	Location *MeterValueElemSampledValueElemLocation `json:"location,omitempty" yaml:"location,omitempty"`
-
-	// Measurand corresponds to the JSON schema field "measurand".
-	Measurand *MeterValueElemSampledValueElemMeasurand `json:"measurand,omitempty" yaml:"measurand,omitempty"`
-
-	// Phase corresponds to the JSON schema field "phase".
-	Phase *MeterValueElemSampledValueElemPhase `json:"phase,omitempty" yaml:"phase,omitempty"`
-
-	// Unit corresponds to the JSON schema field "unit".
-	Unit *MeterValueElemSampledValueElemUnit `json:"unit,omitempty" yaml:"unit,omitempty"`
-
-	// Value corresponds to the JSON schema field "value".
-	Value string `json:"value" yaml:"value"`
 }
 
 // fillErrorCallback boxes the fields of the structs implementing the concrete interface.
