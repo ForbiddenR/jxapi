@@ -5,7 +5,7 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
-func Init() {
+func init() {
 	services.InitFC()
 	services.RegisterFC(services.QRCode.String(), func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
 		return NewEquipSendQRCodeCallbackRequestError(sn, pod, msgID, p, err)
