@@ -10,7 +10,7 @@ import (
 	"github.com/ForbiddenR/jxapi/apierrors"
 )
 
-type GenerateCallbackfunc func(sn string,pod string,msgID string,p  *Protocol,err *apierrors.CallbackError) CallbackRequest
+type GenerateCallbackfunc func(sn string, pod string, msgID string, p *Protocol, err *apierrors.CallbackError) CallbackRequest
 
 var featureCollection map[string]GenerateCallbackfunc
 
@@ -325,7 +325,7 @@ type CallbackRequest interface {
 func whichCallbackErr(clientId string, command string, err *apierrors.Error) *apierrors.CallbackError {
 	switch err.Code {
 	case apierrors.NotSupported:
-		return apierrors.NewCallbackErrorSupported(clientId, command)
+		return apierrors.NewCallbackErrorNotSupported(clientId, command)
 	case apierrors.NotImplemented:
 		return apierrors.NewCallbackErrorNotImplemented(clientId, command)
 	case apierrors.InternalError:
@@ -387,6 +387,24 @@ func GetSimpleURL(req Request) string {
 
 func GetCallbackURL(req Request) string {
 	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
+}
+
+func RequestGeneral(ctx context.Context, req Request, url string, header map[string]string) error {
+	message, err := api.SendRequest(ctx, url, req, header)
+	if err != nil {
+		return err
+	}
+	resp := &api.Response{}
+	err = json.Unmarshal(message, resp)
+	if err != nil {
+		request, _ := json.Marshal(req)
+		return apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
+	}
+
+	if resp.Status == 1 {
+		return errors.New(resp.Msg)
+	}
+	return err
 }
 
 func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {

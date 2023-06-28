@@ -6,7 +6,8 @@ import (
 )
 
 func Init() {
-	services.RegisterFC(services.QRCode.String(), func(s1, s2, s3 string, p *services.Protocol, ce *apierrors.CallbackError) services.CallbackRequest {
-		return NewEquipSendQRCodeCallbackRequestError(s1, s2, s3, p, ce)
+	services.InitFC()
+	services.RegisterFC(services.QRCode.String(), func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
+		return NewEquipSendQRCodeCallbackRequestError(sn, pod, msgID, p, err)
 	})
 }
