@@ -10,4 +10,10 @@ func init() {
 	services.RegisterFC(services.SendQRCodeFeatureName, func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
 		return NewEquipSendQRCodeCallbackRequestError(sn, pod, msgID, p, err)
 	})
+	services.RegisterFC(services.SetLoadBalanceFeatureName, func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
+		return NewEquipSetLoadBalanceRequestError(sn, pod, msgID, p, err)
+	})
+	services.RegisterFC(services.CancelReservationFeatureName,func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
+		return NewEquipCancelReservationCallbackRequestError(sn, pod, msgID, p, err)
+	})
 }
