@@ -16,4 +16,7 @@ func init() {
 	services.RegisterFC(services.CancelReservationFeatureName,func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
 		return NewEquipCancelReservationCallbackRequestError(sn, pod, msgID, p, err)
 	})
+	services.RegisterFC(services.SetIntellectChargeFeatureName,func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
+		return NewEquipSetIntellectChargeCallbackRequestError(sn, pod, msgID, p, err)
+	})
 }
