@@ -64,7 +64,7 @@ func NewEquipBMSLimitRequestWithConfig(config *BMSLimitRequestConfig) *equipBMSL
 			MaxCurrent:       config.MaxCurrent,
 			MaxVoltage:       config.MaxVoltage,
 			MaxOutputVoltage: config.MaxOutputVoltag,
-			MaxOutputCurrent: config.MaxOutputCurren,
+			MaxOutputCurrent: config.MaxOutputCurrent,
 			Soc:              config.Soc,
 			Capacity:         config.Capacity,
 			Vin:              config.Vin,
