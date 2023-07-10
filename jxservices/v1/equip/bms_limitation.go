@@ -37,16 +37,16 @@ func (equipBMSLimitRequest) GetName() string {
 
 type BMSLimitRequestConfig struct {
 	services.ReusedConfig
-	ConnectorId     string
-	MaxTemp         uint64
-	MaxCurrent      float64
-	MaxVoltage      float64
-	MaxOutputVoltag float64
-	MaxOutputCurren float64
-	Soc             float64
-	Capacity        float64
-	Vin             string
-	Prepare         bool
+	ConnectorId      string
+	MaxTemp          uint64
+	MaxCurrent       float64
+	MaxVoltage       float64
+	MaxOutputVoltag  float64
+	MaxOutputCurrent float64
+	Soc              float64
+	Capacity         float64
+	Vin              string
+	Prepare          bool
 }
 
 func NewEquipBMSLimitRequestWithConfig(config *BMSLimitRequestConfig) *equipBMSLimitRequest {
