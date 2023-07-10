@@ -49,7 +49,7 @@ type BMSLimitRequestConfig struct {
 	Prepare         bool
 }
 
-func NewEquipBMSLimitRequestWithConfig(config BMSLimitRequestConfig) *equipBMSLimitRequest {
+func NewEquipBMSLimitRequestWithConfig(config *BMSLimitRequestConfig) *equipBMSLimitRequest {
 	return &equipBMSLimitRequest{
 		Base: services.Base{
 			EquipmentSn: config.Sn,
