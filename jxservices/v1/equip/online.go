@@ -17,6 +17,14 @@ type equipOnlineRequestDetail struct {
 	RemoteAddress *string `json:"remoteAddress"`
 }
 
+type OnlineConfig struct {
+	services.ReusedConfig
+}
+
+func NewEquipOnlineRequestWithConfig(config OnlineConfig) *equipOnlineRequest {
+	return NewEquipOnlineRequest(config.Sn, config.Protocol, config.Pod, config.MsgID)
+}
+
 func NewEquipOnlineRequest(sn string, protocol *services.Protocol, pod, msgID string) *equipOnlineRequest {
 	return &equipOnlineRequest{
 		Base: services.Base{

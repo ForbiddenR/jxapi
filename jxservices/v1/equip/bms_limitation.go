@@ -7,6 +7,11 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+type BMSLimitRequestInterface interface {
+	services.Request
+	Construct(BMSLimitRequestConfig)
+}
+
 type equipBMSLimitRequest struct {
 	services.Base
 	Data *equipBMSLimitRequestDetail `json:"data"`
@@ -22,7 +27,7 @@ type equipBMSLimitRequestDetail struct {
 	MaxOutputCurrent float64 `json:"maxOutputCurrent"`
 	Soc              float64 `json:"soc"`
 	Capacity         float64 `json:"capacity"`
-	Vin              string `json:"vin"`
+	Vin              string  `json:"vin"`
 	Prepare          bool    `json:"prepare"`
 }
 
@@ -30,7 +35,45 @@ func (equipBMSLimitRequest) GetName() string {
 	return services.BMSLimit.String()
 }
 
-func NewEquipBMSLimitRequest(sn string, protocol *services.Protocol, pod, msgID string, connecorId string, maxTemp uint64, 
+type BMSLimitRequestConfig struct {
+	services.ReusedConfig
+	ConnectorId     string
+	MaxTemp         uint64
+	MaxCurrent      float64
+	MaxVoltage      float64
+	MaxOutputVoltag float64
+	MaxOutputCurren float64
+	Soc             float64
+	Capacity        float64
+	Vin             string
+	Prepare         bool
+}
+
+func NewEquipBMSLimitRequestWithConfig(config BMSLimitRequestConfig) *equipBMSLimitRequest {
+	return &equipBMSLimitRequest{
+		Base: services.Base{
+			EquipmentSn: config.Sn,
+			Protocol:    config.Protocol,
+			Category:    services.BMSLimit.FirstUpper(),
+			AccessPod:   config.Pod,
+			MsgID:       config.MsgID,
+		},
+		Data: &equipBMSLimitRequestDetail{
+			ConnectorId:      config.ConnectorId,
+			MaxTemp:          config.MaxTemp,
+			MaxCurrent:       config.MaxCurrent,
+			MaxVoltage:       config.MaxVoltage,
+			MaxOutputVoltage: config.MaxOutputVoltag,
+			MaxOutputCurrent: config.MaxOutputCurren,
+			Soc:              config.Soc,
+			Capacity:         config.Capacity,
+			Vin:              config.Vin,
+			Prepare:          config.Prepare,
+		},
+	}
+}
+
+func NewEquipBMSLimitRequest(sn string, protocol *services.Protocol, pod, msgID string, connecorId string, maxTemp uint64,
 	maxCurrent, maxVoltage, maxOutputVoltage, maxOutputCurrent, soc, capacity float64, vin string, prepare bool) *equipBMSLimitRequest {
 	req := &equipBMSLimitRequest{
 		Base: services.Base{

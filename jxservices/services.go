@@ -303,22 +303,6 @@ func NewCBError(err *apierrors.CallbackError) CB {
 	return CB{Status: CallbackError, Code: &code, Msg: &msg}
 }
 
-// Request interface needs to be implemented by all api.
-type Request interface {
-	GetName() string
-}
-
-// Response interface is implemented by all response struct
-type Response interface {
-	GetStatus() int
-	GetMsg() string
-}
-
-// CallbackRequest interface needs to be implemented by all the callback api.
-type CallbackRequest interface {
-	Request
-}
-
 // boxing a callback request, the function can be invoked indirectly
 
 // whichCallbackErr recognizes the type of the error, returning a corresponding callback error

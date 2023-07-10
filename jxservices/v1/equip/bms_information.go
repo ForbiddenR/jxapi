@@ -41,6 +41,22 @@ func (equipBMSInfoRequest) GetName() string {
 	return services.BMSInfo.String()
 }
 
+type BMsInfoRequestConfig struct {
+	services.ReusedConfig
+	ConnectorId  string
+	LimitVoltage float64
+	Version      string
+	Type         uint8
+	TotalVoltage float64
+	TotalEnergy  float64
+	Vin          string
+}
+
+func NewEquipBMSInfoRequestWithConfig(config *BMsInfoRequestConfig) *equipBMSInfoRequest {
+	return NewEquipBMSInfoRequest(config.Sn, config.Protocol, config.Pod, config.MsgID, config.ConnectorId, 
+	config.LimitVoltage, config.Version, config.Type, config.TotalVoltage, config.TotalEnergy, config.Vin)
+}
+
 func NewEquipBMSInfoRequest(sn string, protocol *services.Protocol, pod, msgID string, connectorId string, limitVoltage float64, version string, ty uint8, totalVoltage, totalEnergy float64, vin string) *equipBMSInfoRequest {
 	req := &equipBMSInfoRequest{
 		Base: services.Base{
