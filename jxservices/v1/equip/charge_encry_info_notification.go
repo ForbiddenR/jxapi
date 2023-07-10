@@ -26,6 +26,21 @@ func (equipChargeEncryInfoNotificationRequest) GetName() string {
 	return services.ChargeEncryInfoNotification.String()
 }
 
+type ChargeEncryInfoNotificationRequestConfig struct {
+	services.ReusedConfig
+	ConnectorId      string
+	TransactionId    string
+	EncryptedData    string
+	MeterNum         string
+	ElecmeterVersion int64
+	EncryType        uint64
+}
+
+func NewEquipChargeEncryInfoNotificationRequestWithConfig(config *ChargeEncryInfoNotificationRequestConfig) *equipChargeEncryInfoNotificationRequest{
+	return NewEquipChargeEncryInfoNotificationRequest(config.Sn, config.Protocol, config.Pod, config.MsgID, 
+	config.ConnectorId, config.TransactionId, config.EncryptedData, config.MeterNum, config.ElecmeterVersion, config.EncryType)
+}
+
 func NewEquipChargeEncryInfoNotificationRequest(sn string, p *services.Protocol, pod, msgID string,
 	connectorId, transactionId, encryptedData, meterNum string, elecmeterVersion int64, encryType uint64) *equipChargeEncryInfoNotificationRequest {
 	req := &equipChargeEncryInfoNotificationRequest{
