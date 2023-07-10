@@ -108,7 +108,7 @@ var _ services.Response = &equipGetBaseReportCallbackResponse{}
 
 type equipGetBaseReportCallbackResponse struct {
 	api.Response
-	Data *equipGetBaseReportCallbackResponse `json:"data"`
+	Data *equipGetBaseReportResponseDetail `json:"data"`
 }
 
 func (resp *equipGetBaseReportCallbackResponse) GetStatus() int {

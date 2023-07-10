@@ -46,7 +46,7 @@ func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Pr
 
 type equipReservationStatusNotificationResponse struct {
 	api.Response
-	Data *equipAuthorizeTransactionRequestDetail `json:"data"`
+	Data *equipReservationStatusNotificationResponseDetail `json:"data"`
 }
 
 type equipReservationStatusNotificationResponseDetail struct {

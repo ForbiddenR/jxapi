@@ -54,6 +54,7 @@ var _ services.Response = &equipResetResponse{}
 
 type equipResetResponse struct {
 	api.Response
+	Data *equipResetResponseDetail `json:"data"`
 }
 
 func (resp *equipResetResponse) GetStatus() int {

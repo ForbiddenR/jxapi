@@ -59,7 +59,7 @@ var _ services.Response = &equipGetVariablesCallbackResponse{}
 
 type equipGetVariablesCallbackResponse struct {
 	api.Response
-	Data *equipGetVariablesCallbackResponse `json:"data"`
+	Data *equipGetVariablesResponseDetail `json:"data"`
 }
 
 func (resp *equipGetVariablesCallbackResponse) GetStatus() int {
