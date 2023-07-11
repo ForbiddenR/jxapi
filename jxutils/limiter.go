@@ -11,7 +11,7 @@ var group = &singleflight.Group{}
 
 var weighted = semaphore.NewWeighted(100)
 
-var pipeline = make(chan struct{}, 100)
+// var pipeline = make(chan struct{}, 100)
 
 func DoOnlyOnceAtSameTime(key string, f func() error) error {
 	_, err, _ := group.Do(key, func() (any, error) {
@@ -25,6 +25,11 @@ func DoOnlyOnceAtSameTime(key string, f func() error) error {
 	return err
 }
 
-func DoWithMaxCurrentNum(ctx context.Context,f func() error) error {
-	weighted.Acquire()
+func DoWithMaxCurrentNum(ctx context.Context, f func() error) error {
+	err := weighted.Acquire(ctx , 1)
+	if err != nil {
+		return err
+	}
+	defer weighted.Release(1)
+	return f()
 }

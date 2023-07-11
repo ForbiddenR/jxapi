@@ -1,6 +1,7 @@
 package jxutils
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"sync"
@@ -13,7 +14,7 @@ func TestGroup(t *testing.T) {
 
 	for i := 0; i < 20; i++ {
 		wg.Add(1)
-		go func (wg *sync.WaitGroup)  {
+		go func(wg *sync.WaitGroup) {
 			defer wg.Done()
 			err := DoOnlyOnceAtSameTime("key", func() error {
 				fmt.Println("do do do")
@@ -24,6 +25,21 @@ func TestGroup(t *testing.T) {
 				t.Log(err)
 			}
 		}(wg)
+	}
+	wg.Wait()
+}
+
+func TestWeight(t *testing.T) {
+	wg := &sync.WaitGroup{}
+	for i := 0; i < 1000; i++ {
+		wg.Add(1)
+		k := i
+		go DoWithMaxCurrentNum(context.Background(), func() error {
+			defer wg.Done()
+			fmt.Println(k)
+			time.Sleep(2*time.Second)
+			return nil
+		})
 	}
 	wg.Wait()
 }
