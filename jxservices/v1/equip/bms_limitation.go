@@ -2,15 +2,20 @@ package equip
 
 import (
 	"context"
+	"encoding/json"
 
 	api "github.com/ForbiddenR/jxapi"
 	services "github.com/ForbiddenR/jxapi/jxservices"
+	"github.com/makasim/amqpextra/publisher"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 type BMSLimitRequestInterface interface {
 	services.Request
 	Construct(BMSLimitRequestConfig)
 }
+
+const bmsLimitQueue = services.QueuePrefix + "bms"
 
 type equipBMSLimitRequest struct {
 	services.Base
@@ -113,10 +118,33 @@ func (resp *equipBMSLimitResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func BMSLimitRequest(ctx context.Context, req services.Request) error {
-	header := services.GetSimpleHeaderValue(services.BMSLimit)
+// func BMSLimitRequest(ctx context.Context, req services.Request) error {
+// 	header := services.GetSimpleHeaderValue(services.BMSLimit)
 
-	url := services.GetSimpleURL(req)
+// 	url := services.GetSimpleURL(req)
 
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipBMSLimitResponse{})
+// 	return services.RequestWithoutResponse(ctx, req, url, header, &equipBMSLimitResponse{})
+// }
+
+func BMSLimitRequest(ctx context.Context, req services.Request, p *publisher.Publisher) error {
+	bytes, err := json.Marshal(req)
+	if err != nil {
+		return err
+	}
+
+	messsage := publisher.Message{
+		Context:      ctx,
+		Key:          bmsLimitQueue,
+		Publishing: amqp.Publishing{
+			ContentType: "application/json",
+			Body:        bytes,
+		},
+	}
+
+	err = p.Publish(messsage)
+
+	if err != nil {
+		return err
+	}
+	return nil
 }

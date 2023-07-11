@@ -4,9 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	// "gitee.com/csms/jxeu-ocpp/internal/rabbitmq"
 	services "github.com/ForbiddenR/jxapi/jxservices"
-	// "github.com/Kotodian/gokit/datasource/rabbitmq"
 
 	"github.com/makasim/amqpextra/publisher"
 	amqp "github.com/rabbitmq/amqp091-go"

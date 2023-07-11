@@ -2,9 +2,12 @@ package equip
 
 import (
 	"context"
+	"encoding/json"
 
 	api "github.com/ForbiddenR/jxapi"
 	services "github.com/ForbiddenR/jxapi/jxservices"
+	"github.com/makasim/amqpextra/publisher"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 type BatteryType uint8
@@ -20,6 +23,8 @@ const (
 	BatteryTypeTitaniumArsenideBattery
 	BatteryTypeOtherBattery
 )
+
+const bmsInfoQueue = services.QueuePrefix + "bms"
 
 type equipBMSInfoRequest struct {
 	services.Base
@@ -53,8 +58,8 @@ type BMsInfoRequestConfig struct {
 }
 
 func NewEquipBMSInfoRequestWithConfig(config *BMsInfoRequestConfig) *equipBMSInfoRequest {
-	return NewEquipBMSInfoRequest(config.Sn, config.Protocol, config.Pod, config.MsgID, config.ConnectorId, 
-	config.LimitVoltage, config.Version, config.Type, config.TotalVoltage, config.TotalEnergy, config.Vin)
+	return NewEquipBMSInfoRequest(config.Sn, config.Protocol, config.Pod, config.MsgID, config.ConnectorId,
+		config.LimitVoltage, config.Version, config.Type, config.TotalVoltage, config.TotalEnergy, config.Vin)
 }
 
 func NewEquipBMSInfoRequest(sn string, protocol *services.Protocol, pod, msgID string, connectorId string, limitVoltage float64, version string, ty uint8, totalVoltage, totalEnergy float64, vin string) *equipBMSInfoRequest {
@@ -93,10 +98,33 @@ func (resp *equipBMSInfoResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func BMSInfoRequest(ctx context.Context, req services.Request) error {
-	header := services.GetSimpleHeaderValue(services.BMSInfo)
+// func BMSInfoRequest(ctx context.Context, req services.Request) error {
+// 	header := services.GetSimpleHeaderValue(services.BMSInfo)
 
-	url := services.GetSimpleURL(req)
+// 	url := services.GetSimpleURL(req)
 
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipBMSInfoResponse{})
+// 	return services.RequestWithoutResponse(ctx, req, url, header, &equipBMSInfoResponse{})
+// }
+
+func BMSInfoRequest(ctx context.Context, req services.Request, p *publisher.Publisher) error {
+	bytes, err := json.Marshal(req)
+	if err != nil {
+		return err
+	}
+
+	messsage := publisher.Message{
+		Context:      ctx,
+		Key:          bmsInfoQueue,
+		Publishing: amqp.Publishing{
+			ContentType: "application/json",
+			Body:        bytes,
+		},
+	}
+
+	err = p.Publish(messsage)
+
+	if err != nil {
+		return err
+	}
+	return nil
 }
