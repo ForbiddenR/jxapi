@@ -138,7 +138,7 @@ const (
 	ClearChargingProfile        Request2ServicesNameType = ""
 	BMSInfo                     Request2ServicesNameType = "bmsInfo"
 	BMSLimit                    Request2ServicesNameType = "bmsLimit"
-	Login Request2ServicesNameType = ""
+	Login                       Request2ServicesNameType = "equipLogin"
 )
 
 // FirstUpper is only for the interfaces having a regular category.
