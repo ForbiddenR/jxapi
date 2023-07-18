@@ -14,7 +14,7 @@ type equipCancelIntellectChargeRequest struct {
 }
 
 func (*equipCancelIntellectChargeRequest) GetName() string {
-	return services.SetIntellectCharge.String()
+	return services.CancelIntellectCharge.String()
 }
 
 func NewEquipCancelIntellectChargeCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipCancelIntellectChargeRequest {
@@ -22,7 +22,7 @@ func NewEquipCancelIntellectChargeCallbackRequest(sn, pod, msgID string, p *serv
 		Base: services.Base{
 			EquipmentSn: sn,
 			Protocol:    p,
-			Category:    services.SetIntellectCharge.FirstUpper(),
+			Category:    services.CancelIntellectCharge.FirstUpper(),
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
@@ -36,7 +36,7 @@ func NewEquipCancelIntellectChargeCallbackRequestError(sn, pod, msgID string, p 
 		Base: services.Base{
 			EquipmentSn: sn,
 			Protocol:    p,
-			Category:    services.SetIntellectCharge.FirstUpper(),
+			Category:    services.CancelIntellectCharge.FirstUpper(),
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
@@ -60,7 +60,7 @@ func (resp *equipCancelIntellectChargeResponse) GetMsg() string {
 }
 
 func CancelIntellectChargeRequest(ctx context.Context, req services.CallbackRequest) error {
-	header := services.GetCallbackHeaderValue(services.SendQRCode)
+	header := services.GetCallbackHeaderValue(services.CancelIntellectCharge)
 
 	url := services.GetCallbackURL(req)
 
