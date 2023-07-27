@@ -133,7 +133,7 @@ const (
 	SetPriceScheme                Request2ServicesNameType = "setPriceScheme"
 	//TriggerMessage             Request2ServicesNameType = "callStatusNotification"
 	// TODO: the name of this variable has not been difined.
-	ChargeEncryInfoNotification Request2ServicesNameType = ""
+	ChargeEncryInfoNotification Request2ServicesNameType = "chargeEncryInfoNotification"
 	SetChargingProfile          Request2ServicesNameType = ""
 	ClearChargingProfile        Request2ServicesNameType = ""
 	BMSInfo                     Request2ServicesNameType = "bmsInfo"
