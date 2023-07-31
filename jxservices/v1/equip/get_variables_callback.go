@@ -16,7 +16,7 @@ type equipGetVariablesCallbackRequest struct {
 type equipGetVariablesCallbackRequestDetail struct {
 	services.CB
 	// Variable   VariableAttribute `json:"variable"`
-	Variable *struct {
+	Variable struct {
 		Value    string     `json:"value"`
 		Readonly Mutability `json:"readonly"`
 	} `json:"variable"`
