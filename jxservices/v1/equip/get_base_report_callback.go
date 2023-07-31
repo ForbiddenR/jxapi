@@ -48,7 +48,7 @@ func (g *equipGetBaseReportCallbackRequest) GetName() string {
 	return services.GetBaseReport.String()
 }
 
-func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status int, variable []equipGetBaseReportCallbackRequestDetailVariable, unknownKey []string) *equipGetBaseReportCallbackRequest {
+func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status int, length int, unknownKey []string) *equipGetBaseReportCallbackRequest {
 	req := &equipGetBaseReportCallbackRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -61,9 +61,11 @@ func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status in
 			CB: services.NewCB(status),
 		},
 	}
-	if len(variable) > 0 {
-		req.Callback.Variable = variable
-	}
+	// if len(variable) > 0 {
+	// 	req.Callback.Variable = variable
+	// }
+
+	req.Callback.Variable = make([]equipGetBaseReportCallbackRequestDetailVariable, 0, length)
 
 	if len(unknownKey) > 0 {
 		req.Callback.UnknownKey = unknownKey
