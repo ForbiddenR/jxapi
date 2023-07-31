@@ -235,7 +235,7 @@ func (*equipStopTransactionRequest) GetName() string {
 
 func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 	reason StoppingReasonType, transactionId string, isOffline bool, timestamp int64) *equipStopTransactionRequest {
-	request := &equipStopTransactionRequest{
+	req := &equipStopTransactionRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
 			Protocol:    p,
@@ -250,10 +250,13 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 			Timestamp:     timestamp,
 			Offline:       isOffline,
 			MeterValue:    &MeterValue{},
-			Tariff:        &Tariff{},
+			// Tariff:        &Tariff{},
 		},
 	}
-	return request
+	if !p.Equal(services.OCPP16()) {
+		req.Data.Tariff = &Tariff{}
+	}
+	return req
 }
 
 var _ services.Response = &equipStopTransactionResponse{}

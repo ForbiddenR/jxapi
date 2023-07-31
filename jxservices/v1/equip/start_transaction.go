@@ -39,7 +39,7 @@ func (equipStartTransactionRequest) GetName() string {
 func NewEquipStartTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 	idToken string, connectorId string,
 	timestamp int64) *equipStartTransactionRequest {
-	return &equipStartTransactionRequest{
+	req := &equipStartTransactionRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
 			Protocol:    p,
@@ -53,10 +53,15 @@ func NewEquipStartTransactionRequest(sn, pod, msgID string, p *services.Protocol
 			},
 			ConnectorSerial: connectorId,
 			Timestamp:       timestamp,
-			MeterValue:      &MeterValue{},
-			Tariff:          &Tariff{},
+			// MeterValue:      &MeterValue{},
+			// Tariff:          &Tariff{},
 		},
 	}
+	if !p.Equal(services.OCPP16()) {
+		req.Data.Tariff = &Tariff{}
+		req.Data.MeterValue = &MeterValue{}
+	}
+	return req
 }
 
 var _ services.Response = &equipStartTransactionResponse{}
