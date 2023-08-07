@@ -19,4 +19,7 @@ func init() {
 	services.RegisterFC(services.SetIntellectChargeFeatureName,func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
 		return NewEquipSetIntellectChargeCallbackRequestError(sn, pod, msgID, p, err)
 	})
+	services.RegisterFC(services.SetFactoryResetFeatureName, func(sn, pod, msgID string, p *services.Protocol, err *apierrors.CallbackError) services.CallbackRequest {
+		return NewEquipSetFactoryResetRequestError(sn, pod, msgID, p, err)
+	})
 }
