@@ -43,11 +43,12 @@ type accessVerifyResponse struct {
 }
 
 type accessVerifyResponseData struct {
-	ID               string         `json:"id"`
-	BaseUrl          string         `json:"baseUrl"`
-	HearbeatInterval int            `json:"keepalive"`
-	Registered       bool           `json:"registered"`
-	ReadWait         utils.Duration `json:"readWait"`
+	ID                  string         `json:"id"`
+	BaseUrl             string         `json:"baseUrl"`
+	HearbeatInterval    int            `json:"keepalive"`
+	TransactionInterval int            `json:"transactionInterval"`
+	Registered          bool           `json:"registered"`
+	ReadWait            utils.Duration `json:"readWait"`
 }
 
 func AccessVerifyRequest(ctx context.Context, ticket string, request *accessVerifyRequest) (*accessVerifyResponse, error) {
