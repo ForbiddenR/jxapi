@@ -59,6 +59,21 @@ const (
 	IdTokenTypeEnumsRemoteAdmin        IdTokenTypeEnums = 9
 	IdTokenTypeEnumsRemoteUser         IdTokenTypeEnums = 10
 	IdTokenTypeEnumsIntellect          IdTokenTypeEnums = 11
+	IdTokenTypeEnumsUnknown            IdTokenTypeEnums = 98
+	IdTokenTypeEnumsCentral            IdTokenTypeEnums = 99
+	IdTokenTypeEnumsNoAuthorization    IdTokenTypeEnums = 12
+	IdTokenTypeEnumsMacAddress         IdTokenTypeEnums = 13
+	IdTokenTypeEnumsISO14443           IdTokenTypeEnums = 14
+	IdTokenTypeEnumsKeyCode            IdTokenTypeEnums = 15
+	IdtokenTypeEnumsLocal              IdTokenTypeEnums = 16
+	IdTokenTypeEnumseMAID              IdTokenTypeEnums = 17
+	IdtokenTypeEnumsISO15693           IdTokenTypeEnums = 18
+	IdTokenTypeEnums104Plug            IdTokenTypeEnums = 19
+	IdTokenTypeEnums104Card            IdTokenTypeEnums = 20
+	IdTokenTypeEnums104VIN             IdTokenTypeEnums = 21
+	IdTokenTypeEnums104MAC             IdTokenTypeEnums = 22
+	IdTokenTypeEnums104Remote          IdTokenTypeEnums = 23
+	IdTokenTypeEnums104Intellect       IdTokenTypeEnums = 24
 )
 
 type AuthorizationMode int32
@@ -68,7 +83,7 @@ type IdTokenType struct {
 	Type    *IdTokenTypeEnums `json:"type,omitempty"`
 }
 
-type IdTokenTypeEnum int
+// type IdTokenTypeEnum int
 
 type IdTokenInfo struct {
 	ExpiryDate    *int64                `json:"expiryDate,omitempty"`
@@ -77,22 +92,22 @@ type IdTokenInfo struct {
 	Status        IdTokenStatusTypeEnum `json:"status"`
 }
 
-const (
-	IdTokenTypeCentral IdTokenTypeEnum = iota
-	IdTokenTypeRFID
-	IdTokenTypeBluetooth
-	IdTokenTypeNFC
-	IdTokenTypeVIN
-	IdTokenTypeAPP
-	IdTokenTypeHLHT
-	IdTokenTypeeMAID
-	IdTokenTypeISO14443
-	IdTokenTypeISO15693
-	IdTokenTypeKeyCode
-	IdTokenTypeLocal
-	IdTokenTypeMacAddress
-	IdTokenTypeNoAuthorization
-)
+// const (
+// 	IdTokenTypeCentral IdTokenTypeEnum = iota
+// 	IdTokenTypeRFID
+// 	IdTokenTypeBluetooth
+// 	IdTokenTypeNFC
+// 	IdTokenTypeVIN
+// 	IdTokenTypeAPP
+// 	IdTokenTypeHLHT
+// 	IdTokenTypeeMAID
+// 	IdTokenTypeISO14443
+// 	IdTokenTypeISO15693
+// 	IdTokenTypeKeyCode
+// 	IdTokenTypeLocal
+// 	IdTokenTypeMacAddress
+// 	IdTokenTypeNoAuthorization
+// )
 
 type VariableAttribute struct {
 	Value    string     `json:"value"`
