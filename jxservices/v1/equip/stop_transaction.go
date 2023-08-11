@@ -99,6 +99,19 @@ const (
 	StoppingReasonTypeDeauthorized                                 StoppingReasonType = 107 // 取消授权
 	StoppingReasonTypeEVConnectTimeout                             StoppingReasonType = 108 // 连接超时
 	StoppingReasonTypeServer_Error                                 StoppingReasonType = 999 // 平台错误
+	StoppingReasonTypeHardReset                                    StoppingReasonType = 82
+	StoppingReasonTypeSoftReset                                    StoppingReasonType = 83
+	StoppingReasonTypeUnlockcommand                                StoppingReasonType = 84
+	StoppingReasonTypeEnergyLimitReached                           StoppingReasonType = 85
+	StoppingReasonTypeGroundFault                                  StoppingReasonType = 86
+	StoppingReasonTypeImmediateReset                               StoppingReasonType = 87
+	StoppingReasonTypeLocal                                        StoppingReasonType = 88
+	StoppingReasonTypeLocalOutOfCredit                             StoppingReasonType = 89
+	StoppingReasonTypeMasterPass                                   StoppingReasonType = 90
+	StoppingReasonTypeOvercurrentFault                             StoppingReasonType = 91
+	StoppingReasonTypePowerQuality                                 StoppingReasonType = 92
+	StoppingReasonTypeSocLimitReached                              StoppingReasonType = 93
+	StoppingReasonTypeStoppedByEV                                  StoppingReasonType = 94
 )
 
 // This feature only supports for the version "OCPP1.6".
