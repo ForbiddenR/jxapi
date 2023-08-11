@@ -101,7 +101,7 @@ const (
 	StoppingReasonTypeServer_Error                                 StoppingReasonType = 999 // 平台错误
 	StoppingReasonTypeHardReset                                    StoppingReasonType = 82
 	StoppingReasonTypeSoftReset                                    StoppingReasonType = 83
-	StoppingReasonTypeUnlockcommand                                StoppingReasonType = 84
+	StoppingReasonTypeUnlockCommand                                StoppingReasonType = 84
 	StoppingReasonTypeEnergyLimitReached                           StoppingReasonType = 85
 	StoppingReasonTypeGroundFault                                  StoppingReasonType = 86
 	StoppingReasonTypeImmediateReset                               StoppingReasonType = 87
