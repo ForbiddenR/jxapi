@@ -65,9 +65,9 @@ const (
 	IdTokenTypeEnumsMacAddress         IdTokenTypeEnums = 13
 	IdTokenTypeEnumsISO14443           IdTokenTypeEnums = 14
 	IdTokenTypeEnumsKeyCode            IdTokenTypeEnums = 15
-	IdtokenTypeEnumsLocal              IdTokenTypeEnums = 16
+	IdTokenTypeEnumsLocal              IdTokenTypeEnums = 16
 	IdTokenTypeEnumseMAID              IdTokenTypeEnums = 17
-	IdtokenTypeEnumsISO15693           IdTokenTypeEnums = 18
+	IdTokenTypeEnumsISO15693           IdTokenTypeEnums = 18
 	IdTokenTypeEnums104Plug            IdTokenTypeEnums = 19
 	IdTokenTypeEnums104Card            IdTokenTypeEnums = 20
 	IdTokenTypeEnums104VIN             IdTokenTypeEnums = 21
