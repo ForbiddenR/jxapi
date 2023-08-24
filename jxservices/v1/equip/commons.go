@@ -61,19 +61,8 @@ const (
 	IdTokenTypeEnumsIntellect          IdTokenTypeEnums = 11
 	IdTokenTypeEnumsUnknown            IdTokenTypeEnums = 98
 	IdTokenTypeEnumsCentral            IdTokenTypeEnums = 99
-	IdTokenTypeEnumsNoAuthorization    IdTokenTypeEnums = 12
-	IdTokenTypeEnumsMacAddress         IdTokenTypeEnums = 13
-	IdTokenTypeEnumsISO14443           IdTokenTypeEnums = 14
-	IdTokenTypeEnumsKeyCode            IdTokenTypeEnums = 15
-	IdTokenTypeEnumsLocal              IdTokenTypeEnums = 16
-	IdTokenTypeEnumseMAID              IdTokenTypeEnums = 17
-	IdTokenTypeEnumsISO15693           IdTokenTypeEnums = 18
-	IdTokenTypeEnums104Plug            IdTokenTypeEnums = 19
-	IdTokenTypeEnums104Card            IdTokenTypeEnums = 20
-	IdTokenTypeEnums104VIN             IdTokenTypeEnums = 21
-	IdTokenTypeEnums104MAC             IdTokenTypeEnums = 22
-	IdTokenTypeEnums104Remote          IdTokenTypeEnums = 23
-	IdTokenTypeEnums104Intellect       IdTokenTypeEnums = 24
+	IdTokenTypeEnumsLocal              IdTokenTypeEnums = 12
+	IdTokenTypeEnumsEMAID              IdTokenTypeEnums = 13
 )
 
 type AuthorizationMode int32
