@@ -2,7 +2,6 @@ package equip
 
 import (
 	"context"
-	"errors"
 
 	api "github.com/ForbiddenR/jxapi"
 	services "github.com/ForbiddenR/jxapi/jxservices"
@@ -55,22 +54,10 @@ func (resp *equipRegisterResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func RegisterRequestWithGeneric(ctx context.Context, req *equipRegisterRequest) (id string, err error) {
+func RegisterRequestWithGeneric(ctx context.Context, req *equipRegisterRequest) error {
 	header := services.GetSimpleHeaderValue(services.Register)
 
 	url := services.GetSimpleURL(req)
 
-	resp := equipRegisterResponse{}
-	err = services.RequestWithoutResponse(ctx, req, url, header, &resp)
-	if err != nil {
-		return
-	}
-
-	if resp.Data == nil {
-		err = errors.New("response data is nil")
-		return
-	}
-
-	id = resp.Data.EquipmentID
-	return
+	return services.RequestWithoutResponse(ctx, req, url, header, &equipRegisterResponse{})
 }
