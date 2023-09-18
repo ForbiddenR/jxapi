@@ -3,6 +3,7 @@ package equip
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	services "github.com/ForbiddenR/jxapi/jxservices"
 
@@ -21,6 +22,7 @@ type equipMeterValuesRequest struct {
 
 type equipMeterValuesRequestDetail struct {
 	EvseId        *string     `json:"evseSerial,omitempty"`
+	Actime        int64       `json:"actime"`
 	TransactionId *string     `json:"transactionId,omitempty"`
 	ConnectorId   *string     `json:"connectorSerial,omitempty"`
 	Timestamp     *int64      `json:"timestamp,omitempty"`
@@ -42,6 +44,7 @@ func NewEquipMeterValuesOCPP16Request(sn, pod, msgID string, connectorId string)
 		},
 		Data: &equipMeterValuesRequestDetail{
 			ConnectorId: &connectorId,
+			Actime:      time.Now().Unix(),
 			MeterValue:  &MeterValue{},
 		},
 	}

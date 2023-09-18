@@ -3,6 +3,7 @@ package equip
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	services "github.com/ForbiddenR/jxapi/jxservices"
 
@@ -22,6 +23,7 @@ func (equipUpdateTransactionRequest) GetName() string {
 }
 
 type equipUpdateTransactionReqeustDetail struct {
+	Actime        int64       `json:"actime"`
 	TransactionId string      `json:"transactionId"`
 	EvseId        *string     `json:"evseSerial"`
 	ConnectorId   string      `json:"connectorSerial"`
@@ -44,6 +46,7 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 			MsgID:       msgID,
 		},
 		Data: &equipUpdateTransactionReqeustDetail{
+			Actime:        time.Now().Unix(),
 			TransactionId: transactionId,
 			ConnectorId:   connectorId,
 			Offline:       offline,
