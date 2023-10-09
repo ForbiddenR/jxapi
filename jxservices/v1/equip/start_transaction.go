@@ -13,8 +13,7 @@ type equipStartTransactionRequest struct {
 }
 
 type equipStartTransactionRequestDetail struct {
-	IdTokenType IdTokenType `json:"idTokenType"`
-	// IdToken         string `json:"idToken"`
+	IdTokenType         IdTokenType `json:"idTokenType"`
 	MeterStart          *int        `json:"meterStart"`
 	EvseSerial          *string     `json:"evseSerial"`
 	ConnectorSerial     string      `json:"connectorSerial"`
@@ -53,8 +52,6 @@ func NewEquipStartTransactionRequest(sn, pod, msgID string, p *services.Protocol
 			},
 			ConnectorSerial: connectorId,
 			Timestamp:       timestamp,
-			// MeterValue:      &MeterValue{},
-			// Tariff:          &Tariff{},
 		},
 	}
 	if !p.Equal(services.OCPP16()) {
