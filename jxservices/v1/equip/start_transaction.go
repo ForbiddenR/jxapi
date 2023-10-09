@@ -20,15 +20,45 @@ type equipStartTransactionRequestDetail struct {
 	ReservationId       *int64      `json:"reservationId"`
 	TransactionId       *string     `json:"transactionId"`
 	RemoteStartId       *int64      `json:"remoteStartId"`
-	Offline             *bool       `json:"offline"`
+	Offline             bool        `json:"offline"`
 	Timestamp           int64       `json:"timestamp"`
 	MeterValue          *MeterValue `json:"meterValue"`
 	Tariff              *Tariff     `json:"tariff"`
-	ChargingState       *uint8      `json:"chargingState"`
+	ChargingState       uint8       `json:"chargingState"`
 	Vin                 *string     `json:"vin"`
 	RemainingTime       *int        `json:"remainingTime"`
 	ChargingProfileId   *int64      `json:"chargingProfileId"`
 	ChargingProfileUnit *uint8      `json:"chargingProfileUnit"`
+}
+
+type StartTransactionRequestConfig struct {
+	services.ReusedConfig
+	IdToken       string
+	ConnectorId   string
+	Timestamp     int64
+	Offline       bool
+	ChargingState uint8
+}
+
+func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestConfig) *equipStartTransactionRequest {
+	return &equipStartTransactionRequest{
+		Base: services.Base{
+			EquipmentSn: config.Sn,
+			Protocol:    config.Protocol,
+			Category:    services.StartTransaction.FirstUpper(),
+			AccessPod:   config.Pod,
+			MsgID:       config.MsgID,
+		},
+		Data: &equipStartTransactionRequestDetail{
+			IdTokenType: IdTokenType{
+				IdToken: config.IdToken,
+			},
+			ConnectorSerial: config.ConnectorId,
+			Timestamp:       config.Timestamp,
+			Offline:         config.Offline,
+			ChargingState:   config.ChargingState,
+		},
+	}
 }
 
 func (equipStartTransactionRequest) GetName() string {
