@@ -54,10 +54,10 @@ func NewEquipStartTransactionRequest(sn, pod, msgID string, p *services.Protocol
 			Timestamp:       timestamp,
 		},
 	}
+	req.Data.Tariff = &Tariff{
+		Id: -1,
+	}
 	if !p.Equal(services.OCPP16()) {
-		req.Data.Tariff = &Tariff{
-			Id: -1,
-		}
 		req.Data.MeterValue = &MeterValue{}
 	}
 	return req

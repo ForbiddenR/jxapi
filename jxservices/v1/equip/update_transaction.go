@@ -30,7 +30,7 @@ type equipUpdateTransactionReqeustDetail struct {
 	Offline       bool        `json:"offline"`
 	Timestamp     int64       `json:"timestamp"`
 	MeterValue    *MeterValue `json:"MeterValue"`
-	Tariff        Tariff      `json:"tariff"`
+	Tariff        *Tariff     `json:"tariff"`
 	ChargingState uint8       `json:"chargingState"`
 	RemainingTime *int        `json:"remainingTime"`
 	VIN           *string     `json:"vin"`
@@ -52,7 +52,7 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 			Offline:       offline,
 			Timestamp:     timestamp,
 			MeterValue:    &MeterValue{},
-			Tariff:        Tariff{
+			Tariff: &Tariff{
 				Id: -1,
 			},
 			ChargingState: chargeState,

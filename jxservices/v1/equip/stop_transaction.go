@@ -234,11 +234,10 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 			MeterValue:    &MeterValue{},
 		},
 	}
-	if !p.Equal(services.OCPP16()) {
-		req.Data.Tariff = &Tariff{
-			Id: -1,
-		}
+	req.Data.Tariff = &Tariff{
+		Id: -1,
 	}
+	
 	return req
 }
 
