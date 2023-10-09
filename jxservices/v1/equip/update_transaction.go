@@ -52,7 +52,9 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 			Offline:       offline,
 			Timestamp:     timestamp,
 			MeterValue:    &MeterValue{},
-			Tariff:        Tariff{},
+			Tariff:        Tariff{
+				Id: -1,
+			},
 			ChargingState: chargeState,
 		},
 	}

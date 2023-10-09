@@ -211,37 +211,6 @@ type equipStopTransactionRequestDetail struct {
 	StopReason      StoppingReasonType `json:"stopReason"`
 }
 
-//type equipStopTransactionRequestMeterValue struct {
-//	// Timestamp is the time when the Charging Station gets meter datas.
-//	Timestamp int64 `json:"timestamp"`
-//	// SampledValue uses the type, "MeterValueElemSampledValueElem", indirectly.
-//	SampledValue []protocol.MeterValueElemSampledValueElem `json:"sampledValue"`
-//}
-
-//type equipStopTransactionRequestSampledValue struct {
-//	Value     string                                           `json:"value"`
-//	Context   protocol.MeterValueElemSampledValueElemContext   `json:"context"`
-//	//Format  protocol.
-//	Measurand protocol.MeterValueElemSampledValueElemMeasurand `json:"measurand"`
-//	Phase     *protocol.MeterValueElemSampledValueElemPhase    `json:"phase"`
-//	Location  protocol.MeterValueElemSampledValueElemLocation  `json:"location"`
-//	Unit      protocol.MeterValueElemSampledValueElemUnit      `json:"unit"`
-//}
-
-//func NewEquipStopTransactionRequestSampledValue(value string,
-//	context protocol.MeterValueElemSampledValueElemContext,
-//	measurand protocol.MeterValueElemSampledValueElemMeasurand,
-//	location protocol.MeterValueElemSampledValueElemLocation,
-//	unit protocol.MeterValueElemSampledValueElemUnit) *equipStopTransactionRequestSampledValue {
-//	return &equipStopTransactionRequestSampledValue{
-//		Value:     value,
-//		Context:   context,
-//		Measurand: measurand,
-//		Location:  location,
-//		Unit:      unit,
-//	}
-//}
-
 func (*equipStopTransactionRequest) GetName() string {
 	return services.StopTransaction.String()
 }
@@ -263,11 +232,12 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 			Timestamp:     timestamp,
 			Offline:       isOffline,
 			MeterValue:    &MeterValue{},
-			// Tariff:        &Tariff{},
 		},
 	}
 	if !p.Equal(services.OCPP16()) {
-		req.Data.Tariff = &Tariff{}
+		req.Data.Tariff = &Tariff{
+			Id: -1,
+		}
 	}
 	return req
 }
