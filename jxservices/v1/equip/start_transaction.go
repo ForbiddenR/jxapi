@@ -41,7 +41,7 @@ type StartTransactionRequestConfig struct {
 }
 
 func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestConfig) *equipStartTransactionRequest {
-	return &equipStartTransactionRequest{
+	req :=  &equipStartTransactionRequest{
 		Base: services.Base{
 			EquipmentSn: config.Sn,
 			Protocol:    config.Protocol,
@@ -59,6 +59,13 @@ func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestCo
 			ChargingState:   config.ChargingState,
 		},
 	}
+	req.Data.Tariff = &Tariff{
+		Id: -1,
+	}
+	if !config.Protocol.Equal(services.OCPP16()) {
+		req.Data.MeterValue = &MeterValue{}
+	}
+	return req
 }
 
 func (equipStartTransactionRequest) GetName() string {
