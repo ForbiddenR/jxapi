@@ -57,11 +57,12 @@ func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestCo
 			Timestamp:       config.Timestamp,
 			Offline:         config.Offline,
 			ChargingState:   config.ChargingState,
+			Tariff: &Tariff{
+				Id: -1,
+			},
 		},
 	}
-	req.Data.Tariff = &Tariff{
-		Id: -1,
-	}
+	
 	if !config.Protocol.Equal(services.OCPP16()) {
 		req.Data.MeterValue = &MeterValue{}
 	}

@@ -211,6 +211,38 @@ type equipStopTransactionRequestDetail struct {
 	StopReason      StoppingReasonType `json:"stopReason"`
 }
 
+type StopTransactionRequestConfig struct {
+	services.ReusedConfig
+	TransactionId string
+	Offline       bool
+	StopReason    StoppingReasonType
+	ChargingState uint8
+	Timestamp     int64
+}
+
+func NewEquipStopTransactionRequestWithConfig(config *StopTransactionRequestConfig) *equipStopTransactionRequest {
+	return &equipStopTransactionRequest{
+		Base: services.Base{
+			EquipmentSn: config.Sn,
+			Protocol:    config.Protocol,
+			Category:    services.StopTransaction.FirstUpper(),
+			AccessPod:   config.Pod,
+			MsgID:       config.MsgID,
+		},
+		Data: &equipStopTransactionRequestDetail{
+			IdTokenType:   &IdTokenType{},
+			StopReason:    config.StopReason,
+			TransactionId: config.TransactionId,
+			Timestamp:     config.Timestamp,
+			Offline:       config.Offline,
+			MeterValue:    &MeterValue{},
+			Tariff: &Tariff{
+				Id: -1,
+			},
+		},
+	}
+}
+
 func (*equipStopTransactionRequest) GetName() string {
 	return services.StopTransaction.String()
 }
@@ -237,7 +269,7 @@ func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
 	req.Data.Tariff = &Tariff{
 		Id: -1,
 	}
-	
+
 	return req
 }
 
