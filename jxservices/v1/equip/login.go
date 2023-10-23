@@ -13,12 +13,13 @@ type equipLoginRequest struct {
 }
 
 type equipLoginRequestDetail struct {
-	RemoteAddress    *string `json:"remoteAddress"`
-	ModelCode        string  `json:"modelCode"`
-	ManufacturerCode string  `json:"manufacturerCode"`
-	FirmwareVersion  *string `json:"firmwareVersion"`
-	Iccid            *string `json:"iccid"`
-	Imsi             *string `json:"imsi"`
+	RemoteAddress      *string `json:"remoteAddress"`
+	ModelCode          string  `json:"modelCode"`
+	ManufacturerCode   string  `json:"manufacturerCode"`
+	FirmwareVersion    *string `json:"firmwareVersion"`
+	Iccid              *string `json:"iccid"`
+	Imsi               *string `json:"imsi"`
+	ReconnectingReason *string `json:"reason"`
 }
 
 func (equipLoginRequest) GetName() string {
