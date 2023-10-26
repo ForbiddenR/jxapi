@@ -18,8 +18,8 @@ type equipGetIntellectChargeRequestDetail struct {
 	EVSE           EVSE     `json:"evse"`
 	IntellectType  uint8    `json:"type"`
 	IntellectId    string   `json:"intellectId"`
-	StartTime      int64    `json:"startTime"`
-	EndTime        *int64   `json:"endTime"`
+	StartTime      string   `json:"startTime"`
+	EndTime        *string  `json:"endTime"`
 	EndElectricity *float64 `json:"endElectricity"`
 	EndSoc         *float64 `json:"endSOC"`
 	Status         uint8    `json:"status"`
@@ -30,7 +30,7 @@ func (*equipGetIntellectChargeRequest) GetName() string {
 }
 
 func NewEquipGetIntellectChargeCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int,
-	cid, evseId string, intellectType uint8, intellectId string, startTime int64, intellectStatus uint8) *equipGetIntellectChargeRequest {
+	cid, evseId string, intellectType uint8, intellectId string, startTime string, intellectStatus uint8) *equipGetIntellectChargeRequest {
 	req := &equipGetIntellectChargeRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -45,10 +45,10 @@ func NewEquipGetIntellectChargeCallbackRequest(sn, pod, msgID string, p *service
 				Id:          evseId,
 				ConnectorId: cid,
 			},
-			IntellectType:  intellectType,
-			IntellectId:    intellectId,
-			StartTime:      startTime,
-			Status:         intellectStatus,
+			IntellectType: intellectType,
+			IntellectId:   intellectId,
+			StartTime:     startTime,
+			Status:        intellectStatus,
 		},
 	}
 	return req
@@ -93,5 +93,5 @@ func GetIntellectChargeCallbackRequest(ctx context.Context, req services.Callbac
 
 	url := services.GetCallbackURL(req)
 
-	return services.RequestWithoutResponse(ctx ,req, url, header, &equipGetIntellectChargeResponse{})
-} 
+	return services.RequestWithoutResponse(ctx, req, url, header, &equipGetIntellectChargeResponse{})
+}
