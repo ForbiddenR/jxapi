@@ -86,7 +86,8 @@ const (
 	CancelIntellectChargeFeatureName = "cancelIntellectCharge"
 	SetPriceSchemeFeatureName        = "setPriceScheme"
 	// Customized Features about 104 protocol
-	SendQRCodeFeatureName = "sendQRCode"
+	SendQRCodeFeatureName         = "sendQRCode"
+	GetIntellectChargeFeatureName = "getIntellectCharge"
 )
 
 type Request2ServicesNameType string
@@ -139,6 +140,7 @@ const (
 	BMSInfo                     Request2ServicesNameType = "bmsInfo"
 	BMSLimit                    Request2ServicesNameType = "bmsLimit"
 	Login                       Request2ServicesNameType = "equipLogin"
+	GetIntellectCharge          Request2ServicesNameType = "getIntellectCharge"
 )
 
 // FirstUpper is only for the interfaces having a regular category.
