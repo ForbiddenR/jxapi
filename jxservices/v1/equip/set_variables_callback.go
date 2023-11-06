@@ -79,7 +79,7 @@ func (resp *equipSetVariablesCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func SetVariablesRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {
+func SetVariablesRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.ChangeConfiguration)
 
 	url := services.GetCallbackURL(req)

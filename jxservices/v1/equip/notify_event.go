@@ -55,7 +55,7 @@ func NewNotifyEventRequest(sn, pod, msgID string, p *services.Protocol, code int
 	}
 }
 
-func NotifyEventRequestWithGeneric(ctx context.Context, req *equipNotifyEventRequest) error {
+func NotifyEventRequest(ctx context.Context, req *equipNotifyEventRequest) error {
 	header := services.GetSimpleHeaderValue(services.NotifyEvent)
 
 	url := services.GetSimpleURL(req)

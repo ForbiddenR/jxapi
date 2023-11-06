@@ -118,14 +118,6 @@ func (resp *equipBMSLimitResponse) GetMsg() string {
 	return resp.Msg
 }
 
-// func BMSLimitRequest(ctx context.Context, req services.Request) error {
-// 	header := services.GetSimpleHeaderValue(services.BMSLimit)
-
-// 	url := services.GetSimpleURL(req)
-
-// 	return services.RequestWithoutResponse(ctx, req, url, header, &equipBMSLimitResponse{})
-// }
-
 func BMSLimitRequest(ctx context.Context, req services.Request, p *publisher.Publisher) error {
 	bytes, err := json.Marshal(req)
 	if err != nil {

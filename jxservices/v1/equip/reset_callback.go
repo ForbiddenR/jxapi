@@ -68,7 +68,7 @@ func (resp *equipResetResponse) GetMsg() string {
 type equipResetResponseDetail struct {
 }
 
-func ResetCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {
+func ResetCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.Reset)
 
 	url := services.GetCallbackURL(req)

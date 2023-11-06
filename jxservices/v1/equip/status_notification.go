@@ -201,7 +201,7 @@ func (resp *equipStatusNotificationResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func StatusNotificationRequestWithGeneric(ctx context.Context, req *equipStatusNotificationRequest) error {
+func StatusNotificationRequest(ctx context.Context, req *equipStatusNotificationRequest) error {
 	header := services.GetSimpleHeaderValue(services.Register)
 
 	url := services.GetSimpleURL(req)

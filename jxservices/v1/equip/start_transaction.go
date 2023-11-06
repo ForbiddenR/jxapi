@@ -121,7 +121,7 @@ type equipStartTransactionResponseDetail struct {
 	IdTokenInfo   IdTokenInfo `json:"idTokenInfo"`
 }
 
-func StartTransactionRequestWithGeneric(ctx context.Context, req services.Request) (*equipStartTransactionResponse, error) {
+func StartTransactionRequest(ctx context.Context, req services.Request) (*equipStartTransactionResponse, error) {
 	header := services.GetSimpleHeaderValue(services.StartTransaction)
 
 	url := services.GetSimpleURL(req)

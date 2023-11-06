@@ -69,7 +69,7 @@ func (e *equipSetFactoryResetResponse) GetMsg() string {
 type equipSetFactoryResetResponseDetail struct {
 }
 
-func SetFactoryResetRequestWithG(ctx context.Context, req services.CallbackRequest) error {
+func SetFactoryResetRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.SetFactoryReset)
 
 	url := services.GetCallbackURL(req)

@@ -54,7 +54,7 @@ func (resp *equipRegisterResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func RegisterRequestWithGeneric(ctx context.Context, req *equipRegisterRequest) error {
+func RegisterRequest(ctx context.Context, req *equipRegisterRequest) error {
 	header := services.GetSimpleHeaderValue(services.Register)
 
 	url := services.GetSimpleURL(req)

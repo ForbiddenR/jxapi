@@ -292,7 +292,7 @@ type equipStopTransactionResponseDetail struct {
 	IdTokenInfo
 }
 
-func StopTransactionRequestWithGeneric(ctx context.Context, req *equipStopTransactionRequest) (*equipStopTransactionResponse, error) {
+func StopTransactionRequest(ctx context.Context, req *equipStopTransactionRequest) (*equipStopTransactionResponse, error) {
 	header := services.GetSimpleHeaderValue(services.StopTransaction)
 
 	url := services.GetSimpleURL(req)

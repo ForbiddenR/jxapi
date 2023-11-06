@@ -62,7 +62,7 @@ func (resp *equipOnlineResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func OnlineRequestWithGeneric(ctx context.Context, req *equipOnlineRequest) error {
+func OnlineRequest(ctx context.Context, req *equipOnlineRequest) error {
 	header := services.GetSimpleHeaderValue(services.Online)
 
 	url := services.GetSimpleURL(req)

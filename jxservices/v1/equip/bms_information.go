@@ -98,14 +98,6 @@ func (resp *equipBMSInfoResponse) GetMsg() string {
 	return resp.Msg
 }
 
-// func BMSInfoRequest(ctx context.Context, req services.Request) error {
-// 	header := services.GetSimpleHeaderValue(services.BMSInfo)
-
-// 	url := services.GetSimpleURL(req)
-
-// 	return services.RequestWithoutResponse(ctx, req, url, header, &equipBMSInfoResponse{})
-// }
-
 func BMSInfoRequest(ctx context.Context, req services.Request, p *publisher.Publisher) error {
 	bytes, err := json.Marshal(req)
 	if err != nil {
