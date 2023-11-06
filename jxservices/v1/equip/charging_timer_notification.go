@@ -70,7 +70,7 @@ func (resp *equipChargingTimerNotificationResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func ChargingTimerNotificationRequestWithGeneric(ctx context.Context, req services.Request) error {
+func ChargingTimerNotificationRequest(ctx context.Context, req services.Request) error {
 	header := services.GetSimpleHeaderValue(services.ChargingTimerNotification)
 
 	url := services.GetSimpleURL(req)

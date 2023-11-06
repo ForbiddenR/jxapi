@@ -72,7 +72,7 @@ func (resp *equipGetDiagnosticsCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func GetDiagnosticsCallbackRequestG(ctx context.Context, req services.CallbackRequest) error {
+func GetDiagnosticsCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.GetDiagnostics)
 
 	url := services.GetCallbackURL(req)
