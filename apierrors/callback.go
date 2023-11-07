@@ -76,7 +76,7 @@ func NewCallbackErrorInternalError(id, command, reason string) *CallbackError {
 	}
 }
 
-func NewCallbackErrorSupported(id, command string) *CallbackError {
+func NewCallbackErrorNotSupported(id, command string) *CallbackError {
 	return &CallbackError{
 		code:  CallbackErrorCodeTypeNotSupported,
 		inner: fmt.Errorf("command:%s send to %s but callback failed because of being Supported", command, id),

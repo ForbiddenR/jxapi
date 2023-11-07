@@ -13,6 +13,14 @@ type EquipSetIntellectChargeRequest struct {
 }
 
 type EquipSetIntellectChargeRequestDetail struct {
+	VendorId    string `json:"vendorId"`
+	IntellectId int64  `json:"intellectId"`
+	StartTime   string `json:"startTime"`
+	StopTime    string `json:"stopTime"`
+	StopEnergy  int64  `json:"stopEnergy"`
+	StopSoc     int64  `json:"stopSoc"`
+	TimingType  int64  `json:"timingType"`
+	Evse        EVSE   `json:"evse"`
 }
 
 func (s *EquipSetIntellectChargeRequest) Unmarshal(data []byte) error {

@@ -96,7 +96,7 @@ func (resp *equipDiagnosticsStatusNotificationResponse) GetMsg() string {
 type equipDiagnosticsStatusNotificationResponseDetail struct {
 }
 
-func DiagnosticsStatusNotificationRequestG(ctx context.Context, req services.Request) error {
+func DiagnosticsStatusNotificationRequest(ctx context.Context, req services.Request) error {
 	header := services.GetSimpleHeaderValue(services.DiagnosticsStatusNotification)
 
 	url := services.GetSimpleURL(req)

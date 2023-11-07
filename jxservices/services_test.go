@@ -39,6 +39,8 @@ func TestURL(t *testing.T) {
 
 	assert.Equal(t, "ac/callback/pushFirmwareCallback",
 		Equip+"/"+Callback+"/"+UpdateFirmware.String()+"Callback")
+
+	assert.Equal(t, "ac/callback/sendQRCodeCallback", Equip+"/"+Callback+"/"+SendQRCode.String()+"Callback")
 }
 
 //func TestTransferFeatureName(t *testing.T) {
@@ -72,4 +74,12 @@ func TestRequestWithoutResponse(t *testing.T) {
 	//resp, err :=RequestWithResponse(req, url, header)
 	//assert.Nil(t, err)
 	//t.Log(resp)
+}
+
+
+
+func TestFeatureCollection(t *testing.T) {
+	InitFC()
+	result, ok := FetchFC("test")
+	t.Log(result, ok)
 }

@@ -13,6 +13,23 @@ type EquipSetPriceSchemeRequest struct {
 }
 
 type EquipSetPriceSchemeRequestDetail struct {
+	VendorId      string         `json:"vendorId"`
+	TariffId      uint64         `json:"tariffId"`
+	BaseTime      int64          `json:"baseTime"`
+	ChargeTariffs []ChargeTariff `json:"chargeTariffs"`
+	TimePrices    []TimePrice    `json:"timePrices"`
+}
+
+// TODO: the format of TImeStart.
+type ChargeTariff struct {
+	TimeStart int `json:"timeStart"`
+	Tag       int `json:"tag"`
+}
+
+type TimePrice struct {
+	ElecPrice    float64 `json:"elecPrice"`
+	ServicePrice float64 `json:"servicePrice"`
+	Tag          int     `json:"tag"`
 }
 
 func (s *EquipSetPriceSchemeRequest) Unmarshal(data []byte) error {

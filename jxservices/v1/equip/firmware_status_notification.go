@@ -100,7 +100,7 @@ func (resp *equipFirmwareStatusNotificationResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func FirmwareStatusNotificationRequestWithGeneric(ctx context.Context, req services.Request) error {
+func FirmwareStatusNotificationRequest(ctx context.Context, req services.Request) error {
 	header := services.GetSimpleHeaderValue(services.FirmwareStatusNotification)
 
 	url := services.GetSimpleURL(req)

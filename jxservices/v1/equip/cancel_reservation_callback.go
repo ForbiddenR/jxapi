@@ -59,7 +59,7 @@ func (resp *equipCancelReservationCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func CancelReservationCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {
+func CancelReservationCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.CancelReservation)
 
 	url := services.GetCallbackURL(req)

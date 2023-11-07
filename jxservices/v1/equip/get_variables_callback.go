@@ -10,13 +10,20 @@ import (
 
 type equipGetVariablesCallbackRequest struct {
 	services.Base
-	Callback *equipGetVariablesCallbackRequestDetail `json:"callback"`
+	Callback services.CB `json:"callback"`
+	Data *equipGetVariablesCallbackRequestDetail `json:"data"`
 }
 
 type equipGetVariablesCallbackRequestDetail struct {
-	services.CB
-	Variable      VariableAttribute `json:"variable"`
-	UnknownKey *string           `json:"unknownKey,omitempty"`
+	// services.CB
+	// Variable   VariableAttribute `json:"variable"`
+	Variable struct {
+		Value    string     `json:"value"`
+		Readonly Mutability `json:"readonly"`
+	} `json:"variable"`
+	// Value      string     `json:"value"`
+	// Readonly   Mutability `json:"readonly"`
+	UnknownKey []string `json:"unknownKey,omitempty"`
 }
 
 func (g *equipGetVariablesCallbackRequest) GetName() string {
@@ -32,9 +39,8 @@ func NewEquipGetVariablesCallbackRequest(sn, pod, msgID string, p *services.Prot
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetVariablesCallbackRequestDetail{
-			CB: services.NewCB(status),
-		},
+		Callback:  services.NewCB(status),
+		Data:      &equipGetVariablesCallbackRequestDetail{},
 	}
 	return req
 }
@@ -48,9 +54,8 @@ func NewEquipGetVariablesRequestError(sn, pod, msgID string, p *services.Protoco
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetVariablesCallbackRequestDetail{
-			CB: services.NewCBError(err),
-		},
+		Callback:  services.NewCBError(err),
+		Data:      &equipGetVariablesCallbackRequestDetail{},
 	}
 	return req
 }
@@ -59,7 +64,7 @@ var _ services.Response = &equipGetVariablesCallbackResponse{}
 
 type equipGetVariablesCallbackResponse struct {
 	api.Response
-	Data *equipGetVariablesCallbackResponse `json:"data"`
+	Data *equipGetVariablesResponseDetail `json:"data"`
 }
 
 func (resp *equipGetVariablesCallbackResponse) GetStatus() int {
@@ -73,7 +78,7 @@ func (resp *equipGetVariablesCallbackResponse) GetMsg() string {
 type equipGetVariablesResponseDetail struct {
 }
 
-func GetVariablesCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {
+func GetVariablesCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.GetConfiguration)
 
 	url := services.GetCallbackURL(req)

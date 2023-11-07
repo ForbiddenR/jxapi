@@ -71,7 +71,7 @@ func (resp *equipOfflineResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func OfflineRequestWithGeneric(ctx context.Context, req *equipOfflineRequest) error {
+func OfflineRequest(ctx context.Context, req *equipOfflineRequest) error {
 	header := services.GetSimpleHeaderValue(services.Offline)
 
 	url := services.GetSimpleURL(req)

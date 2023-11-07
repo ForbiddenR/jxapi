@@ -2,7 +2,6 @@ package equip
 
 import (
 	"context"
-	"errors"
 
 	api "github.com/ForbiddenR/jxapi"
 	services "github.com/ForbiddenR/jxapi/jxservices"
@@ -15,6 +14,14 @@ type equipOnlineRequest struct {
 
 type equipOnlineRequestDetail struct {
 	RemoteAddress *string `json:"remoteAddress"`
+}
+
+type OnlineConfig struct {
+	services.ReusedConfig
+}
+
+func NewEquipOnlineRequestWithConfig(config OnlineConfig) *equipOnlineRequest {
+	return NewEquipOnlineRequest(config.Sn, config.Protocol, config.Pod, config.MsgID)
 }
 
 func NewEquipOnlineRequest(sn string, protocol *services.Protocol, pod, msgID string) *equipOnlineRequest {
@@ -55,19 +62,10 @@ func (resp *equipOnlineResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func OnlineRequestWithGeneric(ctx context.Context, req *equipOnlineRequest) (id string, err error) {
+func OnlineRequest(ctx context.Context, req *equipOnlineRequest) error {
 	header := services.GetSimpleHeaderValue(services.Online)
 
 	url := services.GetSimpleURL(req)
 
-	resp := equipOnlineResponse{}
-	err = services.RequestWithoutResponse(ctx, req, url, header, &resp)
-	if err != nil {
-		return "", err
-	}
-	if resp.Data == nil {
-		return "", errors.New("response data is nil")
-	}
-
-	return resp.Data.EquipmentID, nil
+	return services.RequestWithoutResponse(ctx, req, url, header, &equipOnlineResponse{})
 }

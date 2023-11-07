@@ -69,7 +69,7 @@ func (e *equipSetLoadBalanceResponse) GetMsg() string {
 type equipSetLoadBalanceResponseDetail struct {
 }
 
-func SetLoadBalanceRequestWithG(ctx context.Context, req services.CallbackRequest) error {
+func SetLoadBalanceRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.SetLoadBalance)
 
 	url := services.GetCallbackURL(req)

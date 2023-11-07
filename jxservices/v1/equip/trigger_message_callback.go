@@ -13,7 +13,7 @@ type equipCallStatusNotificationCallbackRequest struct {
 	Callback services.CB `json:"callback"`
 }
 
-func (*equipCallStatusNotificationCallbackRequest) GetName() string {
+func (equipCallStatusNotificationCallbackRequest) GetName() string {
 	return services.CallStatusNotification.String()
 }
 
@@ -60,7 +60,7 @@ func (resp *equipCallStatusNotificationCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func CallStatusNotificationCallbackRequestG(ctx context.Context, req services.CallbackRequest) error {
+func CallStatusNotificationCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.CallStatusNotification)
 
 	url := services.GetCallbackURL(req)

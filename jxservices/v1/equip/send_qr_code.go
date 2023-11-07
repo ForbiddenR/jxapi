@@ -13,7 +13,9 @@ type EquipSendQRCodeRequest struct {
 }
 
 type EquipSendQRCodeRequestDetail struct {
-	
+	EvseSerial      *string `json:"evseSerial" validate:"-"`
+	ConnectorSerial string  `json:"connectorSerial" validate:"required"`
+	Qrcode          string  `json:"qrcode" validate:"required"`
 }
 
 func (s *EquipSendQRCodeRequest) UnmarshalJSON(data []byte) error {

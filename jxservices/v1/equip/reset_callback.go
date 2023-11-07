@@ -54,6 +54,7 @@ var _ services.Response = &equipResetResponse{}
 
 type equipResetResponse struct {
 	api.Response
+	Data *equipResetResponseDetail `json:"data"`
 }
 
 func (resp *equipResetResponse) GetStatus() int {
@@ -67,7 +68,7 @@ func (resp *equipResetResponse) GetMsg() string {
 type equipResetResponseDetail struct {
 }
 
-func ResetCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {
+func ResetCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.Reset)
 
 	url := services.GetCallbackURL(req)

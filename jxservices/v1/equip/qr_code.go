@@ -13,10 +13,11 @@ type equipQRCodeRequest struct {
 }
 
 type equipQRCoeRequestDetail struct {
-	
+	EvseSerial  *string `json:"evseSerial"`
+	ConnectorId string  `json:"connectorSerial"`
 }
 
-func NewEquipQRCodeRequest(sn, pod, msgID string, protocol *services.Protocol) *equipQRCodeRequest {
+func NewEquipQRCodeRequest(sn, pod, msgID string, protocol *services.Protocol, connectorId string) *equipQRCodeRequest {
 	return &equipQRCodeRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -25,7 +26,9 @@ func NewEquipQRCodeRequest(sn, pod, msgID string, protocol *services.Protocol) *
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Data: &equipQRCoeRequestDetail{},
+		Data: &equipQRCoeRequestDetail{
+			ConnectorId: connectorId,
+		},
 	}
 }
 
@@ -41,6 +44,7 @@ type equipQRCodeResponse struct {
 }
 
 type equipQRCodeResponseDetail struct {
+	Qrcode string `json:"qrcode"`
 }
 
 func (q *equipQRCodeResponse) GetStatus() int {
@@ -51,10 +55,10 @@ func (q *equipQRCodeResponse) GetMsg() string {
 	return q.Msg
 }
 
-func QRCode(ctx context.Context, req services.Request) error {
+func QRCodeRequest(ctx context.Context, req services.Request) (*equipQRCodeResponse, error) {
 	header := services.GetSimpleHeaderValue(services.QRCode)
 
 	url := services.GetSimpleURL(req)
 
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipQRCodeResponse{})
+	return services.RequestWithResponse(ctx, req, url, header, &equipQRCodeResponse{})
 }

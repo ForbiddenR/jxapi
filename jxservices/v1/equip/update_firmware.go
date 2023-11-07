@@ -13,11 +13,13 @@ type EquipUpdateFirmwareRequest struct {
 }
 
 type EquipUpdateFirmwareRequestDetail struct {
-	Location        string `json:"location"`
-	RequestID       *int64 `json:"requestId,omitempty"`
-	Retries         *int   `json:"retries,omitempty"`
-	RetryInterval   *int   `json:"retryInterval,omitempty"`
-	InstallDateTime *int64 `json:"installDateTime,omitempty"`
+	Location        string   `json:"location"`
+	RequestID       *int64   `json:"requestId,omitempty"`
+	Retries         *int     `json:"retries,omitempty"`
+	RetryInterval   *int     `json:"retryInterval,omitempty"`
+	InstallDateTime *int64   `json:"installDateTime,omitempty"`
+	Params          []string `json:"params,omitempty"`
+	VendorId        *string  `json:"vendorId,omitempty"`
 }
 
 func (r *EquipUpdateFirmwareRequest) UnmarshalJSON(b []byte) error {

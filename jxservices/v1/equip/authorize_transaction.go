@@ -52,7 +52,7 @@ type equipAuthorizeTransactionResponseDetail struct {
 	IdTokenInfo IdTokenInfo `json:"idTokenInfo" validate:"required"`
 }
 
-func AuthorizeTransactionRequestWithGeneric(ctx context.Context, req *equipAuthorizeTransactionRequest) (*equipAuthorizeTransactionResponse, error) {
+func AuthorizeTransactionRequest(ctx context.Context, req *equipAuthorizeTransactionRequest) (*equipAuthorizeTransactionResponse, error) {
 	header := services.GetSimpleHeaderValue(services.Authorize)
 
 	url := services.GetSimpleURL(req)

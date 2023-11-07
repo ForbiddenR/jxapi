@@ -52,7 +52,7 @@ func (resp *equipBootNotificationResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func BootNotificationRequestWithGeneric(ctx context.Context, req *equipBootNotificationRequest) error {
+func BootNotificationRequest(ctx context.Context, req *equipBootNotificationRequest) error {
 	header := services.GetSimpleHeaderValue(services.Register)
 
 	url := services.GetSimpleURL(req)
