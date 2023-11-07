@@ -16,14 +16,14 @@ type equipGetIntellectChargeRequest struct {
 
 type equipGetIntellectChargeRequestDetail struct {
 	services.CB
-	EVSE           EVSE     `json:"evse"`
-	IntellectType  uint8    `json:"type"`
-	IntellectId    string   `json:"intellectId"`
-	StartTime      string   `json:"startTime"`
-	EndTime        *string  `json:"endTime"`
-	EndElectricity *float64 `json:"endElectricity"`
-	EndSoc         *float64 `json:"endSOC"`
-	Status         uint8    `json:"status"`
+	EVSE           EVSE    `json:"evse"`
+	IntellectType  uint8   `json:"type"`
+	IntellectId    string  `json:"intellectId"`
+	StartTime      string  `json:"startTime"`
+	EndTime        *string `json:"endTime"`
+	EndElectricity *int    `json:"endElectricity"`
+	EndSoc         *int    `json:"endSOC"`
+	Status         uint8   `json:"status"`
 }
 
 func (*equipGetIntellectChargeRequest) GetName() string {
