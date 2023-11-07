@@ -22,6 +22,7 @@ type equipNotifyEventRequestData struct {
 	Clean         bool   `json:"clean"`
 	EventID       int64  `json:"eventId"`
 	RemoteAddress string `json:"remoteAddress"`
+	ConnectorId   string `json:"connectorSerial"`
 }
 
 type equipNotifyEventResponse struct {
@@ -36,7 +37,7 @@ func (r *equipNotifyEventResponse) GetMsg() string {
 	return r.Msg
 }
 
-func NewNotifyEventRequest(sn, pod, msgID string, p *services.Protocol, code int64, time int64, clean bool, eventID int64, remoteAddress string) *equipNotifyEventRequest {
+func NewNotifyEventRequest(sn, pod, msgID string, p *services.Protocol, code, time int64, clean bool, eventID int64, remoteAddress, connectorId string) *equipNotifyEventRequest {
 	return &equipNotifyEventRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -51,6 +52,7 @@ func NewNotifyEventRequest(sn, pod, msgID string, p *services.Protocol, code int
 			Clean:         clean,
 			EventID:       eventID,
 			RemoteAddress: remoteAddress,
+			ConnectorId:   connectorId,
 		},
 	}
 }
