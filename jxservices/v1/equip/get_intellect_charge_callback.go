@@ -10,7 +10,8 @@ import (
 
 type equipGetIntellectChargeRequest struct {
 	services.Base
-	Callback *equipGetIntellectChargeRequestDetail `json:"callback"`
+	Callback services.CB                           `json:"callback"`
+	Data     *equipGetIntellectChargeRequestDetail `json:"data"`
 }
 
 type equipGetIntellectChargeRequestDetail struct {
@@ -39,8 +40,8 @@ func NewEquipGetIntellectChargeCallbackRequest(sn, pod, msgID string, p *service
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetIntellectChargeRequestDetail{
-			CB: services.NewCB(status),
+		Callback: services.NewCB(status),
+		Data: &equipGetIntellectChargeRequestDetail{
 			EVSE: EVSE{
 				Id:          evseId,
 				ConnectorId: cid,
@@ -63,9 +64,8 @@ func NewEquipGetIntellectChargeCallbackRequestError(sn, pod, msgID string, p *se
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetIntellectChargeRequestDetail{
-			CB: services.NewCBError(err),
-		},
+		Callback: services.NewCBError(err),
+		Data:     &equipGetIntellectChargeRequestDetail{},
 	}
 	return req
 }

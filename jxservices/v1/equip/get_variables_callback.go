@@ -10,11 +10,12 @@ import (
 
 type equipGetVariablesCallbackRequest struct {
 	services.Base
-	Callback *equipGetVariablesCallbackRequestDetail `json:"callback"`
+	Callback services.CB `json:"callback"`
+	Data *equipGetVariablesCallbackRequestDetail `json:"data"`
 }
 
 type equipGetVariablesCallbackRequestDetail struct {
-	services.CB
+	// services.CB
 	// Variable   VariableAttribute `json:"variable"`
 	Variable struct {
 		Value    string     `json:"value"`
@@ -38,9 +39,8 @@ func NewEquipGetVariablesCallbackRequest(sn, pod, msgID string, p *services.Prot
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetVariablesCallbackRequestDetail{
-			CB: services.NewCB(status),
-		},
+		Callback:  services.NewCB(status),
+		Data:      &equipGetVariablesCallbackRequestDetail{},
 	}
 	return req
 }
@@ -54,9 +54,8 @@ func NewEquipGetVariablesRequestError(sn, pod, msgID string, p *services.Protoco
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetVariablesCallbackRequestDetail{
-			CB: services.NewCBError(err),
-		},
+		Callback:  services.NewCBError(err),
+		Data:      &equipGetVariablesCallbackRequestDetail{},
 	}
 	return req
 }

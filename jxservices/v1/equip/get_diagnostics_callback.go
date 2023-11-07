@@ -10,7 +10,8 @@ import (
 
 type equipGetDiagnosticsCallbackRequest struct {
 	services.Base
-	Callback *equipGetDiagnosticsCallbackRequestDetail `json:"callback"`
+	Callback services.CB                               `json:"callback"`
+	Data     *equipGetDiagnosticsCallbackRequestDetail `json:"data"`
 }
 
 func (s *equipGetDiagnosticsCallbackRequest) GetName() string {
@@ -18,7 +19,7 @@ func (s *equipGetDiagnosticsCallbackRequest) GetName() string {
 }
 
 type equipGetDiagnosticsCallbackRequestDetail struct {
-	services.CB
+	// services.CB
 	Filename *string `json:"filename"`
 }
 
@@ -31,9 +32,8 @@ func NewEquipGetDiagnosticsCallbackRequest(sn, pod, msgId string, p *services.Pr
 			AccessPod:   pod,
 			MsgID:       msgId,
 		},
-		Callback: &equipGetDiagnosticsCallbackRequestDetail{
-			CB: services.NewCB(status),
-		},
+		Callback: services.NewCB(status),
+		Data:     &equipGetDiagnosticsCallbackRequestDetail{},
 	}
 	return req
 }
@@ -47,9 +47,8 @@ func NewEquipGetDiagnosticsCallbackRequestError(sn, pod, msgID string, p *servic
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetDiagnosticsCallbackRequestDetail{
-			CB: services.NewCBError(err),
-		},
+		Callback: services.NewCBError(err),
+		Data:     &equipGetDiagnosticsCallbackRequestDetail{},
 	}
 	return req
 }

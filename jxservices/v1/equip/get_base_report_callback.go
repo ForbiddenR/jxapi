@@ -10,11 +10,12 @@ import (
 
 type equipGetBaseReportCallbackRequest struct {
 	services.Base
-	Callback *equipGetBaseReportCallbackRequestDetail `json:"callback"`
+	Callback services.CB                              `json:"callback"`
+	Data     *equipGetBaseReportCallbackRequestDetail `json:"data"`
 }
 
 type equipGetBaseReportCallbackRequestDetail struct {
-	services.CB
+	// services.CB
 	Variable   []equipGetBaseReportCallbackRequestDetailVariable `json:"variable"`
 	UnknownKey []string                                          `json:"unknownKey,omitempty"`
 }
@@ -57,18 +58,17 @@ func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status in
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetBaseReportCallbackRequestDetail{
-			CB: services.NewCB(status),
-		},
+		Callback: services.NewCB(status),
+		Data:     &equipGetBaseReportCallbackRequestDetail{},
 	}
 	// if len(variable) > 0 {
 	// 	req.Callback.Variable = variable
 	// }
 
-	req.Callback.Variable = make([]equipGetBaseReportCallbackRequestDetailVariable, 0, length)
+	req.Data.Variable = make([]equipGetBaseReportCallbackRequestDetailVariable, 0, length)
 
 	if len(unknownKey) > 0 {
-		req.Callback.UnknownKey = unknownKey
+		req.Data.UnknownKey = unknownKey
 	}
 
 	return req
@@ -83,9 +83,8 @@ func NewEquipGetBaseReportCallbackRequest(sn, pod, msgID string, p *services.Pro
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetBaseReportCallbackRequestDetail{
-			CB: services.NewCB(status),
-		},
+		Callback: services.NewCB(status),
+		Data:     &equipGetBaseReportCallbackRequestDetail{},
 	}
 	return req
 }
@@ -99,9 +98,8 @@ func NewEquipGetBaseReportRequestError(sn, pod, msgID string, p *services.Protoc
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-		Callback: &equipGetBaseReportCallbackRequestDetail{
-			CB: services.NewCBError(err),
-		},
+		Callback: services.NewCBError(err),
+		Data:     &equipGetBaseReportCallbackRequestDetail{},
 	}
 	return req
 }
