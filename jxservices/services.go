@@ -246,7 +246,7 @@ func (p *Protocol) UnmarshalJSON(data []byte) error {
 			return errors.New("invalid OCPP version: " + v.Version)
 		}
 	case "IEC104":
-		if v.Version != "0.1" && v.Version != "0.2" && v.Version != "0.3" && v.Version != "0.4" {
+		if v.Version != "0.1" && v.Version != "0.2" && v.Version != "0.3" && v.Version != "0.4" && v.Version != "0.5" {
 			return errors.New("invalid IEC104 version: " + v.Version)
 		}
 	default:
@@ -264,6 +264,7 @@ var iec001 = &Protocol{Name: "IEC104", Version: "0.1"}
 var iec002 = &Protocol{Name: "IEC104", Version: "0.2"}
 var iec003 = &Protocol{Name: "IEC104", Version: "0.3"}
 var iec004 = &Protocol{Name: "IEC104", Version: "0.4"}
+var iec005 = &Protocol{Name: "IEC104", Version: "0.5"}
 
 func OCPP16() *Protocol {
 	return ocpp16p
@@ -287,6 +288,10 @@ func IEC003() *Protocol {
 
 func IEC004() *Protocol {
 	return iec004
+}
+
+func IEC005() *Protocol {
+	return iec005
 }
 
 // CB includes callback information
