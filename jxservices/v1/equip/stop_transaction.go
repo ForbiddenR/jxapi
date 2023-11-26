@@ -112,6 +112,7 @@ const (
 	StoppingReasonTypePowerQuality                                 StoppingReasonType = 92
 	StoppingReasonTypeSocLimitReached                              StoppingReasonType = 93
 	StoppingReasonTypeStoppedByEV                                  StoppingReasonType = 94
+	StoppingReasonTypeStoppedByScreen                              StoppingReasonType = 95
 )
 
 // This feature only supports for the version "OCPP1.6".
