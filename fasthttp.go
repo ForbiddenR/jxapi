@@ -88,7 +88,7 @@ func sendPostRequest(_ context.Context, url string, requestBody []byte, header m
 //	return errName, know
 //}
 
-// get方式请求
+// get request
 //func (a *ApiServer) sendGetRequest() {
 //	req := fasthttp.AcquireRequest()
 //	req.SetRequestURI("http://localhost:8080/")
