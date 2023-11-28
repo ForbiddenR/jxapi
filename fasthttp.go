@@ -21,7 +21,7 @@ func SendRequest(ctx context.Context, url string, protocol interface{}, header m
 	return sendPostRequest(ctx, url, reqEntityBytes, header)
 }
 
-func sendPostRequest(ctx context.Context, url string, requestBody []byte, header map[string]string) ([]byte, error) {
+func sendPostRequest(_ context.Context, url string, requestBody []byte, header map[string]string) ([]byte, error) {
 	req := fasthttp.AcquireRequest()
 	req.SetRequestURI(url)
 	req.Header.SetMethod(fasthttp.MethodPost)
