@@ -248,3 +248,9 @@ type Tariff struct {
 	Flat          float64 `json:"flat"`
 	Valley        float64 `json:"valley"`
 }
+
+type Variable struct {
+	Key      string  `json:"key"`
+	Readonly bool    `json:"readonly"`
+	Value    *string `json:"value,omitempty"`
+}

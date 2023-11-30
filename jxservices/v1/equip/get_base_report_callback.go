@@ -17,13 +17,14 @@ type equipGetBaseReportCallbackRequest struct {
 type equipGetBaseReportCallbackRequestDetail struct {
 	// services.CB
 	Variable   []equipGetBaseReportCallbackRequestDetailVariable `json:"variable"`
+	Variables  []Variable                                        `json:"variables"`
 	UnknownKey []string                                          `json:"unknownKey,omitempty"`
 }
 
 type equipGetBaseReportCallbackRequestDetailVariable struct {
 	Key      string  `json:"key"`
 	Readonly bool    `json:"readonly"`
-	Value    *string `json:"value"`
+	Value    *string `json:"value,omitempty"`
 }
 
 func NewEquipGetBaseReportCallbackRequestDetailVariable(key string, readonly bool) equipGetBaseReportCallbackRequestDetailVariable {
@@ -66,6 +67,7 @@ func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status in
 	// }
 
 	req.Data.Variable = make([]equipGetBaseReportCallbackRequestDetailVariable, 0, length)
+	req.Data.Variables = make([]Variable, 0, length)
 
 	if len(unknownKey) > 0 {
 		req.Data.UnknownKey = unknownKey
