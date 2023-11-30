@@ -16,6 +16,7 @@ type equipGetBaseReportCallbackRequest struct {
 
 type equipGetBaseReportCallbackRequestDetail struct {
 	// services.CB
+	// lagacy
 	Variable   []equipGetBaseReportCallbackRequestDetailVariable `json:"variable"`
 	Variables  []Variable                                        `json:"variables"`
 	UnknownKey []string                                          `json:"unknownKey,omitempty"`
