@@ -32,6 +32,17 @@ type LoginRequestConfig struct {
 	ManufacturerCode string
 }
 
+func NewLogin(base services.Base, modelCode, manufacturerCode string) *equipLoginRequest {
+	req := &equipLoginRequest{
+		Base: base,
+		Data: &equipLoginRequestDetail{
+			ModelCode:          modelCode,
+			ManufacturerCode:   manufacturerCode,
+		},
+	}
+	return req
+}
+
 func NewEquipLoginRequestWithConfig(config *LoginRequestConfig) *equipLoginRequest {
 	return NewEquipLoginRequest(config.Sn, config.Pod, config.MsgID, config.Protocol,
 		config.ModelCode, config.ManufacturerCode)

@@ -17,9 +17,9 @@ type equipGetBaseReportCallbackRequest struct {
 type equipGetBaseReportCallbackRequestDetail struct {
 	// services.CB
 	// lagacy
-	Variable   []equipGetBaseReportCallbackRequestDetailVariable `json:"variable"`
-	Variables  []Variable                                        `json:"variables"`
-	UnknownKey []string                                          `json:"unknownKey,omitempty"`
+	Variable   []Variable `json:"variable"`
+	Variables  []Variable `json:"variables"`
+	UnknownKey []string   `json:"unknownKey,omitempty"`
 }
 
 type equipGetBaseReportCallbackRequestDetailVariable struct {
@@ -67,13 +67,12 @@ func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status in
 	// 	req.Callback.Variable = variable
 	// }
 
-	req.Data.Variable = make([]equipGetBaseReportCallbackRequestDetailVariable, 0, length)
+	req.Data.Variable = make([]Variable, 0, length)
 	req.Data.Variables = []Variable(nil)
 
 	if len(unknownKey) > 0 {
 		req.Data.UnknownKey = unknownKey
 	}
-
 	return req
 }
 

@@ -219,6 +219,49 @@ type Base struct {
 	// Callback    *CB       `json:"callback,omitempty"`
 }
 
+type BaseConfig struct {
+	equipmentSn string
+	protocol    *Protocol
+	category    string
+	accessPod   string
+	msgID       string
+}
+
+func (b *BaseConfig) EquipmentSn(sn string) *BaseConfig {
+	b.equipmentSn = sn
+	return b
+}
+
+func (b *BaseConfig) Protocol(p *Protocol) *BaseConfig {
+	b.protocol = p
+	return b
+}
+
+func (b *BaseConfig) Category(cate string) *BaseConfig {
+	b.category = cate
+	return b
+}
+
+func (b *BaseConfig) Hostname(hostname string) *BaseConfig {
+	b.accessPod = hostname
+	return b
+}
+
+func (b *BaseConfig) MsgID(msgID string) *BaseConfig {
+	b.msgID = msgID
+	return b
+}
+
+func (b *BaseConfig) Build() Base {
+	return Base{
+		EquipmentSn: b.equipmentSn,
+		Protocol:    b.protocol,
+		Category:    b.category,
+		AccessPod:   b.accessPod,
+		MsgID:       b.msgID,
+	}
+}
+
 type Protocol struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
