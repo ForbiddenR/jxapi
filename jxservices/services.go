@@ -227,6 +227,10 @@ type BaseConfig struct {
 	msgID       string
 }
 
+func NewBaseConfig() *BaseConfig {
+	return &BaseConfig{}
+}
+
 func (b *BaseConfig) EquipmentSn(sn string) *BaseConfig {
 	b.equipmentSn = sn
 	return b
