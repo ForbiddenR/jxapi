@@ -68,7 +68,7 @@ func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status in
 	// }
 
 	req.Data.Variable = make([]equipGetBaseReportCallbackRequestDetailVariable, 0, length)
-	req.Data.Variables = make([]Variable, 0, length)
+	req.Data.Variables = []Variable(nil)
 
 	if len(unknownKey) > 0 {
 		req.Data.UnknownKey = unknownKey

@@ -43,7 +43,7 @@ func NewEquipGetVariablesCallbackRequest(sn, pod, msgID string, p *services.Prot
 		Callback: services.NewCB(status),
 		Data:     &equipGetVariablesCallbackRequestDetail{},
 	}
-	req.Data.Variables = make([]Variable, 1)
+	req.Data.Variables = []Variable(nil)
 	return req
 }
 
