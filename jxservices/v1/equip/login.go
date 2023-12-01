@@ -27,26 +27,25 @@ func (equipLoginRequest) GetName() string {
 }
 
 type LoginRequestConfig struct {
-	services.ReusedConfig
 	ModelCode        string
 	ManufacturerCode string
 }
 
-func NewLogin(base services.Base, modelCode, manufacturerCode string) *equipLoginRequest {
+func NewLogin(base services.Base, config *LoginRequestConfig) *equipLoginRequest {
 	req := &equipLoginRequest{
 		Base: base,
 		Data: &equipLoginRequestDetail{
-			ModelCode:          modelCode,
-			ManufacturerCode:   manufacturerCode,
+			ModelCode:        config.ModelCode,
+			ManufacturerCode: config.ManufacturerCode,
 		},
 	}
 	return req
 }
 
-func NewEquipLoginRequestWithConfig(config *LoginRequestConfig) *equipLoginRequest {
-	return NewEquipLoginRequest(config.Sn, config.Pod, config.MsgID, config.Protocol,
-		config.ModelCode, config.ManufacturerCode)
-}
+// func NewEquipLoginRequestWithConfig(config *LoginRequestConfig) *equipLoginRequest {
+// 	return NewEquipLoginRequest(config.Sn, config.Pod, config.MsgID, config.Protocol,
+// 		config.ModelCode, config.ManufacturerCode)
+// }
 
 func NewEquipLoginRequest(sn, pod, msgID string, p *services.Protocol,
 	modelCode, manufacturerCode string) *equipLoginRequest {
