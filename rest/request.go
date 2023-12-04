@@ -3,6 +3,7 @@ package rest
 import (
 	"context"
 	"encoding/json"
+	"net/url"
 	"time"
 
 	"github.com/ForbiddenR/jxapi/apierrors"
@@ -13,6 +14,7 @@ type Request struct {
 	c *RESTClient
 
 	request *fasthttp.Request
+	path    string
 
 	// output
 	err error
@@ -31,11 +33,11 @@ func (r *Request) Verb(verb string) *Request {
 	return r
 }
 
-func (r *Request) RequestURI(url string) *Request {
+func (r *Request) RequestURI(uri string) *Request {
 	if r.err != nil {
 		return r
 	}
-	r.request.SetRequestURI(url)
+	r.path = uri
 	return r
 }
 
@@ -59,7 +61,13 @@ func (r *Request) Body(body interface{}) *Request {
 	return r
 }
 
-func (r *Request) Do(ctx context.Context) error {
+func (r *Request) Do(ctx context.Context) Result {
+	finalURL := &url.URL{}
+	if r.c.base != nil {
+		*finalURL = *r.c.base
+	}
+	finalURL.Path = r.path
+	r.request.SetRequestURI(finalURL.String())
 	resp := fasthttp.AcquireResponse()
 	defer func() {
 		fasthttp.ReleaseResponse(resp)
@@ -67,17 +75,36 @@ func (r *Request) Do(ctx context.Context) error {
 	}()
 	err := r.c.Client.DoTimeout(r.request, resp, 3*time.Second)
 	if err != nil {
-		return apierrors.GetFailedRequestDoTimeoutError(err)
+		return Result{err: apierrors.GetFailedRequestDoTimeoutError(err)}
 	}
 	if statusCode := resp.StatusCode(); statusCode != fasthttp.StatusOK {
 		if statusCode == fasthttp.StatusNotFound {
-			return ErrNotFound
+			return Result{err: ErrNotFound}
 		}
-		return ErrServicesException
+		return Result{err: ErrServicesException}
 	}
 	respBody := resp.Body()
 	if len(respBody) == 0 {
-		return ErrBodyIsNil
+		return Result{err: ErrBodyIsNil}
 	}
-	return nil
+	body := make([]byte, len(respBody))
+	copy(body, respBody)
+	return Result{body: body}
+}
+
+// Error returns any error encountered construcing the reuest, if any.
+func (r *Request) Error() error {
+	return r.err
+}
+
+type Result struct {
+	body []byte
+	err  error
+}
+
+func (r Result) Into(obj interface{}) error {
+	if r.err != nil {
+		return r.err
+	}
+	return json.Unmarshal(r.body, obj)
 }

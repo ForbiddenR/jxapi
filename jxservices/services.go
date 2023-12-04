@@ -424,8 +424,30 @@ func GetSimpleURL(req Request) string {
 	return api.ServicesUrl + Equip + "/" + req.GetName()
 }
 
+func GetSimpleURLNew(req Request) string {
+	return  Equip + "/" + req.GetName()
+}
+
 func GetCallbackURL(req Request) string {
 	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
+}
+
+func RequestNew(ctx context.Context, req Request, url string, header map[string]string) error {
+	resp := &api.Response{}
+	err := api.ServiceClient.
+		Post().
+		RequestURI(url).
+		Body(req).
+		SetHeader(header).
+		Do(ctx).
+		Into(resp)
+	if err != nil {
+		return err
+	}
+	if resp.Status == 1 {
+		return errors.New(resp.Msg)
+	}
+	return err
 }
 
 func RequestGeneral(ctx context.Context, req Request, url string, header map[string]string) error {

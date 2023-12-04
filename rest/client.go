@@ -49,3 +49,15 @@ func NewRestClient(baseURL *url.URL, config ClientContentConfig, client *fasthtt
 		Client: client,
 	}, nil
 }
+
+func (c *RESTClient) Verb(verb string) *Request {
+	return NewRequest(c).Verb(verb)
+}
+
+func (c *RESTClient) Post() *Request {
+	return c.Verb(fasthttp.MethodPost)
+}
+
+func (c *RESTClient) Get() *Request {
+	return c.Verb(fasthttp.MethodGet)
+}

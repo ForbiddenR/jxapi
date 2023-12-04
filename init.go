@@ -1,10 +1,14 @@
 package api
 
 import (
+	"net/url"
 	"time"
 
+	"github.com/ForbiddenR/jxapi/rest"
 	"github.com/valyala/fasthttp"
 )
+
+var ServiceClient *rest.RESTClient
 
 func Init(esamUrl, servicesUrl string, readTimeout, writeTimeout, maxIdleConnDuration time.Duration, maxConnsPerHost int) {
 	EsamUrl, ServicesUrl = esamUrl, servicesUrl
@@ -82,5 +86,10 @@ func InitApi(esamUrl, servicesUrl string, opts ...Option) (err error) {
 		MaxIdleConnDuration: options.maxIdleConnDuration,
 		MaxConnsPerHost:     options.maxConnsPerHost,
 	}
-	return nil
+	service, err := url.Parse(servicesUrl)
+	if err != nil {
+		return err
+	}
+	ServiceClient, err = rest.NewRestClient(service, rest.ClientContentConfig{}, client)
+	return err
 }

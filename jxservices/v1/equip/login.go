@@ -84,3 +84,11 @@ func LoginRequest(ctx context.Context, req services.Request) error {
 
 	return services.RequestWithoutResponse(ctx, req, url, header, &equipLoginResponse{})
 }
+
+func LoginRequestNew(ctx context.Context, req services.Request) error {
+	header := services.GetSimpleHeaderValue(services.Login)
+
+	url := services.GetSimpleURLNew(req)
+
+	return services.RequestNew(ctx ,req, url, header)
+}
