@@ -4,6 +4,7 @@ import (
 	"context"
 
 	api "github.com/ForbiddenR/jxapi"
+	"github.com/ForbiddenR/jxapi/jxservices"
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
@@ -19,6 +20,12 @@ type equipStatusNotificationRequestDetail struct {
 	ErrorCode       *string `json:"errorCode,omitempty"`
 	VendorErrorCode *string `json:"vendorErrorCode"`
 	Timestamp       int64   `json:"timestamp"`
+}
+
+type StatusNotificationRequestConfig struct {
+	ConnectorSerial string
+	Status          int
+	Timestamp       int64
 }
 
 func NewEquipStatusNotificationRequestOCPP16(sn, pod, msgID string, connectorId string, status int, errorCode StatusNotificationErrorCodeEnum, timestamp int64) *equipStatusNotificationRequest {
@@ -38,6 +45,18 @@ func NewEquipStatusNotificationRequestOCPP16(sn, pod, msgID string, connectorId 
 			Timestamp:       timestamp,
 		},
 	}
+}
+
+func NewStatusNotification(base jxservices.Base, config *StatusNotificationRequestConfig) *equipStatusNotificationRequest {
+	req := &equipStatusNotificationRequest{
+		Base: base,
+		Data: &equipStatusNotificationRequestDetail{
+			ConnectorSerial: config.ConnectorSerial,
+			Status: config.Status,
+			Timestamp: config.Timestamp,
+		},
+	}
+	return req
 }
 
 func NewEquipStatusNotificationRequest(sn, pod, msgID string, p *services.Protocol, connectorId string, status int, timestamp int64) *equipStatusNotificationRequest {
