@@ -65,6 +65,8 @@ func NewEquipLoginRequest(sn, pod, msgID string, p *services.Protocol,
 	return request
 }
 
+var _ services.Response = &equipLoginResponse{}
+
 type equipLoginResponse struct {
 	api.Response
 }
@@ -79,16 +81,14 @@ func (resp *equipLoginResponse) GetMsg() string {
 
 func LoginRequest(ctx context.Context, req services.Request) error {
 	header := services.GetSimpleHeaderValue(services.Login)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipLoginResponse{})
+	url := services.GetSimplePath(req)
+	return services.Transport(ctx, req, url, header)
 }
 
-func LoginRequestNew(ctx context.Context, req services.Request) error {
-	header := services.GetSimpleHeaderValue(services.Login)
+// func LoginRequest(ctx context.Context, req services.Request) error {
+// 	header := services.GetSimpleHeaderValue(services.Login)
 
-	url := services.GetSimpleURLNew(req)
+// 	url := services.GetSimpleURL(req)
 
-	return services.RequestNew(ctx ,req, url, header)
-}
+// 	return services.RequestWithoutResponse(ctx, req, url, header, &equipLoginResponse{})
+// }
