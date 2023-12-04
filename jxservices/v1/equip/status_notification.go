@@ -4,7 +4,6 @@ import (
 	"context"
 
 	api "github.com/ForbiddenR/jxapi"
-	"github.com/ForbiddenR/jxapi/jxservices"
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
@@ -47,7 +46,7 @@ func NewEquipStatusNotificationRequestOCPP16(sn, pod, msgID string, connectorId 
 	}
 }
 
-func NewStatusNotification(base jxservices.Base, config *StatusNotificationRequestConfig) *equipStatusNotificationRequest {
+func NewStatusNotification(base services.Base, config *StatusNotificationRequestConfig) *equipStatusNotificationRequest {
 	req := &equipStatusNotificationRequest{
 		Base: base,
 		Data: &equipStatusNotificationRequestDetail{
