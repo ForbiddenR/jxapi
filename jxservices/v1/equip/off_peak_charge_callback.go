@@ -20,7 +20,7 @@ func (*equipOffPeakChargeCallbackRequest) GetName() string {
 // type OffPeakChargeConfig struct {
 // }
 
-func NewOffPeakChargeCallbackRequest(base services.Base, status int) *equipOffPeakChargeCallbackRequest {
+func NewEquipOffPeakChargeCallbackRequest(base services.Base, status int) *equipOffPeakChargeCallbackRequest {
 	req := &equipOffPeakChargeCallbackRequest{
 		Base:     base,
 		Callback: services.NewCB(status),
@@ -28,7 +28,7 @@ func NewOffPeakChargeCallbackRequest(base services.Base, status int) *equipOffPe
 	return req
 }
 
-func NewOffPeakChargeCallbackRequestError(base services.Base, err *apierrors.CallbackError) *equipOffPeakChargeCallbackRequest {
+func NewEquipOffPeakChargeCallbackRequestError(base services.Base, err *apierrors.CallbackError) *equipOffPeakChargeCallbackRequest {
 	return &equipOffPeakChargeCallbackRequest{
 		Base:     base,
 		Callback: services.NewCBError(err),
