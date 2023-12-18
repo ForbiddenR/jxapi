@@ -10,23 +10,6 @@ const (
 	ConcurrentTx
 )
 
-// func OCPP16AuthorizeRespStatusType(s IdTokenStatusTypeEnum) ocpp16.ResponseJsonIdTagInfoStatus {
-// 	var status ocpp16.ResponseJsonIdTagInfoStatus
-// 	switch s {
-// 	case Accepted:
-// 		status = ocpp16.ResponseJsonIdTagInfoStatusAccepted
-// 	case Blocked:
-// 		status = ocpp16.ResponseJsonIdTagInfoStatusBlocked
-// 	case Expired:
-// 		status = ocpp16.ResponseJsonIdTagInfoStatusExpired
-// 	case Invalid:
-// 		status = ocpp16.ResponseJsonIdTagInfoStatusInvalid
-// 	case ConcurrentTx:
-// 		status = ocpp16.ResponseJsonIdTagInfoStatusConcurrentTx
-// 	}
-// 	return status
-// }
-
 type Component struct {
 	Name string `json:"name"`
 	Evse *EVSE  `json:"evse,omitempty"`
