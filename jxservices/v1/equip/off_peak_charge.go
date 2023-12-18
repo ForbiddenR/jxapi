@@ -32,8 +32,8 @@ func (r *EquipOffPeakChargeRequest) UnmarshalJSON(data []byte) error {
 }
 
 type EquipOffPeakChargeRequestDetail struct {
-	EvseId        *string     `json:"evseSerial,omitempty"`
-	ConnectorId   string      `json:"connectorSerial" validate:"required"`
+	EVSE
 	IdTokenType   IdTokenType `json:"idTokenType" validate:"required"`
-	RemoteStartId int64       `json:"remoteStartId,omitempty"`
+	RemoteStartId int64       `json:"remoteStartId" validate:"required"`
+	OffPeak       OffPeak     `json:"offPeak" validate:"required"`
 }

@@ -88,8 +88,7 @@ const (
 	// Customized Features about 104 protocol
 	SendQRCodeFeatureName         = "sendQRCode"
 	GetIntellectChargeFeatureName = "getIntellectCharge"
-	// TODO: The following features are not implemented yet
-	OffPeakChargeFeatureName = ""
+	OffPeakChargeFeatureName      = "offPeakCharging"
 )
 
 type Request2ServicesNameType string
@@ -143,8 +142,7 @@ const (
 	BMSLimit                    Request2ServicesNameType = "bmsLimit"
 	Login                       Request2ServicesNameType = "equipLogin"
 	GetIntellectCharge          Request2ServicesNameType = "getIntellectCharge"
-	// TODO: the name of this variable has not been difined.
-	OffPeakCharge Request2ServicesNameType = ""
+	OffPeakCharge               Request2ServicesNameType = "offPeakCharging"
 )
 
 // FirstUpper is only for the interfaces having a regular category.
@@ -275,6 +273,13 @@ type Protocol struct {
 	Version string `json:"version"`
 }
 
+func NewIEC104Protocol(version string) *Protocol {
+	return &Protocol{
+		Name:    "IEC104",
+		Version: version,
+	}
+}
+
 func (p *Protocol) String() string {
 	return p.Name + "" + p.Version
 }
@@ -363,7 +368,6 @@ func NewCBError(err *apierrors.CallbackError) CB {
 }
 
 // boxing a callback request, the function can be invoked indirectly
-
 // whichCallbackErr recognizes the type of the error, returning a corresponding callback error
 func getCallbackError(clientId string, command string, err *apierrors.Error) *apierrors.CallbackError {
 	switch err.Code {
@@ -398,14 +402,6 @@ func GetProperCallbackError(clientId string, command string, err error) *apierro
 
 	return apierrors.NewCallbackErrorOffline(clientId, command)
 }
-
-//func GetSimpleCategory(alias Request2ServicesNameType) string {
-//	return alias.FirstUpper()
-//}
-//
-//func GetCallbackCategory(alias Request2ServicesNameType) string {
-//	return alias.FirstUpper() + CallbackSuffix
-//}
 
 func GetSimpleHeaderValue(alias Request2ServicesNameType) map[string]string {
 	headerValue := make([]string, 0)

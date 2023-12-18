@@ -237,3 +237,10 @@ type Variable struct {
 	Readonly bool    `json:"readonly"`
 	Value    *string `json:"value,omitempty"`
 }
+
+type OffPeak struct {
+	SharpCurrent  int `json:"sharpCurrent"`
+	PeakCurrent   int `json:"peakCurrent"`
+	FlatCurrent   int `json:"flatCurrent"`
+	ValleyCurrent int `json:"valleyCurrent"`
+}
