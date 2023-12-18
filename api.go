@@ -49,6 +49,14 @@ type Response struct {
 	Timestamp int64  `json:"timestamp"`
 }
 
+func (r *Response) GetStatus() int {
+	return r.Status 
+}
+
+func (r *Response) GetMsg() string {
+	return r.Msg
+}
+
 func UnmarshalAndVerify(payload []byte, req any, validate *validator.Validate) error {
 	if err := json.Unmarshal(payload, req); err != nil {
 		return err

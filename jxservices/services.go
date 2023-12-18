@@ -88,6 +88,8 @@ const (
 	// Customized Features about 104 protocol
 	SendQRCodeFeatureName         = "sendQRCode"
 	GetIntellectChargeFeatureName = "getIntellectCharge"
+	// TODO: The following features are not implemented yet
+	OffPeakChargeFeatureName = ""
 )
 
 type Request2ServicesNameType string
@@ -141,6 +143,8 @@ const (
 	BMSLimit                    Request2ServicesNameType = "bmsLimit"
 	Login                       Request2ServicesNameType = "equipLogin"
 	GetIntellectCharge          Request2ServicesNameType = "getIntellectCharge"
+	// TODO: the name of this variable has not been difined.
+	OffPeakCharge Request2ServicesNameType = ""
 )
 
 // FirstUpper is only for the interfaces having a regular category.
@@ -361,7 +365,7 @@ func NewCBError(err *apierrors.CallbackError) CB {
 // boxing a callback request, the function can be invoked indirectly
 
 // whichCallbackErr recognizes the type of the error, returning a corresponding callback error
-func whichCallbackErr(clientId string, command string, err *apierrors.Error) *apierrors.CallbackError {
+func getCallbackError(clientId string, command string, err *apierrors.Error) *apierrors.CallbackError {
 	switch err.Code {
 	case apierrors.NotSupported:
 		return apierrors.NewCallbackErrorNotSupported(clientId, command)
@@ -388,7 +392,7 @@ func GetProperCallbackError(clientId string, command string, err error) *apierro
 	}
 
 	if ocpError, ok := err.(*apierrors.Error); ok {
-		cbErr := whichCallbackErr(clientId, command, ocpError)
+		cbErr := getCallbackError(clientId, command, ocpError)
 		return cbErr
 	}
 

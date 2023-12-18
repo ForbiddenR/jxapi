@@ -64,12 +64,10 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 
 func UpdateTransactionReqeust(req services.Request, p *publisher.Publisher) error {
 	ctx := context.Background()
-
 	bytes, err := json.Marshal(req)
 	if err != nil {
 		return err
 	}
-
 	message := publisher.Message{
 		Context: ctx,
 		Key:     updateTransactionQueue,
@@ -79,7 +77,6 @@ func UpdateTransactionReqeust(req services.Request, p *publisher.Publisher) erro
 		},
 	}
 	err = p.Publish(message)
-
 	if err != nil {
 		return err
 	}

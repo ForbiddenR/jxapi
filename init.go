@@ -8,7 +8,7 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-var ServiceClient *rest.RESTClient
+var ServiceClient rest.Interface
 
 func Init(esamUrl, servicesUrl string, readTimeout, writeTimeout, maxIdleConnDuration time.Duration, maxConnsPerHost int) {
 	EsamUrl, ServicesUrl = esamUrl, servicesUrl
@@ -65,7 +65,6 @@ func InitApi(esamUrl, servicesUrl string, opts ...Option) (err error) {
 			return err
 		}
 	}
-
 	if options.readTimeout == 0 {
 		options.readTimeout = 10 * time.Second
 	}
@@ -78,7 +77,6 @@ func InitApi(esamUrl, servicesUrl string, opts ...Option) (err error) {
 	if options.maxConnsPerHost == 0 {
 		options.maxConnsPerHost = 5000
 	}
-
 	EsamUrl, ServicesUrl = esamUrl, servicesUrl
 	client = &fasthttp.Client{
 		ReadTimeout:         options.readTimeout,

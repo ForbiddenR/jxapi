@@ -81,7 +81,6 @@ func (resp *equipSetVariablesCallbackResponse) GetMsg() string {
 
 func SetVariablesRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.ChangeConfiguration)
-
 	url := services.GetCallbackURL(req)
 	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetVariablesCallbackResponse{})
 }

@@ -42,11 +42,6 @@ func NewLogin(base services.Base, config *LoginRequestConfig) *equipLoginRequest
 	return req
 }
 
-// func NewEquipLoginRequestWithConfig(config *LoginRequestConfig) *equipLoginRequest {
-// 	return NewEquipLoginRequest(config.Sn, config.Pod, config.MsgID, config.Protocol,
-// 		config.ModelCode, config.ManufacturerCode)
-// }
-
 func NewEquipLoginRequest(sn, pod, msgID string, p *services.Protocol,
 	modelCode, manufacturerCode string) *equipLoginRequest {
 	request := &equipLoginRequest{
@@ -81,14 +76,8 @@ func (resp *equipLoginResponse) GetMsg() string {
 
 func LoginRequest(ctx context.Context, req services.Request) error {
 	header := services.GetSimpleHeaderValue(services.Login)
-	url := services.GetSimplePath(req)
-	return services.Transport(ctx, req, url, header)
+
+	url := services.GetSimpleURL(req)
+
+	return services.RequestWithoutResponse(ctx, req, url, header, &equipLoginResponse{})
 }
-
-// func LoginRequest(ctx context.Context, req services.Request) error {
-// 	header := services.GetSimpleHeaderValue(services.Login)
-
-// 	url := services.GetSimpleURL(req)
-
-// 	return services.RequestWithoutResponse(ctx, req, url, header, &equipLoginResponse{})
-// }

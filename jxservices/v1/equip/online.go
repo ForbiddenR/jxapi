@@ -50,8 +50,8 @@ type equipOnlineResponse struct {
 }
 
 type equipOnlineResponseDetail struct {
-	EquipmentID string `json:"equipmentId" validate:"required"`
-	EquipmentSN string `json:"equipmentSN" validate:"required"`
+	EquipmentID string `json:"equipmentId" validate:"-"`
+	EquipmentSN string `json:"equipmentSN" validate:"-"`
 }
 
 func (resp *equipOnlineResponse) GetStatus() int {
@@ -64,8 +64,6 @@ func (resp *equipOnlineResponse) GetMsg() string {
 
 func OnlineRequest(ctx context.Context, req *equipOnlineRequest) error {
 	header := services.GetSimpleHeaderValue(services.Online)
-
 	url := services.GetSimpleURL(req)
-
 	return services.RequestWithoutResponse(ctx, req, url, header, &equipOnlineResponse{})
 }

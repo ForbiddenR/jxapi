@@ -54,8 +54,6 @@ func (resp *equipBootNotificationResponse) GetMsg() string {
 
 func BootNotificationRequest(ctx context.Context, req *equipBootNotificationRequest) error {
 	header := services.GetSimpleHeaderValue(services.Register)
-
 	url := services.GetSimpleURL(req)
-
 	return services.RequestWithoutResponse(ctx, req, url, header, &equipBootNotificationResponse{})
 }
