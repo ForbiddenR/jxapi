@@ -434,13 +434,18 @@ func GetCallbackURL(req Request) string {
 
 func Transport(ctx context.Context, req Request, url string, header map[string]string) error {
 	resp := &api.Response{}
-	err := api.ServiceClient.
+	result := api.ServiceClient.
 		Post().
 		RequestURI(url).
 		Body(req).
 		SetHeader(header).
-		Do(ctx).
-		Into(resp)
+		Do(ctx)
+	if result.Error() != nil {
+		request, _ := json.Marshal(req)
+		rBytes, err := result.Raw()
+		return apierrors.GetFailedResponseUnmarshalError(url, request, rBytes, err)
+	}
+	err := result.Into(resp)
 	if err != nil {
 		return err
 	}

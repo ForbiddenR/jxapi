@@ -13,8 +13,8 @@ import (
 type Request struct {
 	c *RESTClient
 
-	request *fasthttp.Request
-	path    string
+	req  *fasthttp.Request
+	path string
 
 	// output
 	err error
@@ -22,14 +22,14 @@ type Request struct {
 
 func NewRequest(c *RESTClient) *Request {
 	r := &Request{
-		c:       c,
-		request: fasthttp.AcquireRequest(),
+		c:   c,
+		req: fasthttp.AcquireRequest(),
 	}
 	return r
 }
 
 func (r *Request) Verb(verb string) *Request {
-	r.request.Header.SetMethod(verb)
+	r.req.Header.SetMethod(verb)
 	return r
 }
 
@@ -43,7 +43,7 @@ func (r *Request) RequestURI(uri string) *Request {
 
 func (r *Request) SetHeader(header map[string]string) *Request {
 	for k, v := range header {
-		r.request.Header.Set(k, v)
+		r.req.Header.Set(k, v)
 	}
 	return r
 }
@@ -57,38 +57,69 @@ func (r *Request) Body(body interface{}) *Request {
 		r.err = err
 		return r
 	}
-	r.request.SetBodyRaw(raw)
+	r.req.SetBodyRaw(raw)
 	return r
 }
 
-func (r *Request) Do(ctx context.Context) Result {
+// request connects to the server and invokes the provided function when a server response is
+// received.
+func (r *Request) request(ctx context.Context, fn func(*fasthttp.Request, *fasthttp.Response)) error {
 	finalURL := &url.URL{}
 	if r.c.base != nil {
 		*finalURL = *r.c.base
 	}
 	finalURL.Path = r.path
-	r.request.SetRequestURI(finalURL.String())
+	r.req.SetRequestURI(finalURL.String())
 	resp := fasthttp.AcquireResponse()
 	defer func() {
 		fasthttp.ReleaseResponse(resp)
-		fasthttp.ReleaseRequest(r.request)
+		fasthttp.ReleaseRequest(r.req)
 	}()
-	err := r.c.Client.DoTimeout(r.request, resp, 3*time.Second)
+	err := r.c.Client.DoTimeout(r.req, resp, 3*time.Second)
 	if err != nil {
-		return Result{err: apierrors.GetFailedRequestDoTimeoutError(err)}
+		return apierrors.GetFailedRequestDoTimeoutError(err)
 	}
+	fn(r.req, resp)
+	return nil
+}
+
+func (r *Request) Do(ctx context.Context) Result {
+	var result Result
+	err := r.request(ctx, func(req *fasthttp.Request, resp *fasthttp.Response) {
+		result = r.transformResponse(resp, req)
+	})
+	if err != nil {
+		return Result{err: err}
+	}
+	return result
+}
+
+func (r *Request) DoRaw(ctx context.Context) ([]byte, error) {
+	var result Result
+	err := r.request(ctx, func(req *fasthttp.Request, resp *fasthttp.Response) {
+		result = r.transformResponse(resp, req)
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.body, result.err
+}
+
+// transformResponse converts an API response into a structured API object.
+func (r *Request) transformResponse(resp *fasthttp.Response, req *fasthttp.Request) Result {
+	var body []byte
+	respBody := resp.Body()
+	if len(respBody) == 0 {
+		return Result{err: ErrBodyIsNil}
+	}
+	body = make([]byte, len(respBody))
+	copy(body, respBody)
 	if statusCode := resp.StatusCode(); statusCode != fasthttp.StatusOK {
 		if statusCode == fasthttp.StatusNotFound {
 			return Result{err: ErrNotFound}
 		}
 		return Result{err: ErrServicesException}
 	}
-	respBody := resp.Body()
-	if len(respBody) == 0 {
-		return Result{err: ErrBodyIsNil}
-	}
-	body := make([]byte, len(respBody))
-	copy(body, respBody)
 	return Result{body: body}
 }
 
@@ -102,9 +133,17 @@ type Result struct {
 	err  error
 }
 
+func (r Result) Raw() ([]byte, error) {
+	return r.body, r.err
+}
+
 func (r Result) Into(obj interface{}) error {
 	if r.err != nil {
 		return r.err
 	}
 	return json.Unmarshal(r.body, obj)
+}
+
+func (r Result) Error() error {
+	return r.err
 }
