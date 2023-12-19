@@ -43,26 +43,6 @@ func TestURL(t *testing.T) {
 	assert.Equal(t, "ac/callback/sendQRCodeCallback", Equip+"/"+Callback+"/"+SendQRCode.String()+"Callback")
 }
 
-//func TestTransferFeatureName(t *testing.T) {
-//	remoteStart := protocol.RemoteStartTransactionFeatureName
-//	assert.Equal(t, transferFeatureName(remoteStart), "remote start transaction")
-//
-//	remoteStop := protocol.RemoteStopTransactionFeatureName
-//	assert.Equal(t, transferFeatureName(remoteStop), "remote stop transaction")
-//
-//	reset := protocol.ResetFeatureName
-//	assert.Equal(t, transferFeatureName(reset), "reset")
-//
-//	changeConfiguration := protocol.ChangeConfigurationFeatureName
-//	assert.Equal(t, transferFeatureName(changeConfiguration), "change configuration")
-//
-//	getConfiguration := protocol.GetConfigurationFeatureName
-//	assert.Equal(t, transferFeatureName(getConfiguration), "get configuration")
-//
-//	sendLocalList := protocol.SendLocalListFeatureName
-//	assert.Equal(t, transferFeatureName(sendLocalList), "send local list")
-//}
-
 func TestRequestWithoutResponse(t *testing.T) {
 	//req := equip.NewEquipResetRequest("sn", "pod", api.Ocpp16, 1)
 	//url := ""
@@ -75,8 +55,6 @@ func TestRequestWithoutResponse(t *testing.T) {
 	//assert.Nil(t, err)
 	//t.Log(resp)
 }
-
-
 
 func TestFeatureCollection(t *testing.T) {
 	InitFC()
