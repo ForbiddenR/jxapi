@@ -43,6 +43,6 @@ type equipOffPeakChargeCallbackResponse struct {
 
 func OffPeakChargeCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
 	header := services.GetCallbackHeaderValue(services.OffPeakCharge)
-	url := services.GetCallbackURL(req)
+	url := services.GetSimpleCallbackPath(req)
 	return services.Transport(ctx, req, url, header)
 }

@@ -428,6 +428,10 @@ func GetSimplePath(req Request) string {
 	return Equip + "/" + req.GetName()
 }
 
+func GetSimpleCallbackPath(req Request) string {
+	return Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
+}
+
 func GetCallbackURL(req Request) string {
 	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
 }
