@@ -30,23 +30,23 @@ type Intellect struct {
 type IdTokenTypeEnums int
 
 const (
-	IdTokenTypeEnumsLocalPlug          IdTokenTypeEnums      = 0
-	IdTokenTypeEnumsLocalAdmin         IdTokenTypeEnums      = 1
-	IdTokenTypeEnumsLocalIdentityCard  IdTokenTypeEnums      = 2
-	IdTokenTypeEnumsOnlineIdentityCard IdTokenTypeEnums      = 3
-	IdTokenTypeEnumsLocalWalletCard    IdTokenTypeEnums      = 4
-	IdTokenTypeEnumsLocalVIN           IdTokenTypeEnums      = 5
-	IdTokenTypeEnumsOnlineVIN          IdTokenTypeEnums      = 6
-	IdTokenTypeEnumsBluetooth          IdTokenTypeEnums      = 7
-	IdTokenTypeEnumsMAC                IdTokenTypeEnums      = 8
-	IdTokenTypeEnumsRemoteAdmin        IdTokenTypeEnums      = 9
-	IdTokenTypeEnumsRemoteUser         IdTokenTypeEnums      = 10
-	IdTokenTypeEnumsIntellect          IdTokenTypeEnums      = 11
-	IdTokenTypeEnumsUnknown            IdTokenTypeEnums      = 98
-	IdTokenTypeEnumsCentral            IdTokenTypeEnums      = 99
-	IdTokenTypeEnumsLocal              IdTokenTypeEnums      = 12
-	IdTokenTypeEnumsEMAID              IdTokenTypeEnums      = 13
-	IdTokenTypeEnumsOffPeak            IdTokenStatusTypeEnum = 14
+	IdTokenTypeEnumsLocalPlug          IdTokenTypeEnums = 0
+	IdTokenTypeEnumsLocalAdmin         IdTokenTypeEnums = 1
+	IdTokenTypeEnumsLocalIdentityCard  IdTokenTypeEnums = 2
+	IdTokenTypeEnumsOnlineIdentityCard IdTokenTypeEnums = 3
+	IdTokenTypeEnumsLocalWalletCard    IdTokenTypeEnums = 4
+	IdTokenTypeEnumsLocalVIN           IdTokenTypeEnums = 5
+	IdTokenTypeEnumsOnlineVIN          IdTokenTypeEnums = 6
+	IdTokenTypeEnumsBluetooth          IdTokenTypeEnums = 7
+	IdTokenTypeEnumsMAC                IdTokenTypeEnums = 8
+	IdTokenTypeEnumsRemoteAdmin        IdTokenTypeEnums = 9
+	IdTokenTypeEnumsRemoteUser         IdTokenTypeEnums = 10
+	IdTokenTypeEnumsIntellect          IdTokenTypeEnums = 11
+	IdTokenTypeEnumsUnknown            IdTokenTypeEnums = 98
+	IdTokenTypeEnumsCentral            IdTokenTypeEnums = 99
+	IdTokenTypeEnumsLocal              IdTokenTypeEnums = 12
+	IdTokenTypeEnumsEMAID              IdTokenTypeEnums = 13
+	IdTokenTypeEnumsOffPeak            IdTokenTypeEnums = 14
 )
 
 type AuthorizationMode int32
