@@ -67,7 +67,8 @@ func (resp *equipCallStatusNotificationCallbackResponse) GetMsg() string {
 }
 
 func CallStatusNotificationCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
-	header := services.GetCallbackHeaderValue(services.CallStatusNotification)
-	url := services.GetCallbackURL(req)
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipCallStatusNotificationCallbackResponse{})
+	// header := services.GetCallbackHeaderValue(services.CallStatusNotification)
+	// url := services.GetCallbackURL(req)
+	// return services.RequestWithoutResponse(ctx, req, url, header, &equipCallStatusNotificationCallbackResponse{})
+	return services.Transport(ctx, req)
 }
