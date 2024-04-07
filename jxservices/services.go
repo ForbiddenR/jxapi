@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strings"
 
 	api "github.com/ForbiddenR/jxapi"
@@ -134,7 +135,7 @@ const (
 	CancelIntellectCharge         Request2ServicesNameType = "cancelIntellectCharge"
 	SetPriceScheme                Request2ServicesNameType = "setPriceScheme"
 	//TriggerMessage             Request2ServicesNameType = "callStatusNotification"
-	// TODO: the name of this variable has not been difined.
+	// TODO: the name of this variable has not been defined.
 	ChargeEncryInfoNotification Request2ServicesNameType = "chargeEncryInfoNotification"
 	SetChargingProfile          Request2ServicesNameType = ""
 	ClearChargingProfile        Request2ServicesNameType = ""
@@ -245,6 +246,15 @@ func (b *BaseConfig) Protocol(p *Protocol) *BaseConfig {
 
 func (b *BaseConfig) Category(cate string) *BaseConfig {
 	b.category = cate
+	return b
+}
+
+func (b *BaseConfig) Categories(req Request) *BaseConfig {
+	if req.IsCallback() {
+		b.category = req.GetName().FirstUpper()
+	} else {
+		b.category = req.GetName().FirstUpper() + CallbackSuffix
+	}
 	return b
 }
 
@@ -421,34 +431,45 @@ func GetCallbackHeaderValue(alias Request2ServicesNameType) map[string]string {
 }
 
 func GetSimpleURL(req Request) string {
-	return api.ServicesUrl + Equip + "/" + req.GetName()
+	return api.ServicesUrl + Equip + "/" + req.GetName().String()
 }
 
 func GetSimplePath(req Request) string {
-	return Equip + "/" + req.GetName()
-}
-
-func GetSimpleCallbackPath(req Request) string {
-	return Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
+	return Equip + "/" + req.GetName().String()
 }
 
 func GetCallbackURL(req Request) string {
-	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName() + CallbackSuffix
+	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName().String() + CallbackSuffix
 }
 
-func Transport(ctx context.Context, req Request, url string, header map[string]string) error {
-	resp := &api.Response{}
+func getHeader(req Request) map[string]string {
+	if req.IsCallback() {
+		return GetCallbackHeaderValue(req.GetName())
+	}
+	return GetSimpleHeaderValue(req.GetName())
+}
+
+func getURI(req Request) string {
+	if req.IsCallback() {
+		return fmt.Sprintf("%s/%s/%s%s", Equip, Callback, req.GetName(), CallbackSuffix)
+	}
+	return fmt.Sprintf("%s/%s", Equip, req.GetName())
+}
+
+func Transport(ctx context.Context, req Request) error {
+	uri := getURI(req)
 	result := api.ServiceClient.
 		Post().
-		RequestURI(url).
+		RequestURI(uri).
 		Body(req).
-		SetHeader(header).
+		SetHeader(getHeader(req)).
 		Do(ctx)
 	if result.Error() != nil {
 		request, _ := json.Marshal(req)
 		rBytes, err := result.Raw()
-		return apierrors.GetFailedResponseUnmarshalError(url, request, rBytes, err)
+		return apierrors.GetFailedResponseUnmarshalError(uri, request, rBytes, err)
 	}
+	resp := &api.Response{}
 	err := result.Into(resp)
 	if err != nil {
 		return err
@@ -459,30 +480,29 @@ func Transport(ctx context.Context, req Request, url string, header map[string]s
 	return err
 }
 
-func RequestGeneral(ctx context.Context, req Request, url string, header map[string]string) error {
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return err
-	}
-	resp := &api.Response{}
-	err = json.Unmarshal(message, resp)
-	if err != nil {
-		request, _ := json.Marshal(req)
-		return apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
-	}
+// func RequestGeneral(ctx context.Context, req Request, url string, header map[string]string) error {
+// 	message, err := api.SendRequest(ctx, url, req, header)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	resp := &api.Response{}
+// 	err = json.Unmarshal(message, resp)
+// 	if err != nil {
+// 		request, _ := json.Marshal(req)
+// 		return apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
+// 	}
 
-	if resp.Status == 1 {
-		return errors.New(resp.Msg)
-	}
-	return err
-}
+// 	if resp.Status == 1 {
+// 		return errors.New(resp.Msg)
+// 	}
+// 	return err
+// }
 
 func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
 	message, err := api.SendRequest(ctx, url, req, header)
 	if err != nil {
 		return
 	}
-
 	err = json.Unmarshal(message, t)
 	if err != nil {
 		request, _ := json.Marshal(req)
@@ -514,49 +534,3 @@ func RequestWithResponse[T Response](ctx context.Context, req Request, url strin
 	}
 	return resp, err
 }
-
-// fillErrorCallback boxes the fields of the structs implementing the concrete interface.
-// func fillErrorCallback(req CallbackRequest, clientId, featureName string, err error) {
-// 	callbackErr := GetProperCallbackError(clientId, featureName, err).(*errors.CallbackError)
-// 	//code := string(callbackErr.Code())
-// 	//msg := callbackErr.Error()
-// 	//code, msg := processCallbackError(clientId, featureName, err)
-// 	req.SetError(callbackErr)
-// }
-
-// transferFeatureName paseres the inputted string into standard form.
-//func transferFeatureName(featureName string) string {
-//	nameSlice := make([]string, 0)
-//	var head, tail int
-//	for tail = 0; tail < len(featureName); tail++ {
-//		word := featureName[tail : tail+1]
-//		if word != strings.ToUpper(word) || tail == 0 {
-//			continue
-//		}
-//		nameSlice = append(nameSlice, strings.ToLower(featureName[head:tail]))
-//		head = tail
-//	}
-//	if head < tail {
-//		nameSlice = append(nameSlice, strings.ToLower(featureName[head:tail]))
-//	}
-//	return strings.Join(nameSlice, " ")
-//}
-
-// SendErrorCallbackRequest function is an ordinary method to send the assigned struct to the services.
-// func SendErrorCallbackRequest(req CallbackRequest, clientId, featureName string, err error,
-// 	logger *log.Logger, requestFunc func(CallbackRequest) error) {
-// 	featureName = transferFeatureName(featureName)
-// 	logger.Error(fmt.Sprintf("%s falied", featureName), zap.String("id", clientId), zap.Error(err))
-// 	if req == nil || requestFunc == nil {
-// 		logger.Error("some null input occurred in SendErrorCallbackRequest", zap.String("id", clientId))
-// 		return
-// 	}
-
-// 	fillErrorCallback(req, clientId, featureName, err)
-
-// 	err = requestFunc(req)
-// 	if err != nil {
-// 		logger.Error(fmt.Sprintf("%s fails to receive correct response of err callback request", featureName),
-// 			zap.String("id", clientId), zap.Error(err))
-// 	}
-// }

@@ -8,6 +8,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipResetCallbackRequest{}
+
 type equipResetCallbackRequest struct {
 	services.Base
 	Callback services.CB                      `json:"callback"`
@@ -17,8 +19,12 @@ type equipResetCallbackRequest struct {
 type equipResetCallbackRequestDetail struct {
 }
 
-func (r *equipResetCallbackRequest) GetName() string {
-	return services.Reset.String()
+func (equipResetCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.Reset
+}
+
+func (equipResetCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipResetCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipResetCallbackRequest {

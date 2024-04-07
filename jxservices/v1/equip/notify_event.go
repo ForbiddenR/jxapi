@@ -7,13 +7,19 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipNotifyEventRequest{}
+
 type equipNotifyEventRequest struct {
 	services.Base
 	Data *equipNotifyEventRequestData `json:"data"`
 }
 
-func (r *equipNotifyEventRequest) GetName() string {
-	return services.NotifyEvent.String()
+func (r *equipNotifyEventRequest) GetName() services.Request2ServicesNameType {
+	return services.NotifyEvent
+}
+
+func (equipNotifyEventRequest) IsCallback() bool {
+	return false
 }
 
 type equipNotifyEventRequestData struct {

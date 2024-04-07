@@ -8,13 +8,19 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipSetPriceSchemeRequest{}
+
 type equipSetPriceSchemeRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (*equipSetPriceSchemeRequest) GetName() string {
-	return services.SetPriceScheme.String()
+func (equipSetPriceSchemeRequest) GetName() services.Request2ServicesNameType {
+	return services.SetPriceScheme
+}
+
+func (equipSetPriceSchemeRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipSetPriceSchemeCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSetPriceSchemeRequest {

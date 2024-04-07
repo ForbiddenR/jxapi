@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipChargeEncryInfoNotificationRequest{}
+
 type equipChargeEncryInfoNotificationRequest struct {
 	services.Base
 	Data *equipChargeEncryInfoNotificationRequestDetail `json:"data"`
@@ -22,8 +24,12 @@ type equipChargeEncryInfoNotificationRequestDetail struct {
 	EncryType        uint64  `json:"encryType"`
 }
 
-func (equipChargeEncryInfoNotificationRequest) GetName() string {
-	return services.ChargeEncryInfoNotification.String()
+func (equipChargeEncryInfoNotificationRequest) GetName() services.Request2ServicesNameType {
+	return services.ChargeEncryInfoNotification
+}
+
+func (equipChargeEncryInfoNotificationRequest) IsCallback() bool {
+	return false
 }
 
 type ChargeEncryInfoNotificationRequestConfig struct {

@@ -8,6 +8,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipUpdateFirmwareCallbackRequest{}
+
 type equipUpdateFirmwareCallbackRequest struct {
 	services.Base
 	Callback services.CB                               `json:"callback"`
@@ -17,8 +19,12 @@ type equipUpdateFirmwareCallbackRequest struct {
 type equipUpdateFirmwareCallbackRequestDetail struct {
 }
 
-func (*equipUpdateFirmwareCallbackRequest) GetName() string {
-	return services.UpdateFirmware.String()
+func (*equipUpdateFirmwareCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.UpdateFirmware
+}
+
+func (equipUpdateFirmwareCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipUpdateFirmwareCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipUpdateFirmwareCallbackRequest {

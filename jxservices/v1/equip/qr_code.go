@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipQRCodeRequest{}
+
 type equipQRCodeRequest struct {
 	services.Base
 	Data *equipQRCoeRequestDetail `json:"data"`
@@ -32,8 +34,12 @@ func NewEquipQRCodeRequest(sn, pod, msgID string, protocol *services.Protocol, c
 	}
 }
 
-func (q *equipQRCodeRequest) GetName() string {
-	return services.QRCode.String()
+func (q *equipQRCodeRequest) GetName() services.Request2ServicesNameType {
+	return services.QRCode
+}
+
+func (q *equipQRCodeRequest) IsCallback() bool {
+	return false
 }
 
 var _ services.Response = &equipQRCodeResponse{}

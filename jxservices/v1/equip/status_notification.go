@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipStatusNotificationRequest{}
+
 type equipStatusNotificationRequest struct {
 	services.Base
 	Data *equipStatusNotificationRequestDetail `json:"data"`
@@ -75,8 +77,12 @@ func NewEquipStatusNotificationRequest(sn, pod, msgID string, p *services.Protoc
 	}
 }
 
-func (o *equipStatusNotificationRequest) GetName() string {
-	return services.StatusNotification.String()
+func (equipStatusNotificationRequest) GetName() services.Request2ServicesNameType {
+	return services.StatusNotification
+}
+
+func (equipStatusNotificationRequest) IsCallback() bool {
+	return false
 }
 
 type ConnectorStatusTypeEnum int

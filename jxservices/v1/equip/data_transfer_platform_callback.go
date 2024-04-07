@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipDataTransferRequest{}
+
 type equipDataTransferRequest struct {
 	services.Base
 	Callback *equipDataTransferRequestDetail `json:"data"`
@@ -15,8 +17,12 @@ type equipDataTransferRequest struct {
 type equipDataTransferRequestDetail struct {
 }
 
-func (r equipDataTransferRequest) GetName() string {
-	return services.DataTransfer.String()
+func (r equipDataTransferRequest) GetName() services.Request2ServicesNameType {
+	return services.DataTransfer
+}
+
+func (equipDataTransferRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipDataTransferRequest() *equipDataTransferRequest {

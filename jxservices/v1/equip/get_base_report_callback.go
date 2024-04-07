@@ -8,6 +8,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipGetBaseReportCallbackRequest{}
+
 type equipGetBaseReportCallbackRequest struct {
 	services.Base
 	Callback services.CB                              `json:"callback"`
@@ -35,20 +37,12 @@ func NewEquipGetBaseReportCallbackRequestDetailVariable(key string, readonly boo
 	}
 }
 
-// func OCPP16ConfigurationKeyToVariable(keys []ocpp16.GetConfigurationResponseJsonConfigurationKeyElem) []equipGetBaseReportCallbackRequestDetailVariable {
-// 	variable := make([]equipGetBaseReportCallbackRequestDetailVariable, 0)
-// 	for _, key := range keys {
-// 		v := NewEquipGetBaseReportCallbackRequestDetailVariable(key.Key, key.Readonly)
-// 		if key.Value != nil {
-// 			v.Value = key.Value
-// 		}
-// 		variable = append(variable, v)
-// 	}
-// 	return variable
-// }
+func (g *equipGetBaseReportCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.GetBaseReport
+}
 
-func (g *equipGetBaseReportCallbackRequest) GetName() string {
-	return services.GetBaseReport.String()
+func (g *equipGetBaseReportCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status int, length int, unknownKey []string) *equipGetBaseReportCallbackRequest {

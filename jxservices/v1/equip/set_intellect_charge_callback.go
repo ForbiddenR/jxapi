@@ -13,8 +13,12 @@ type equipSetIntellectChargeRequest struct {
 	Callback services.CB `json:"callback"`
 }
 
-func (*equipSetIntellectChargeRequest) GetName() string {
-	return services.SetIntellectCharge.String()
+func (*equipSetIntellectChargeRequest) GetName() services.Request2ServicesNameType {
+	return services.SetIntellectCharge
+}
+
+func (equipSetIntellectChargeRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipSetIntellectChargeCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSetIntellectChargeRequest {

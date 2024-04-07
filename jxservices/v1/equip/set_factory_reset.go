@@ -8,6 +8,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipSetFactoryResetRequest{}
+
 type equipSetFactoryResetRequest struct {
 	services.Base
 	Callback services.CB                        `json:"callback"`
@@ -17,8 +19,12 @@ type equipSetFactoryResetRequest struct {
 type equipSetFactoryResetRequestDetail struct {
 }
 
-func (*equipSetFactoryResetRequest) GetName() string {
-	return services.SetFactoryReset.String()
+func (*equipSetFactoryResetRequest) GetName() services.Request2ServicesNameType {
+	return services.SetFactoryReset
+}
+
+func (equipSetFactoryResetRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipSetFactoryResetRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSetFactoryResetRequest {

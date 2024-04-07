@@ -29,6 +29,8 @@ func GetOfflineReason(err error) string {
 	return Timeout
 }
 
+var _ services.Request = &equipOfflineRequest{}
+
 type equipOfflineRequest struct {
 	services.Base
 	Data *equipOfflineRequestDetail `json:"data"`
@@ -53,8 +55,12 @@ func NewEquipOfflineRequest(sn string, protocol *services.Protocol, pod, msgID s
 	}
 }
 
-func (e equipOfflineRequest) GetName() string {
-	return services.Offline.String()
+func (equipOfflineRequest) GetName() services.Request2ServicesNameType {
+	return services.Offline
+}
+
+func (equipOfflineRequest) IsCallback() bool {
+	return false
 }
 
 var _ services.Response = &equipOfflineResponse{}

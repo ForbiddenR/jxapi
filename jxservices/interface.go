@@ -2,7 +2,8 @@ package jxservices
 
 // Request interface needs to be implemented by all api.
 type Request interface {
-	GetName() string
+	GetName() Request2ServicesNameType
+	IsCallback() bool
 }
 
 // Response will be implemented by all response struct.

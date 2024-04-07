@@ -28,13 +28,19 @@ const (
 // 	}
 // }
 
+var _ services.Request = &equipSendLocalListCallbackRequest{}
+
 type equipSendLocalListCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (s *equipSendLocalListCallbackRequest) GetName() string {
-	return services.SendLocalList.String()
+func (equipSendLocalListCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.SendLocalList
+}
+
+func (equipSendLocalListCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipSendLocalListCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSendLocalListCallbackRequest {

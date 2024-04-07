@@ -14,6 +14,8 @@ const (
 	ReservationStatusNotificationRequestStautsTypeRemoved ReservationStatusNotificationRequestStautsType = 2
 )
 
+var _ services.Request = &equipReservationStatusNotificationRequest{}
+
 type equipReservationStatusNotificationRequest struct {
 	services.Base
 	Data *equipReservationStatusNotificationRequestDetail `json:"data"`
@@ -24,8 +26,12 @@ type equipReservationStatusNotificationRequestDetail struct {
 	Status        ReservationStatusNotificationRequestStautsType `json:"status"`
 }
 
-func (r equipReservationStatusNotificationRequest) GetName() string {
-	return services.ReservationStatusNotification.String()
+func (equipReservationStatusNotificationRequest) GetName() services.Request2ServicesNameType {
+	return services.ReservationStatusNotification
+}
+
+func (equipReservationStatusNotificationRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Protocol, reservationId uint64, status ReservationStatusNotificationRequestStautsType) *equipReservationStatusNotificationRequest {

@@ -10,6 +10,8 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
+var _ services.Request = &equipBMSLimitRequest{}
+
 type BMSLimitRequestInterface interface {
 	services.Request
 	Construct(BMSLimitRequestConfig)
@@ -36,8 +38,12 @@ type equipBMSLimitRequestDetail struct {
 	Prepare          bool    `json:"prepare"`
 }
 
-func (equipBMSLimitRequest) GetName() string {
-	return services.BMSLimit.String()
+func (equipBMSLimitRequest) GetName() services.Request2ServicesNameType {
+	return services.BMSLimit
+}
+
+func (equipBMSLimitRequest) IsCallback() bool {
+	return false
 }
 
 type BMSLimitRequestConfig struct {

@@ -8,6 +8,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipGetIntellectChargeRequest{}
+
 type equipGetIntellectChargeRequest struct {
 	services.Base
 	Callback services.CB                           `json:"callback"`
@@ -26,8 +28,12 @@ type equipGetIntellectChargeRequestDetail struct {
 	Status         uint8   `json:"status"`
 }
 
-func (*equipGetIntellectChargeRequest) GetName() string {
-	return services.GetIntellectCharge.String()
+func (*equipGetIntellectChargeRequest) GetName() services.Request2ServicesNameType {
+	return services.GetIntellectCharge
+}
+
+func (equipGetIntellectChargeRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipGetIntellectChargeCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int,

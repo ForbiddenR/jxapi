@@ -8,6 +8,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipGetVariablesCallbackRequest{}
+
 type equipGetVariablesCallbackRequest struct {
 	services.Base
 	Callback services.CB                             `json:"callback"`
@@ -27,8 +29,12 @@ type equipGetVariablesCallbackRequestDetail struct {
 	UnknownKey []string `json:"unknownKey,omitempty"`
 }
 
-func (g *equipGetVariablesCallbackRequest) GetName() string {
-	return services.GetConfiguration.String()
+func (equipGetVariablesCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.GetConfiguration
+}
+
+func (equipGetVariablesCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipGetVariablesCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipGetVariablesCallbackRequest {

@@ -13,13 +13,19 @@ import (
 
 const updateTransactionQueue = services.QueuePrefix + "transaction"
 
+var _ services.Request = &equipUpdateTransactionRequest{}
+
 type equipUpdateTransactionRequest struct {
 	services.Base
 	Data *equipUpdateTransactionReqeustDetail `json:"data"`
 }
 
-func (equipUpdateTransactionRequest) GetName() string {
-	return services.UpdateTransaction.String()
+func (equipUpdateTransactionRequest) GetName() services.Request2ServicesNameType {
+	return services.UpdateTransaction
+}
+
+func (equipUpdateTransactionRequest) IsCallback() bool {
+	return false
 }
 
 type equipUpdateTransactionReqeustDetail struct {

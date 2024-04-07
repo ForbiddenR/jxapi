@@ -8,13 +8,19 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipClearChargingProfileRequest{}
+
 type equipClearChargingProfileRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (equipClearChargingProfileRequest) GetName() string {
-	return services.ClearChargingProfile.String()
+func (equipClearChargingProfileRequest) GetName() services.Request2ServicesNameType {
+	return services.ClearChargingProfile
+}
+
+func (equipClearChargingProfileRequest) IsCallback() bool {
+	return true
 }
 
 func NewClearChargingProfileCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipClearChargingProfileRequest {

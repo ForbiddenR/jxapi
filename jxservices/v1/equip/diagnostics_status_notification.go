@@ -31,18 +31,24 @@ const (
 // 	return result
 // }
 
+var _ services.Request = &equipDiagnosticsStatusNotificationRequest{}
+
 type equipDiagnosticsStatusNotificationRequest struct {
 	services.Base
 	Data *equipDiagnosticsStatusNotificationRequestDetail `json:"data"`
 }
 
-func (*equipDiagnosticsStatusNotificationRequest) GetName() string {
-	return services.DiagnosticsStatusNotification.String()
-}
-
 type equipDiagnosticsStatusNotificationRequestDetail struct {
 	RequestId *int64                            `json:"requestId,omitempty"`
 	Status    DiagnosticsStatusNotificationType `json:"status"`
+}
+
+func (equipDiagnosticsStatusNotificationRequest) GetName() services.Request2ServicesNameType {
+	return services.DiagnosticsStatusNotification
+}
+
+func (equipDiagnosticsStatusNotificationRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipDiagnosticsStatusNotificationRequestOCPP16(sn, pod, msgID string, status DiagnosticsStatusNotificationType) *equipDiagnosticsStatusNotificationRequest {

@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipChargingTimerNotificationRequest{}
+
 type equipChargingTimerNotificationRequest struct {
 	services.Base
 	Data *equipChargingTimerNotificationRequestDetail `json:"data"`
@@ -33,8 +35,12 @@ type Charging struct {
 	Version         *int64  `json:"version"`
 }
 
-func (*equipChargingTimerNotificationRequest) GetName() string {
-	return services.ChargingTimerNotification.String()
+func (equipChargingTimerNotificationRequest) GetName() services.Request2ServicesNameType {
+	return services.ChargingTimerNotification
+}
+
+func (equipChargingTimerNotificationRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipChargingTimerNotificationRequest(sn, pod, msgID string, connectorId string, timerId int64, status ChargingTimerStatus) *equipChargingTimerNotificationRequest {

@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipOnlineRequest{}
+
 type equipOnlineRequest struct {
 	services.Base
 	Data *equipOnlineRequestDetail `json:"data"`
@@ -38,8 +40,12 @@ func NewEquipOnlineRequest(sn string, protocol *services.Protocol, pod, msgID st
 	}
 }
 
-func (o *equipOnlineRequest) GetName() string {
-	return services.Online.String()
+func (equipOnlineRequest) GetName() services.Request2ServicesNameType {
+	return services.Online
+}
+
+func (equipOnlineRequest) IsCallback() bool {
+	return false
 }
 
 var _ services.Response = &equipOnlineResponse{}

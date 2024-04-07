@@ -26,6 +26,8 @@ const (
 
 const bmsInfoQueue = services.QueuePrefix + "bms"
 
+var _ services.Request = &equipBMSInfoRequest{}
+
 type equipBMSInfoRequest struct {
 	services.Base
 	Data *equipBMSInfoRequestDetail `json:"data"`
@@ -42,8 +44,12 @@ type equipBMSInfoRequestDetail struct {
 	Vin          string  `json:"vin"`
 }
 
-func (equipBMSInfoRequest) GetName() string {
-	return services.BMSInfo.String()
+func (equipBMSInfoRequest) GetName() services.Request2ServicesNameType {
+	return services.BMSInfo
+}
+
+func (equipBMSInfoRequest) IsCallback() bool {
+	return false
 }
 
 type BMsInfoRequestConfig struct {

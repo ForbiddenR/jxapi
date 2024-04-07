@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipBootNotificationRequest{}
+
 type equipBootNotificationRequest struct {
 	services.Base
 	Data *equipBootNotificationRequestDetail `json:"data"`
@@ -20,8 +22,12 @@ type equipBootNotificationRequestDetail struct {
 	Imsi             *string `json:"imsi"`
 }
 
-func (r *equipBootNotificationRequest) GetName() string {
-	return services.BootNotification.String()
+func (equipBootNotificationRequest) GetName() services.Request2ServicesNameType {
+	return services.BootNotification
+}
+
+func (equipBootNotificationRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipBootNotificationRequest(sn, pod, msgID string, p *services.Protocol) *equipBootNotificationRequest {

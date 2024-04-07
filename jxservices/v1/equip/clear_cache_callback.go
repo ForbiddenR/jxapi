@@ -8,13 +8,19 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipClearCacheCallbackRequest{}
+
 type equipClearCacheCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (*equipClearCacheCallbackRequest) GetName() string {
-	return services.ClearCache.String()
+func (*equipClearCacheCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.ClearCache
+}
+
+func (equipClearCacheCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipClearCacheCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipClearCacheCallbackRequest {

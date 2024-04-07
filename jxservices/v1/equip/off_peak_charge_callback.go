@@ -8,17 +8,20 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipOffPeakChargeCallbackRequest{}
+
 type equipOffPeakChargeCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (*equipOffPeakChargeCallbackRequest) GetName() string {
-	return services.OffPeakCharge.String()
+func (*equipOffPeakChargeCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.OffPeakCharge
 }
 
-// type OffPeakChargeConfig struct {
-// }
+func (equipOffPeakChargeCallbackRequest) IsCallback() bool {
+	return true
+}
 
 func NewEquipOffPeakChargeCallbackRequest(base services.Base, status int) *equipOffPeakChargeCallbackRequest {
 	req := &equipOffPeakChargeCallbackRequest{
@@ -41,8 +44,6 @@ type equipOffPeakChargeCallbackResponse struct {
 	api.Response
 }
 
-func OffPeakChargeCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
-	header := services.GetCallbackHeaderValue(services.OffPeakCharge)
-	url := services.GetSimpleCallbackPath(req)
-	return services.Transport(ctx, req, url, header)
+func OffPeakChargeCallbackRequest(ctx context.Context, req services.Request) error {
+	return services.Transport(ctx, req)
 }

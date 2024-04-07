@@ -41,6 +41,8 @@ const (
 // 	return result
 // }
 
+var _ services.Request = &equipFirmwareStatusNotificationRequest{}
+
 type equipFirmwareStatusNotificationRequest struct {
 	services.Base
 	Data *equipFirmwareStatusNotificationRequestDetail `json:"data"`
@@ -51,8 +53,12 @@ type equipFirmwareStatusNotificationRequestDetail struct {
 	Status    FirmwareStatusNotificationType `json:"status"`
 }
 
-func (*equipFirmwareStatusNotificationRequest) GetName() string {
-	return services.FirmwareStatusNotification.String()
+func (*equipFirmwareStatusNotificationRequest) GetName() services.Request2ServicesNameType {
+	return services.FirmwareStatusNotification
+}
+
+func (*equipFirmwareStatusNotificationRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipFirmwareStatusNotificationRequestOCPP16(sn, pod, msgID string, status FirmwareStatusNotificationType) *equipFirmwareStatusNotificationRequest {

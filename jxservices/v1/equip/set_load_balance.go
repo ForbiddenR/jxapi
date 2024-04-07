@@ -17,8 +17,12 @@ type equipSetLoadBalanceRequest struct {
 type equipSetLoadBalanceRequestDetail struct {
 }
 
-func (*equipSetLoadBalanceRequest) GetName() string {
-	return services.SetLoadBalance.String()
+func (*equipSetLoadBalanceRequest) GetName() services.Request2ServicesNameType {
+	return services.SetLoadBalance
+}
+
+func (equipSetLoadBalanceRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipSetLoadBalanceRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSetLoadBalanceRequest {

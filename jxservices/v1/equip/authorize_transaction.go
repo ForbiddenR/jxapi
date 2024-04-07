@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipAuthorizeTransactionRequest{}
+
 type equipAuthorizeTransactionRequest struct {
 	services.Base
 	Data *equipAuthorizeTransactionRequestDetail `json:"data"`
@@ -16,8 +18,12 @@ type equipAuthorizeTransactionRequestDetail struct {
 	IdTokenType IdTokenType `json:"idTokenType"`
 }
 
-func (r equipAuthorizeTransactionRequest) GetName() string {
-	return services.Authorize.String()
+func (r equipAuthorizeTransactionRequest) GetName() services.Request2ServicesNameType {
+	return services.Authorize
+}
+
+func (equipAuthorizeTransactionRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipAuthorizeTransactionRequest(sn, pod, msgID string, p *services.Protocol) *equipAuthorizeTransactionRequest {

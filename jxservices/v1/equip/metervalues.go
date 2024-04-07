@@ -15,6 +15,8 @@ import (
 
 const meterQueue = services.QueuePrefix + "metervalues"
 
+var _ services.Request = &equipMeterValuesRequest{}
+
 type equipMeterValuesRequest struct {
 	services.Base
 	Data *equipMeterValuesRequestDetail `json:"data"`
@@ -29,8 +31,12 @@ type equipMeterValuesRequestDetail struct {
 	MeterValue    *MeterValue `json:"meterValue"`
 }
 
-func (equipMeterValuesRequest) GetName() string {
-	return services.MeterValues.String()
+func (equipMeterValuesRequest) GetName() services.Request2ServicesNameType {
+	return services.MeterValues
+}
+
+func (equipMeterValuesRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipMeterValuesOCPP16Request(sn, pod, msgID string, connectorId string) *equipMeterValuesRequest {

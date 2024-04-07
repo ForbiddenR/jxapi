@@ -8,13 +8,19 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipRemoteStopTransactionCallbackRequest{}
+
 type equipRemoteStopTransactionCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (s *equipRemoteStopTransactionCallbackRequest) GetName() string {
-	return services.RemoteStopTransaction.String()
+func (s *equipRemoteStopTransactionCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.RemoteStopTransaction
+}
+
+func (s *equipRemoteStopTransactionCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipRemoteStopTransactionCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipRemoteStopTransactionCallbackRequest {

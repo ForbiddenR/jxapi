@@ -28,13 +28,19 @@ const (
 // 	}
 // }
 
+var _ services.Request = &equipSetVariablesCallbackRequest{}
+
 type equipSetVariablesCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (s *equipSetVariablesCallbackRequest) GetName() string {
-	return services.ChangeConfiguration.String()
+func (equipSetVariablesCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.ChangeConfiguration
+}
+
+func (equipSetVariablesCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipSetVariablesCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSetVariablesCallbackRequest {

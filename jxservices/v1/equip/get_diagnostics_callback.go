@@ -8,19 +8,25 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipGetDiagnosticsCallbackRequest{}
+
 type equipGetDiagnosticsCallbackRequest struct {
 	services.Base
 	Callback services.CB                               `json:"callback"`
 	Data     *equipGetDiagnosticsCallbackRequestDetail `json:"data"`
 }
 
-func (s *equipGetDiagnosticsCallbackRequest) GetName() string {
-	return services.GetDiagnostics.String()
-}
-
 type equipGetDiagnosticsCallbackRequestDetail struct {
 	// services.CB
 	Filename *string `json:"filename"`
+}
+
+func (equipGetDiagnosticsCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.GetDiagnostics
+}
+
+func (equipGetDiagnosticsCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipGetDiagnosticsCallbackRequest(sn, pod, msgId string, p *services.Protocol, status int) *equipGetDiagnosticsCallbackRequest {

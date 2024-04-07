@@ -63,7 +63,7 @@ func (r *Request) Body(body interface{}) *Request {
 
 // request connects to the server and invokes the provided function when a server response is
 // received.
-func (r *Request) request(ctx context.Context, fn func(*fasthttp.Request, *fasthttp.Response)) error {
+func (r *Request) request(_ context.Context, fn func(*fasthttp.Request, *fasthttp.Response)) error {
 	finalURL := &url.URL{}
 	if r.c.base != nil {
 		*finalURL = *r.c.base
@@ -106,7 +106,7 @@ func (r *Request) DoRaw(ctx context.Context) ([]byte, error) {
 }
 
 // transformResponse converts an API response into a structured API object.
-func (r *Request) transformResponse(resp *fasthttp.Response, req *fasthttp.Request) Result {
+func (r *Request) transformResponse(resp *fasthttp.Response, _ *fasthttp.Request) Result {
 	var body []byte
 	respBody := resp.Body()
 	if len(respBody) == 0 {
@@ -137,7 +137,7 @@ func (r Result) Raw() ([]byte, error) {
 	return r.body, r.err
 }
 
-func (r Result) Into(obj interface{}) error {
+func (r Result) Into(obj any) error {
 	if r.err != nil {
 		return r.err
 	}

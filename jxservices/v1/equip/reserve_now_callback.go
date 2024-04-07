@@ -8,13 +8,19 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipReserveNowCallbackRequest{}
+
 type equipReserveNowCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (r *equipReserveNowCallbackRequest) GetName() string {
-	return services.ReserveNow.String()
+func (equipReserveNowCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.ReserveNow
+}
+
+func (equipReserveNowCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipReserveNowCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipReserveNowCallbackRequest {

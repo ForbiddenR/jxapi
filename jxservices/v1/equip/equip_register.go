@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipRegisterRequest{}
+
 type equipRegisterRequest struct {
 	services.Base
 	Data *equipRegisterRequestDetail `json:"data"`
@@ -30,8 +32,12 @@ func NewEquipRegisterRequest(sn string, protocol *services.Protocol, pod, msgID 
 	}
 }
 
-func (r *equipRegisterRequest) GetName() string {
-	return services.Register.String()
+func (equipRegisterRequest) GetName() services.Request2ServicesNameType {
+	return services.Register
+}
+
+func (equipRegisterRequest) IsCallback() bool {
+	return false
 }
 
 var _ services.Response = &equipRegisterResponse{}

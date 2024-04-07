@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipStartTransactionRequest{}
+
 type equipStartTransactionRequest struct {
 	services.Base
 	Data *equipStartTransactionRequestDetail `json:"data"`
@@ -69,8 +71,12 @@ func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestCo
 	return req
 }
 
-func (equipStartTransactionRequest) GetName() string {
-	return services.StartTransaction.String()
+func (equipStartTransactionRequest) GetName() services.Request2ServicesNameType {
+	return services.StartTransaction
+}
+
+func (equipStartTransactionRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipStartTransactionRequest(sn, pod, msgID string, p *services.Protocol,

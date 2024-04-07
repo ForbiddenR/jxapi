@@ -8,13 +8,19 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipCallStatusNotificationCallbackRequest{}
+
 type equipCallStatusNotificationCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (equipCallStatusNotificationCallbackRequest) GetName() string {
-	return services.CallStatusNotification.String()
+func (equipCallStatusNotificationCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.CallStatusNotification
+}
+
+func (equipCallStatusNotificationCallbackRequest) IsCallback() bool {
+	return true
 }
 
 func NewEquipCallStatusNotificationCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipCallStatusNotificationCallbackRequest {

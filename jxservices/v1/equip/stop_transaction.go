@@ -190,6 +190,8 @@ const (
 	StoppedReasonTypePriceSchemeExepction                         StoppedReasonType = 67 // 计费模板异常
 )
 
+var _ services.Request = &equipStopTransactionRequest{}
+
 type equipStopTransactionRequest struct {
 	services.Base
 	Data *equipStopTransactionRequestDetail `json:"data"`
@@ -244,8 +246,12 @@ func NewEquipStopTransactionRequestWithConfig(config *StopTransactionRequestConf
 	}
 }
 
-func (*equipStopTransactionRequest) GetName() string {
-	return services.StopTransaction.String()
+func (equipStopTransactionRequest) GetName() services.Request2ServicesNameType {
+	return services.StopTransaction
+}
+
+func (equipStopTransactionRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipStopTransactionRequest(sn, pod, msgID string, p *services.Protocol,
