@@ -66,7 +66,7 @@ func (resp *equipClearChargingProfileResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func ClearChargingProfileRequest(ctx context.Context, req services.CallbackRequest) error {
+func ClearChargingProfileRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.ClearChargingProfile)
 
 	url := services.GetCallbackURL(req)

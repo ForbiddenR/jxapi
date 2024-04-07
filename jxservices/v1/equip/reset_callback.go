@@ -74,7 +74,7 @@ func (resp *equipResetResponse) GetMsg() string {
 type equipResetResponseDetail struct {
 }
 
-func ResetCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func ResetCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.Reset)
 
 	url := services.GetCallbackURL(req)

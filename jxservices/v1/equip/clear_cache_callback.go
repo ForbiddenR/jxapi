@@ -66,7 +66,7 @@ func (resp *equipClearCacheCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func ClearCacheCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func ClearCacheCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.ClearCache)
 
 	url := services.GetCallbackURL(req)

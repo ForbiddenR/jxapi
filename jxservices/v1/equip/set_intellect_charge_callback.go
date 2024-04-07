@@ -63,7 +63,7 @@ func (resp *equipSetIntellectChargeResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func SetIntellectChargeRequest(ctx context.Context, req services.CallbackRequest) error {
+func SetIntellectChargeRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.SendQRCode)
 
 	url := services.GetCallbackURL(req)

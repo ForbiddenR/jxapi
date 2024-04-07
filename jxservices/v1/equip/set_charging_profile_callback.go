@@ -66,7 +66,7 @@ func (resp *equipSetChargingProfileResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func SetChargingProfileRequest(ctx context.Context, req services.CallbackRequest) error {
+func SetChargingProfileRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.SetChargingProfile)
 
 	url := services.GetCallbackURL(req)

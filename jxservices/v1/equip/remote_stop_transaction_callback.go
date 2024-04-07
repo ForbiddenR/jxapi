@@ -65,7 +65,7 @@ func (resp *equipRemoteStopTransactionCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func RemoteStopTransactionRequest(ctx context.Context, req services.CallbackRequest) error {
+func RemoteStopTransactionRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.RemoteStopTransaction)
 
 	url := services.GetCallbackURL(req)

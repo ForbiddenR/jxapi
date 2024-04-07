@@ -46,7 +46,7 @@ func (resp *equipDataTransferResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func DataTransferRequest(ctx context.Context, req services.CallbackRequest) error {
+func DataTransferRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.DataTransfer)
 
 	url := services.GetCallbackURL(req)

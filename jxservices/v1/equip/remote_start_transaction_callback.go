@@ -65,7 +65,7 @@ func (resp *equipRemoteStartTransactionCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func RemoteStartTransactionCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func RemoteStartTransactionCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.RemoteStartTransaction)
 
 	url := services.GetCallbackURL(req)

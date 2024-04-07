@@ -65,7 +65,7 @@ func (resp *equipCancelIntellectChargeResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func CancelIntellectChargeRequest(ctx context.Context, req services.CallbackRequest) error {
+func CancelIntellectChargeRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.CancelIntellectCharge)
 
 	url := services.GetCallbackURL(req)

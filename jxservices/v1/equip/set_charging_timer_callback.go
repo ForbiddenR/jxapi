@@ -72,7 +72,7 @@ func (resp *equipSetChargingTimerCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func SetChargingTimerCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func SetChargingTimerCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.SetChargingTimer)
 
 	url := services.GetCallbackURL(req)

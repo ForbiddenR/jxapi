@@ -94,7 +94,7 @@ func (resp *equipGetIntellectChargeResponse) GetMsg() string {
 type equipGetIntellectChargeResponseDetail struct {
 }
 
-func GetIntellectChargeCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func GetIntellectChargeCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.GetIntellectCharge)
 
 	url := services.GetCallbackURL(req)

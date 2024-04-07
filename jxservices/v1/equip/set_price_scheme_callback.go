@@ -65,7 +65,7 @@ func (resp *equipSetPriceSchemeResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func SetPriceSchemeRequest(ctx context.Context, req services.CallbackRequest) error {
+func SetPriceSchemeRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.SetPriceScheme)
 
 	url := services.GetCallbackURL(req)

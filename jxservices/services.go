@@ -11,7 +11,7 @@ import (
 	"github.com/ForbiddenR/jxapi/apierrors"
 )
 
-type GenerateCallbackfunc func(sn string, pod string, msgID string, p *Protocol, err *apierrors.CallbackError) CallbackRequest
+type GenerateCallbackfunc func(sn string, pod string, msgID string, p *Protocol, err *apierrors.CallbackError) Request
 
 var featureCollection map[string]GenerateCallbackfunc
 

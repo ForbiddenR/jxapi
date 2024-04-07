@@ -7,6 +7,8 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+var _ services.Request = &equipLoginRequest{}
+
 type equipLoginRequest struct {
 	services.Base
 	Data *equipLoginRequestDetail `json:"data"`
@@ -22,8 +24,12 @@ type equipLoginRequestDetail struct {
 	ReconnectingReason *string `json:"reason"`
 }
 
-func (equipLoginRequest) GetName() string {
-	return services.Login.String()
+func (equipLoginRequest) GetName() services.Request2ServicesNameType {
+	return services.Login
+}
+
+func (equipLoginRequest) IsCallback() bool {
+	return false
 }
 
 type LoginRequestConfig struct {

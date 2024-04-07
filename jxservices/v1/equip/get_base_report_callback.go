@@ -118,7 +118,7 @@ func (resp *equipGetBaseReportCallbackResponse) GetMsg() string {
 type equipGetBaseReportResponseDetail struct {
 }
 
-func GetBaseReportCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func GetBaseReportCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.GetConfiguration)
 
 	url := services.GetCallbackURL(req)

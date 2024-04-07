@@ -85,7 +85,7 @@ func (resp *equipSendLocalListResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func SendLocalListCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func SendLocalListCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.SendLocalList)
 
 	url := services.GetCallbackURL(req)

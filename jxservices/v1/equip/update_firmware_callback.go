@@ -69,7 +69,7 @@ func (resp *equipUpdateFirmwareCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func UpdateFirmwareCallbackRequestWithGeneric(ctx context.Context, req services.CallbackRequest) error {
+func UpdateFirmwareCallbackRequestWithGeneric(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.UpdateFirmware)
 
 	url := services.GetCallbackURL(req)

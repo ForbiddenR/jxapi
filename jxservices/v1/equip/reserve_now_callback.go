@@ -63,7 +63,7 @@ func (resp *equipReserveNowCallbackResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func ReserveNowCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func ReserveNowCallbackRequest(ctx context.Context, req services.Request) error {
 	header := services.GetCallbackHeaderValue(services.ReserveNow)
 
 	url := services.GetCallbackURL(req)
