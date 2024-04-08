@@ -8,12 +8,12 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
-func UnspportedCallbackRequest(ctx context.Context, name, sn, pod, msgID string, p *services.Protocol) error {
-	fn, ok := services.FetchFC(name)
+func UnspportedCallbackRequest(ctx context.Context, name string, base services.Base) error {
+	fn, ok := services.UnsupportedFeatures.Get(name)
 	if !ok {
-		return fmt.Errorf("this feature hasn't implemented. name: %s, id: %s", name, msgID)
+		return fmt.Errorf("this feature hasn't implemented. name: %s, id: %s", name, base.MsgID)
 	}
-	err := apierrors.NewCallbackErrorNotSupported(sn, name)
-	req := fn(sn, pod, msgID, p, err)
+	err := apierrors.NewCallbackErrorNotSupported(base.EquipmentSn, name)
+	req := fn(base, err)
 	return services.Transport(ctx, req)
 }

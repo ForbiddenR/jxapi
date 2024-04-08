@@ -8,19 +8,23 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
-var _ services.Request = &equipSendQRCodeRequest{}
+var _ services.CallbackRequest = &equipSendQRCodeRequest{}
 
 type equipSendQRCodeRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
-func (*equipSendQRCodeRequest) GetName() services.Request2ServicesNameType {
+func (equipSendQRCodeRequest) GetName() services.Request2ServicesNameType {
 	return services.SendQRCode
 }
 
 func (equipSendQRCodeRequest) IsCallback() bool {
 	return true
+}
+
+func (e *equipSendQRCodeRequest) SetCallback(cb services.CB) {
+	e.Callback = cb
 }
 
 func NewEquipSendQRCodeCallbackRequest(sn, pod, msgID string, p *services.Protocol, status int) *equipSendQRCodeRequest {
@@ -34,6 +38,14 @@ func NewEquipSendQRCodeCallbackRequest(sn, pod, msgID string, p *services.Protoc
 		},
 		Callback: services.NewCB(status),
 	}
+	return req
+}
+
+func NewSendQRCodeCallbackRequest(base services.Base, option services.Option) *equipSendQRCodeRequest {
+	req := &equipSendQRCodeRequest{
+		Base: base,
+	}
+	option(req)
 	return req
 }
 

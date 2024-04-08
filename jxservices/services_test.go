@@ -57,7 +57,6 @@ func TestRequestWithoutResponse(t *testing.T) {
 }
 
 func TestFeatureCollection(t *testing.T) {
-	InitFC()
-	result, ok := FetchFC("test")
+	result, ok := UnsupportedFeatures.Get("test")
 	t.Log(result, ok)
 }

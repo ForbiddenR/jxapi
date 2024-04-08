@@ -9,24 +9,12 @@ import (
 
 	api "github.com/ForbiddenR/jxapi"
 	"github.com/ForbiddenR/jxapi/apierrors"
+	"github.com/ForbiddenR/jxapi/jxutils/store"
 )
 
-type GenerateCallbackfunc func(sn string, pod string, msgID string, p *Protocol, err *apierrors.CallbackError) Request
+type callbackGenerator func(base Base, err *apierrors.CallbackError) Request
 
-var featureCollection map[string]GenerateCallbackfunc
-
-func InitFC() {
-	featureCollection = make(map[string]GenerateCallbackfunc)
-}
-
-func RegisterFC(name string, fun GenerateCallbackfunc) {
-	featureCollection[name] = fun
-}
-
-func FetchFC(name string) (GenerateCallbackfunc, bool) {
-	fun, ok := featureCollection[name]
-	return fun, ok
-}
+var UnsupportedFeatures = store.NewReceptacle[callbackGenerator]()
 
 // These constants are usually used in services package many times.
 const (
@@ -432,10 +420,6 @@ func GetCallbackHeaderValue(alias Request2ServicesNameType) map[string]string {
 
 func GetSimpleURL(req Request) string {
 	return api.ServicesUrl + Equip + "/" + req.GetName().String()
-}
-
-func GetSimplePath(req Request) string {
-	return Equip + "/" + req.GetName().String()
 }
 
 func GetCallbackURL(req Request) string {

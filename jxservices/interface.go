@@ -1,5 +1,7 @@
 package jxservices
 
+import "github.com/ForbiddenR/jxapi/apierrors"
+
 // Request interface needs to be implemented by all api.
 type Request interface {
 	GetName() Request2ServicesNameType
@@ -12,14 +14,30 @@ type Response interface {
 	GetMsg() string
 }
 
-// CallbackRequest is needed to be implemented by all the callback api.
-// type CallbackRequest interface {
-// 	Request
-// }
+type CallbackRequest interface {
+	Request
+	SetCallback(cb CB)
+}
 
 type ReusedConfig struct {
 	Sn       string
 	Protocol *Protocol
 	Pod      string
 	MsgID    string
+}
+
+type Option func(option CallbackRequest) error
+
+func WithStatus(status int) Option {
+	return func(option CallbackRequest) error {
+		option.SetCallback(NewCB(status))
+		return nil
+	}
+}
+
+func WithError(err *apierrors.CallbackError) Option {
+	return func(option CallbackRequest) error {
+		option.SetCallback(NewCBError(err))
+		return nil
+	}
 }
