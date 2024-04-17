@@ -69,3 +69,12 @@ func (resp *equipCallStatusNotificationCallbackResponse) GetMsg() string {
 func CallStatusNotificationCallbackRequest(ctx context.Context, req services.Request) error {
 	return services.Transport(ctx, req)
 }
+
+type equipTriggerMessageCallbackRequest struct {
+	services.Base
+	Callback services.CB `json:"callback"`
+}
+
+func (equipTriggerMessageCallbackRequest) GetName() services.Request2ServicesNameType {
+	return services.
+}

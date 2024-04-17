@@ -7,6 +7,33 @@ import (
 	services "github.com/ForbiddenR/jxapi/jxservices"
 )
 
+type EquipTriggerMessageRequest struct {
+	services.Base
+	Data *EquipTriggerMessageRequestDetail `json:"data"`
+}
+
+type EquipTriggerMessageRequestDetail struct {
+	ConnectorID      string  `json:"connectorSerial" validate:"required"`
+	RequestedMessage uint8   `json:"requestedMessage" validate:"required"`
+	EvseID           *string `json:"evseSerial,omitempty"`
+}
+
+func (t *EquipTriggerMessageRequest) UnmarshalJSON(data []byte) error {
+	type Alias EquipTriggerMessageRequest
+	aux := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(t),
+	}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	if aux.Data == nil {
+		return errors.New("data is nil")
+	}
+	return nil
+}
+
 type EquipCallStatusNotificationRequest struct {
 	services.Base
 	Data *EquipCallStatusNotificationRequestDetail `json:"data"`

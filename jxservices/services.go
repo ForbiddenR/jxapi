@@ -122,6 +122,7 @@ const (
 	SetIntellectCharge            Request2ServicesNameType = "setIntellectCharge"
 	CancelIntellectCharge         Request2ServicesNameType = "cancelIntellectCharge"
 	SetPriceScheme                Request2ServicesNameType = "setPriceScheme"
+	TriggerMessage                Request2ServicesNameType = "triggerMessage"
 	//TriggerMessage             Request2ServicesNameType = "callStatusNotification"
 	// TODO: the name of this variable has not been defined.
 	ChargeEncryInfoNotification Request2ServicesNameType = "chargeEncryInfoNotification"
@@ -237,11 +238,12 @@ func (b *BaseConfig) Category(cate string) *BaseConfig {
 	return b
 }
 
-func (b *BaseConfig) Categories(req Request) *BaseConfig {
-	if req.IsCallback() {
-		b.category = req.GetName().FirstUpper()
+// TODO: use a common string rather than a string with type Request2ServicesNameType.
+func (b *BaseConfig) Categories(kind Request2ServicesNameType, isCallback bool) *BaseConfig {
+	if !isCallback {
+		b.category = kind.FirstUpper()
 	} else {
-		b.category = req.GetName().FirstUpper() + CallbackSuffix
+		b.category = kind.FirstUpper() + CallbackSuffix
 	}
 	return b
 }
