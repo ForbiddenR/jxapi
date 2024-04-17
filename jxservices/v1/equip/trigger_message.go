@@ -13,9 +13,9 @@ type EquipTriggerMessageRequest struct {
 }
 
 type EquipTriggerMessageRequestDetail struct {
-	ConnectorID      string  `json:"connectorSerial" validate:"required"`
-	RequestedMessage uint8   `json:"requestedMessage" validate:"required"`
-	EvseID           *string `json:"evseSerial,omitempty"`
+	RequestedMessage TriggerMessageEnumType `json:"requestedMessage" validate:"required"`
+	ConnectorID      string                 `json:"connectorSerial" validate:"required"`
+	EvseID           *string                `json:"evseSerial,omitempty"`
 }
 
 func (t *EquipTriggerMessageRequest) UnmarshalJSON(data []byte) error {

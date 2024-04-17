@@ -245,3 +245,14 @@ type OffPeak struct {
 	FlatCurrent   int `json:"flatCurrent"`
 	ValleyCurrent int `json:"valleyCurrent"`
 }
+
+type TriggerMessageEnumType uint8
+
+const (
+	TriggerMessageEnumTypeCCCP TriggerMessageEnumType = iota
+	TriggerMessageEnumTypeDiagnosticsNotification
+	TriggerMessageEnumTypeFirmwareNotification
+	TriggerMessageEnumTypeMeterValues
+	TriggerMessageEnumTypeTransactionEvent
+	TriggerMessageEnumTypeHeartbeat
+)

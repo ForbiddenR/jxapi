@@ -70,11 +70,39 @@ func CallStatusNotificationCallbackRequest(ctx context.Context, req services.Req
 	return services.Transport(ctx, req)
 }
 
+var _ services.CallbackRequest = &equipTriggerMessageCallbackRequest{}
+
 type equipTriggerMessageCallbackRequest struct {
 	services.Base
 	Callback services.CB `json:"callback"`
 }
 
 func (equipTriggerMessageCallbackRequest) GetName() services.Request2ServicesNameType {
-	return services.
+	return services.TriggerMessage
+}
+
+func (equipTriggerMessageCallbackRequest) IsCallback() bool {
+	return true
+}
+
+func (t *equipTriggerMessageCallbackRequest) SetCallback(cb services.CB) {
+	t.Callback = cb
+}
+
+func NewEquipTriggerMessageCallbackRequest(base services.Base, injector services.Option) *equipTriggerMessageCallbackRequest {
+	req := &equipTriggerMessageCallbackRequest{
+		Base: base,
+	}
+	injector(req)
+	return req
+}
+
+var _ services.Response = &equipTriggerMessageCallbackResponse{}
+
+type equipTriggerMessageCallbackResponse struct {
+	api.Response
+}
+
+func TriggerMessageCallbackRequest(ctx context.Context, req services.Request) error {
+	return services.Transport(ctx, req)
 }
