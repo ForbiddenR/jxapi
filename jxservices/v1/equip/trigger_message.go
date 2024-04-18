@@ -13,7 +13,7 @@ type EquipTriggerMessageRequest struct {
 }
 
 type EquipTriggerMessageRequestDetail struct {
-	RequestedMessage TriggerMessageEnumType `json:"requestedMessage" validate:"required"`
+	RequestedMessage TriggerMessageEnumType `json:"requestedMessage"`
 	ConnectorID      string                 `json:"connectorSerial" validate:"required"`
 	EvseID           *string                `json:"evseSerial,omitempty"`
 }
