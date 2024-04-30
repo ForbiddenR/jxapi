@@ -31,9 +31,11 @@ const (
 
 // Define some default status fields in callback.
 const (
-	CallbackError = -1
-	Successful    = 0
-	Failed        = 1
+	CallbackError   = -1
+	Successful      = 0
+	Failed          = 1
+	Unsupported     = 2
+	PriceSchemeLost = 3
 )
 
 // These constants are associated with the topics of mqtt.
