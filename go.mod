@@ -3,6 +3,7 @@ module github.com/ForbiddenR/jxapi
 go 1.20
 
 require (
+github.com/ForbiddenR/toolkit v0.0.3
 	github.com/makasim/amqpextra v1.2.1
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/stretchr/testify v1.8.2

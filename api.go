@@ -50,7 +50,7 @@ type Response struct {
 }
 
 func (r *Response) GetStatus() int {
-	return r.Status 
+	return r.Status
 }
 
 func (r *Response) GetMsg() string {

@@ -430,11 +430,15 @@ func GetCallbackURL(req Request) string {
 	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName().String() + CallbackSuffix
 }
 
-func getHeader(req Request) map[string]string {
+func getHeader(ctx context.Context, req Request) map[string]string {
+	var headers map[string]string
 	if req.IsCallback() {
-		return GetCallbackHeaderValue(req.GetName())
+		headers = GetCallbackHeaderValue(req.GetName())
+	} else {
+		headers = GetSimpleHeaderValue(req.GetName())
 	}
-	return GetSimpleHeaderValue(req.GetName())
+	headers["TraceId"] = transport.TraceIdFromCtx(ctx)
+	return headers
 }
 
 func getURI(req Request) string {
@@ -450,7 +454,7 @@ func Transport(ctx context.Context, req Request) error {
 		Post().
 		RequestURI(uri).
 		Body(req).
-		SetHeader(getHeader(req)).
+		SetHeader(getHeader(ctx, req)).
 		Do(ctx)
 	if result.Error() != nil {
 		request, _ := json.Marshal(req)
