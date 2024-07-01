@@ -22,6 +22,10 @@ func (r equipAuthorizeTransactionRequest) GetName() services.Request2ServicesNam
 	return services.Authorize
 }
 
+func (r *equipAuthorizeTransactionRequest) TraceId() string {
+	return r.MsgID
+}
+
 func (equipAuthorizeTransactionRequest) IsCallback() bool {
 	return false
 }

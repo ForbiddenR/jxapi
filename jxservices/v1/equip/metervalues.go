@@ -35,6 +35,10 @@ func (equipMeterValuesRequest) GetName() services.Request2ServicesNameType {
 	return services.MeterValues
 }
 
+func (e *equipMeterValuesRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipMeterValuesRequest) IsCallback() bool {
 	return false
 }

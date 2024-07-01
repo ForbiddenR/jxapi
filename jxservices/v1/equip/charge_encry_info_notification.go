@@ -28,6 +28,10 @@ func (equipChargeEncryInfoNotificationRequest) GetName() services.Request2Servic
 	return services.ChargeEncryInfoNotification
 }
 
+func (e *equipChargeEncryInfoNotificationRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipChargeEncryInfoNotificationRequest) IsCallback() bool {
 	return false
 }

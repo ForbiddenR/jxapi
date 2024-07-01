@@ -22,7 +22,6 @@ require (
 )
 
 require (
-	github.com/ForbiddenR/toolkit v0.0.3
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-playground/validator/v10 v10.13.0
 	github.com/pmezard/go-difflib v1.0.0 // indirect

@@ -59,6 +59,10 @@ func (equipOfflineRequest) GetName() services.Request2ServicesNameType {
 	return services.Offline
 }
 
+func (e *equipOfflineRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipOfflineRequest) IsCallback() bool {
 	return false
 }

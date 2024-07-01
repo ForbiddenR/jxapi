@@ -19,6 +19,10 @@ func (equipReserveNowCallbackRequest) GetName() services.Request2ServicesNameTyp
 	return services.ReserveNow
 }
 
+func (e *equipReserveNowCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipReserveNowCallbackRequest) IsCallback() bool {
 	return true
 }

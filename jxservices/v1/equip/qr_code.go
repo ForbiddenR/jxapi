@@ -38,6 +38,10 @@ func (q *equipQRCodeRequest) GetName() services.Request2ServicesNameType {
 	return services.QRCode
 }
 
+func (q *equipQRCodeRequest) TraceId() string {
+	return q.MsgID
+}
+
 func (q *equipQRCodeRequest) IsCallback() bool {
 	return false
 }

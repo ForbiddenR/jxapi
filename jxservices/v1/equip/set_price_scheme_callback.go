@@ -19,6 +19,10 @@ func (equipSetPriceSchemeRequest) GetName() services.Request2ServicesNameType {
 	return services.SetPriceScheme
 }
 
+func (e *equipSetPriceSchemeRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipSetPriceSchemeRequest) IsCallback() bool {
 	return true
 }

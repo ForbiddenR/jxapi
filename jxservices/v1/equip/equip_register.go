@@ -36,6 +36,10 @@ func (equipRegisterRequest) GetName() services.Request2ServicesNameType {
 	return services.Register
 }
 
+func (e *equipRegisterRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipRegisterRequest) IsCallback() bool {
 	return false
 }

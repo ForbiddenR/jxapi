@@ -19,6 +19,10 @@ func (equipCallStatusNotificationCallbackRequest) GetName() services.Request2Ser
 	return services.CallStatusNotification
 }
 
+func (e *equipCallStatusNotificationCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipCallStatusNotificationCallbackRequest) IsCallback() bool {
 	return true
 }
@@ -79,6 +83,10 @@ type equipTriggerMessageCallbackRequest struct {
 
 func (equipTriggerMessageCallbackRequest) GetName() services.Request2ServicesNameType {
 	return services.TriggerMessage
+}
+
+func (e equipTriggerMessageCallbackRequest) TraceId() string {
+	return e.MsgID
 }
 
 func (equipTriggerMessageCallbackRequest) IsCallback() bool {

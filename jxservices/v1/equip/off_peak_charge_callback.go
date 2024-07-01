@@ -19,6 +19,10 @@ func (*equipOffPeakChargeCallbackRequest) GetName() services.Request2ServicesNam
 	return services.OffPeakCharge
 }
 
+func (e *equipOffPeakChargeCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipOffPeakChargeCallbackRequest) IsCallback() bool {
 	return true
 }

@@ -19,6 +19,10 @@ func (s *equipRemoteStopTransactionCallbackRequest) GetName() services.Request2S
 	return services.RemoteStopTransaction
 }
 
+func (s *equipRemoteStopTransactionCallbackRequest) TraceId() string {
+	return s.MsgID
+}
+
 func (s *equipRemoteStopTransactionCallbackRequest) IsCallback() bool {
 	return true
 }

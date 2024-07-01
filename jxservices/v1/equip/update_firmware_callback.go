@@ -23,6 +23,10 @@ func (*equipUpdateFirmwareCallbackRequest) GetName() services.Request2ServicesNa
 	return services.UpdateFirmware
 }
 
+func (e *equipUpdateFirmwareCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipUpdateFirmwareCallbackRequest) IsCallback() bool {
 	return true
 }

@@ -19,6 +19,10 @@ func (equipRemoteStartTransactionCallbackRequest) GetName() services.Request2Ser
 	return services.RemoteStartTransaction
 }
 
+func (e *equipRemoteStartTransactionCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipRemoteStartTransactionCallbackRequest) IsCallback() bool {
 	return true
 }

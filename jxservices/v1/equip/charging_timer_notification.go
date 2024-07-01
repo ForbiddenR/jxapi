@@ -39,6 +39,10 @@ func (equipChargingTimerNotificationRequest) GetName() services.Request2Services
 	return services.ChargingTimerNotification
 }
 
+func (e *equipChargingTimerNotificationRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipChargingTimerNotificationRequest) IsCallback() bool {
 	return false
 }

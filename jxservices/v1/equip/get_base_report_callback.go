@@ -41,6 +41,10 @@ func (g *equipGetBaseReportCallbackRequest) GetName() services.Request2ServicesN
 	return services.GetBaseReport
 }
 
+func (g *equipGetBaseReportCallbackRequest) TraceId() string {
+	return g.MsgID
+}
+
 func (g *equipGetBaseReportCallbackRequest) IsCallback() bool {
 	return true
 }

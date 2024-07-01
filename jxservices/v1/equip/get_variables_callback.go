@@ -33,6 +33,10 @@ func (equipGetVariablesCallbackRequest) GetName() services.Request2ServicesNameT
 	return services.GetConfiguration
 }
 
+func (e *equipGetVariablesCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipGetVariablesCallbackRequest) IsCallback() bool {
 	return true
 }

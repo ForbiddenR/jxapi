@@ -47,6 +47,10 @@ func (equipDiagnosticsStatusNotificationRequest) GetName() services.Request2Serv
 	return services.DiagnosticsStatusNotification
 }
 
+func (e *equipDiagnosticsStatusNotificationRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipDiagnosticsStatusNotificationRequest) IsCallback() bool {
 	return false
 }

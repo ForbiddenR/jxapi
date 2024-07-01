@@ -75,6 +75,10 @@ func (equipStartTransactionRequest) GetName() services.Request2ServicesNameType 
 	return services.StartTransaction
 }
 
+func (e *equipStartTransactionRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipStartTransactionRequest) IsCallback() bool {
 	return false
 }

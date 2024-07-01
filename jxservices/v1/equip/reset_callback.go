@@ -23,6 +23,10 @@ func (equipResetCallbackRequest) GetName() services.Request2ServicesNameType {
 	return services.Reset
 }
 
+func (e *equipResetCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipResetCallbackRequest) IsCallback() bool {
 	return true
 }

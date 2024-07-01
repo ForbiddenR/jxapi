@@ -26,6 +26,10 @@ func (equipBootNotificationRequest) GetName() services.Request2ServicesNameType 
 	return services.BootNotification
 }
 
+func (e *equipBootNotificationRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipBootNotificationRequest) IsCallback() bool {
 	return false
 }

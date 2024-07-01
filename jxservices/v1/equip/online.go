@@ -44,6 +44,10 @@ func (equipOnlineRequest) GetName() services.Request2ServicesNameType {
 	return services.Online
 }
 
+func (e *equipOnlineRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipOnlineRequest) IsCallback() bool {
 	return false
 }

@@ -250,6 +250,10 @@ func (equipStopTransactionRequest) GetName() services.Request2ServicesNameType {
 	return services.StopTransaction
 }
 
+func (e *equipStopTransactionRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipStopTransactionRequest) IsCallback() bool {
 	return false
 }

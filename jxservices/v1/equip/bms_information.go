@@ -48,6 +48,10 @@ func (equipBMSInfoRequest) GetName() services.Request2ServicesNameType {
 	return services.BMSInfo
 }
 
+func (e *equipBMSInfoRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipBMSInfoRequest) IsCallback() bool {
 	return false
 }

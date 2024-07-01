@@ -39,6 +39,10 @@ func (equipSetVariablesCallbackRequest) GetName() services.Request2ServicesNameT
 	return services.ChangeConfiguration
 }
 
+func (e *equipSetVariablesCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipSetVariablesCallbackRequest) IsCallback() bool {
 	return true
 }

@@ -57,6 +57,10 @@ func (*equipFirmwareStatusNotificationRequest) GetName() services.Request2Servic
 	return services.FirmwareStatusNotification
 }
 
+func (e *equipFirmwareStatusNotificationRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (*equipFirmwareStatusNotificationRequest) IsCallback() bool {
 	return false
 }

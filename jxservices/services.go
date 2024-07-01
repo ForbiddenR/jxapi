@@ -10,7 +10,6 @@ import (
 	api "github.com/ForbiddenR/jxapi"
 	"github.com/ForbiddenR/jxapi/apierrors"
 	"github.com/ForbiddenR/jxapi/jxutils/store"
-	"github.com/ForbiddenR/toolkit/transport"
 )
 
 type callbackGenerator func(base Base, err *apierrors.CallbackError) Request
@@ -431,14 +430,14 @@ func GetCallbackURL(req Request) string {
 	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName().String() + CallbackSuffix
 }
 
-func getHeader(ctx context.Context, req Request) map[string]string {
+func getHeader(req Request) map[string]string {
 	var headers map[string]string
 	if req.IsCallback() {
 		headers = GetCallbackHeaderValue(req.GetName())
 	} else {
 		headers = GetSimpleHeaderValue(req.GetName())
 	}
-	headers["TraceId"] = transport.TraceIDFromCtx(ctx)
+	headers["TraceId"] = req.TraceId()
 	return headers
 }
 
@@ -455,7 +454,7 @@ func Transport(ctx context.Context, req Request) error {
 		Post().
 		RequestURI(uri).
 		Body(req).
-		SetHeader(getHeader(ctx, req)).
+		SetHeader(getHeader(req)).
 		Do(ctx)
 	if result.Error() != nil {
 		request, _ := json.Marshal(req)
@@ -492,7 +491,7 @@ func Transport(ctx context.Context, req Request) error {
 // }
 
 func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
-	header["TraceId"] = transport.TraceIDFromCtx(ctx)
+	header["TraceId"] = req.TraceId()
 	message, err := api.SendRequest(ctx, url, req, header)
 	if err != nil {
 		return
@@ -511,7 +510,7 @@ func RequestWithoutResponse[T Response](ctx context.Context, req Request, url st
 }
 
 func RequestWithResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (resp T, err error) {
-	header["TraceId"] = transport.TraceIDFromCtx(ctx)
+	header["TraceId"] = req.TraceId()
 	message, err := api.SendRequest(ctx, url, req, header)
 	if err != nil {
 		return resp, err

@@ -18,6 +18,10 @@ func (equipNotifyReportRequest) GetName() services.Request2ServicesNameType {
 	return services.NotifyReport
 }
 
+func (e *equipNotifyReportRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipNotifyReportRequest) IsCallback() bool {
 	return false
 }

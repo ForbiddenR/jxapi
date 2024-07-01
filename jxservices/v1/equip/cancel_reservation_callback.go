@@ -19,6 +19,10 @@ func (r *equipCancelReservationCallbackRequest) GetName() services.Request2Servi
 	return services.CancelReservation
 }
 
+func (r *equipCancelReservationCallbackRequest) TraceId() string {
+	return r.MsgID
+}
+
 func (equipCancelReservationCallbackRequest) IsCallback() bool {
 	return true
 }

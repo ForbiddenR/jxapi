@@ -28,6 +28,10 @@ func (equipLoginRequest) GetName() services.Request2ServicesNameType {
 	return services.Login
 }
 
+func (e *equipLoginRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipLoginRequest) IsCallback() bool {
 	return false
 }
