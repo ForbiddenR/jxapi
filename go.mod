@@ -1,9 +1,8 @@
 module github.com/ForbiddenR/jxapi
 
-go 1.20
+go 1.22.4
 
 require (
-github.com/ForbiddenR/toolkit v0.0.3
 	github.com/makasim/amqpextra v1.2.1
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/stretchr/testify v1.8.2
@@ -23,6 +22,7 @@ require (
 )
 
 require (
+	github.com/ForbiddenR/toolkit v0.0.3
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-playground/validator/v10 v10.13.0
 	github.com/pmezard/go-difflib v1.0.0 // indirect

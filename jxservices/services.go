@@ -10,6 +10,7 @@ import (
 	api "github.com/ForbiddenR/jxapi"
 	"github.com/ForbiddenR/jxapi/apierrors"
 	"github.com/ForbiddenR/jxapi/jxutils/store"
+	"github.com/ForbiddenR/toolkit/transport"
 )
 
 type callbackGenerator func(base Base, err *apierrors.CallbackError) Request
@@ -437,7 +438,7 @@ func getHeader(ctx context.Context, req Request) map[string]string {
 	} else {
 		headers = GetSimpleHeaderValue(req.GetName())
 	}
-	headers["TraceId"] = transport.TraceIdFromCtx(ctx)
+	headers["TraceId"] = transport.TraceIDFromCtx(ctx)
 	return headers
 }
 
@@ -491,6 +492,7 @@ func Transport(ctx context.Context, req Request) error {
 // }
 
 func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
+	header["TraceId"] = transport.TraceIDFromCtx(ctx)
 	message, err := api.SendRequest(ctx, url, req, header)
 	if err != nil {
 		return
@@ -509,6 +511,7 @@ func RequestWithoutResponse[T Response](ctx context.Context, req Request, url st
 }
 
 func RequestWithResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (resp T, err error) {
+	header["TraceId"] = transport.TraceIDFromCtx(ctx)
 	message, err := api.SendRequest(ctx, url, req, header)
 	if err != nil {
 		return resp, err
