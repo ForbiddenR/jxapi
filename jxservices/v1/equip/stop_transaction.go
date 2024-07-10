@@ -64,7 +64,7 @@ const (
 	StoppingReasonTypeBROTimeoutError                              StoppingReasonType = 53 // BRO超时错误
 	StoppingReasonTypeBROAATimeoutError                            StoppingReasonType = 54 // BROAA超时错误
 	StoppingReasonTypeBROSeriousFault                              StoppingReasonType = 55 // BROAA重大错误停止充电
-	StoppingReasoenTypeBCLTimeoutError                              StoppingReasonType = 56 // BCL超时错误
+	StoppingReasoenTypeBCLTimeoutError                             StoppingReasonType = 56 // BCL超时错误
 	StoppingReasonTypeBCSTimeoutError                              StoppingReasonType = 57 // BCS超时错误
 	StoppingReasonTypeBSMTimeoutError                              StoppingReasonType = 58 // BSM超时错误
 	StoppingReasonTypeBSTTimeoutError                              StoppingReasonType = 59 // BST超时错误
@@ -140,7 +140,7 @@ const (
 	StoppingReasonTypeSystemMaintenance                                   StoppingReasonType = 135 // 系统维护中，请稍后再试
 	StoppingReasonTypeBackendParameterError                               StoppingReasonType = 136 // 后台下发参数异常
 	StoppingReasonTypeDeviceSelfCheckTimeout                              StoppingReasonType = 137 // 设备自检超时
-	StoppingRasonPTypeileOffline                                         StoppingReasonType = 138 // 桩离线
+	StoppingReasonTypePileOffline                                         StoppingReasonType = 138 // 桩离线
 	StoppingReasonTypeSystemFanFault                                      StoppingReasonType = 139 // 系统风扇故障
 	StoppingReasonTypeModuleFanFault                                      StoppingReasonType = 140 // 模块风扇故障
 	StoppingReasonTypeChargingGunNotReturned                              StoppingReasonType = 141 // 充电枪未归位告警
