@@ -64,7 +64,7 @@ const (
 	StoppingReasonTypeBROTimeoutError                              StoppingReasonType = 53 // BRO超时错误
 	StoppingReasonTypeBROAATimeoutError                            StoppingReasonType = 54 // BROAA超时错误
 	StoppingReasonTypeBROSeriousFault                              StoppingReasonType = 55 // BROAA重大错误停止充电
-	StoppingReasonTypeBCLTimeoutError                             StoppingReasonType = 56 // BCL超时错误
+	StoppingReasonTypeBCLTimeoutError                              StoppingReasonType = 56 // BCL超时错误
 	StoppingReasonTypeBCSTimeoutError                              StoppingReasonType = 57 // BCS超时错误
 	StoppingReasonTypeBSMTimeoutError                              StoppingReasonType = 58 // BSM超时错误
 	StoppingReasonTypeBSTTimeoutError                              StoppingReasonType = 59 // BST超时错误

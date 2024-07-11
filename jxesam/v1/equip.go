@@ -33,9 +33,9 @@ func NewAccessVerifyRequest(sn, requestPort, protocol, protocolVersion string) *
 	}
 }
 
-func (a *accessVerifyRequest) getName() string {
-	return "accessVerify"
-}
+// func (a *accessVerifyRequest) getName() string {
+// 	return "accessVerify"
+// }
 
 type accessVerifyResponse struct {
 	api.Response
@@ -51,12 +51,12 @@ type accessVerifyResponseData struct {
 	ReadWait            utils.Duration `json:"readWait"`
 }
 
-func AccessVerifyRequest(ctx context.Context, ticket string, request *accessVerifyRequest) (*accessVerifyResponse, error) {
+func AccessVerifyRequest(ctx context.Context, ticket string, traceId string, request *accessVerifyRequest) (*accessVerifyResponse, error) {
 	headerValue := make([]string, 0)
 	headerValue = append(headerValue, api.Esam, esam.Equip)
 	headerValue = append(headerValue, esam.Access.Split()...)
 
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":"), esam.TicketKey: ticket}
+	header := map[string]string{api.Perms: strings.Join(headerValue, ":"), esam.TicketKey: ticket, "TraceId": traceId}
 	//header := map[string]string{"Perms": "esam:equip:access:verify"}
 	url := api.EsamUrl + esam.Equip + "/verify"
 	resp, err := api.SendRequest(ctx, url, request, header)
