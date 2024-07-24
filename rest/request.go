@@ -3,12 +3,16 @@ package rest
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"log/slog"
 	"net/url"
 	"time"
 
 	"github.com/ForbiddenR/jxapi/apierrors"
 	"github.com/valyala/fasthttp"
 )
+
+var logger = slog.Default()
 
 type Request struct {
 	c *RESTClient
@@ -75,6 +79,7 @@ func (r *Request) request(_ context.Context, fn func(*fasthttp.Request, *fasthtt
 		fasthttp.ReleaseResponse(resp)
 		fasthttp.ReleaseRequest(r.req)
 	}()
+	logger.Debug(fmt.Sprintf("send request to %s with header %s and body %s", finalURL.String(), r.req.Header.String(), r.req.Body()))
 	err := r.c.Client.DoTimeout(r.req, resp, 3*time.Second)
 	if err != nil {
 		return apierrors.GetFailedRequestDoTimeoutError(err)
