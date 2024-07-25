@@ -14,6 +14,8 @@ import (
 
 var logger = slog.Default()
 
+var headerContentTypeJson = []byte("application/json")
+
 type Request struct {
 	c *RESTClient
 
@@ -49,6 +51,7 @@ func (r *Request) SetHeader(header map[string]string) *Request {
 	for k, v := range header {
 		r.req.Header.Set(k, v)
 	}
+	r.req.Header.SetContentTypeBytes(headerContentTypeJson)
 	return r
 }
 
@@ -79,7 +82,7 @@ func (r *Request) request(_ context.Context, fn func(*fasthttp.Request, *fasthtt
 		fasthttp.ReleaseResponse(resp)
 		fasthttp.ReleaseRequest(r.req)
 	}()
-	logger.Debug(fmt.Sprintf("send request to %s with header %s and body %s", finalURL.String(), r.req.Header.String(), r.req.Body()))
+	logger.Info(fmt.Sprintf("send request to %s with header %s and body %s", finalURL.String(), r.req.Header.String(), r.req.Body()))
 	err := r.c.Client.DoTimeout(r.req, resp, 3*time.Second)
 	if err != nil {
 		return apierrors.GetFailedRequestDoTimeoutError(err)
@@ -123,6 +126,7 @@ func (r *Request) transformResponse(resp *fasthttp.Response, _ *fasthttp.Request
 		if statusCode == fasthttp.StatusNotFound {
 			return Result{err: ErrNotFound}
 		}
+		fmt.Println("error code is", statusCode)
 		return Result{err: ErrServicesException}
 	}
 	return Result{body: body}

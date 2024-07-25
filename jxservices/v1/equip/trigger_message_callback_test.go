@@ -1,35 +1,34 @@
 package equip
 
-// import (
-// 	"context"
-// 	"testing"
+import (
+	"context"
+	"net/url"
+	"testing"
+	"time"
 
-// 	"gitee.com/csms/jxeu-ocpp/internal/config"
-// 	"gitee.com/csms/jxeu-ocpp/internal/errors"
-// 	"gitee.com/csms/jxeu-ocpp/pkg/api"
-// 	"gitee.com/csms/jxeu-ocpp/pkg/api/services"
-// 	"gitee.com/csms/jxeu-ocpp/pkg/ocpp1.6/protocol"
-// 	"github.com/samber/lo"
-// 	"github.com/stretchr/testify/assert"
-// )
+	"github.com/ForbiddenR/jxapi/jxservices"
+	"github.com/ForbiddenR/jxapi/rest"
+	"github.com/stretchr/testify/assert"
+	"github.com/valyala/fasthttp"
+)
 
-// func TestCallStatusNotificationRequest(t *testing.T) {
-// 	config.TestConfig()
-// 	api.Init()
-// 	p := &services.Protocol{Name: "OCPP", Version: "1.6"}
-// 	// logOpt := &log.Options{}
-// 	// logOpt.Development = true
-// 	// log.InitLogger(logOpt)
-// 	ctx := context.TODO()
-
-// 	err := errors.NewCallbackErrorGenericError(services.TestSN, protocol.RemoteStopTransactionFeatureName, "test err")
-// 	req := []*equipCallStatusNotificationCallbackRequest{
-// 		NewEquipCallStatusNotificationCallbackRequest(services.TestSN, services.TestAccessPod, "1", p, services.Successful),
-// 		NewEquipCallStatusNotificationCallbackRequestError(services.TestSN, services.TestAccessPod, "1", p, err),
-// 	}
-
-// 	lo.ForEach(req, func(item *equipCallStatusNotificationCallbackRequest, _ int) {
-// 		e := CallStatusNotificationCallbackRequestG(ctx, item)
-// 		assert.Nil(t, e)
-// 	})
-// }
+func TestCallStatusNotificationRequest(t *testing.T) {
+	client := &fasthttp.Client{
+		ReadTimeout:         10 * time.Second,
+		WriteTimeout:        10 * time.Second,
+		MaxIdleConnDuration: 10 * time.Second,
+		MaxConnsPerHost:     5000,
+	}
+	req := NewEquipCallStatusNotificationCallbackRequest("", "", "", jxservices.IEC002(), 1)
+	service, err := url.Parse("http://127.0.0.1:12000/")
+	assert.Nil(t, err)
+	serviceClient, err := rest.NewRestClient(service, rest.ClientContentConfig{}, client)
+	assert.Nil(t, err)
+	result := serviceClient.Post().
+	RequestURI("test").
+	Body(req).
+	SetHeader(map[string]string{"test": "test"}).
+	Do(context.Background())
+	assert.Nil(t, result.Error())
+	
+}
