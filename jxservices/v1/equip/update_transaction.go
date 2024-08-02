@@ -68,7 +68,7 @@ func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, tr
 	return updateTransaction
 }
 
-func UpdateTransactionReqeust(req services.Request, p *publisher.Publisher) error {
+func UpdateTransactionReqeust(req *equipUpdateTransactionRequest, p *publisher.Publisher) error {
 	ctx := context.Background()
 	bytes, err := json.Marshal(req)
 	if err != nil {
@@ -78,6 +78,7 @@ func UpdateTransactionReqeust(req services.Request, p *publisher.Publisher) erro
 		Context: ctx,
 		Key:     updateTransactionQueue,
 		Publishing: amqp.Publishing{
+			Headers:     amqp.Table{"TraceId": req.MsgID},
 			ContentType: "application/json",
 			Body:        bytes,
 		},
@@ -87,10 +88,4 @@ func UpdateTransactionReqeust(req services.Request, p *publisher.Publisher) erro
 		return err
 	}
 	return nil
-	// ctx := context.Background()
-	// err := rabbitmq.Publish(ctx, updateTransactionQueue, nil, req)
-	// if err != nil {
-	// 	return err
-	// }
-	// return nil
 }

@@ -85,6 +85,7 @@ func MeterValuesRequest(req *equipMeterValuesRequest, p *publisher.Publisher) er
 		Context: ctx,
 		Key:     meterQueue,
 		Publishing: amqp.Publishing{
+			Headers:     amqp.Table{"TraceId": req.MsgID},
 			ContentType: "application/json",
 			Body:        bytes,
 		},
