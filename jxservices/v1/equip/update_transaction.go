@@ -24,6 +24,10 @@ func (equipUpdateTransactionRequest) GetName() services.Request2ServicesNameType
 	return services.UpdateTransaction
 }
 
+func (e *equipUpdateTransactionRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipUpdateTransactionRequest) IsCallback() bool {
 	return false
 }

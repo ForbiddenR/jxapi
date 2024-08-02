@@ -5,6 +5,7 @@ import "github.com/ForbiddenR/jxapi/apierrors"
 // Request interface needs to be implemented by all api.
 type Request interface {
 	GetName() Request2ServicesNameType
+	TraceId() string
 	IsCallback() bool
 }
 

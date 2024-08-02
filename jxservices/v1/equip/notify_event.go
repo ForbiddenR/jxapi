@@ -18,6 +18,10 @@ func (r *equipNotifyEventRequest) GetName() services.Request2ServicesNameType {
 	return services.NotifyEvent
 }
 
+func (r *equipNotifyEventRequest) TraceId() string {
+	return r.MsgID
+}
+
 func (equipNotifyEventRequest) IsCallback() bool {
 	return false
 }

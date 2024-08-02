@@ -42,6 +42,10 @@ func (equipBMSLimitRequest) GetName() services.Request2ServicesNameType {
 	return services.BMSLimit
 }
 
+func (e *equipBMSLimitRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipBMSLimitRequest) IsCallback() bool {
 	return false
 }

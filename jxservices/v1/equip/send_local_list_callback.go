@@ -39,6 +39,10 @@ func (equipSendLocalListCallbackRequest) GetName() services.Request2ServicesName
 	return services.SendLocalList
 }
 
+func (e *equipSendLocalListCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipSendLocalListCallbackRequest) IsCallback() bool {
 	return true
 }

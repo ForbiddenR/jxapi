@@ -19,6 +19,10 @@ func (equipClearChargingProfileRequest) GetName() services.Request2ServicesNameT
 	return services.ClearChargingProfile
 }
 
+func (e *equipClearChargingProfileRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipClearChargingProfileRequest) IsCallback() bool {
 	return true
 }

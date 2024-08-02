@@ -21,6 +21,10 @@ func (r equipDataTransferRequest) GetName() services.Request2ServicesNameType {
 	return services.DataTransfer
 }
 
+func (r *equipDataTransferRequest) TraceId() string {
+	return r.MsgID
+}
+
 func (equipDataTransferRequest) IsCallback() bool {
 	return true
 }

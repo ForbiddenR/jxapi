@@ -25,6 +25,10 @@ func (equipGetDiagnosticsCallbackRequest) GetName() services.Request2ServicesNam
 	return services.GetDiagnostics
 }
 
+func (e *equipGetDiagnosticsCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipGetDiagnosticsCallbackRequest) IsCallback() bool {
 	return true
 }

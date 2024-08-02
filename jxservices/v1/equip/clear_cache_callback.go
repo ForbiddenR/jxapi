@@ -19,6 +19,10 @@ func (*equipClearCacheCallbackRequest) GetName() services.Request2ServicesNameTy
 	return services.ClearCache
 }
 
+func (e *equipClearCacheCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipClearCacheCallbackRequest) IsCallback() bool {
 	return true
 }

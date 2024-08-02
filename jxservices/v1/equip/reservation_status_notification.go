@@ -30,6 +30,10 @@ func (equipReservationStatusNotificationRequest) GetName() services.Request2Serv
 	return services.ReservationStatusNotification
 }
 
+func (e *equipReservationStatusNotificationRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipReservationStatusNotificationRequest) IsCallback() bool {
 	return false
 }

@@ -62,7 +62,6 @@ func sendPostRequest(_ context.Context, url string, requestBody []byte, headers 
 	if len(respBody) == 0 {
 		return nil, ErrBodyIsNil
 	}
-
 	return respBody, nil
 }
 

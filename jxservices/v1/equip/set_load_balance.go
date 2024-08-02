@@ -21,6 +21,10 @@ func (*equipSetLoadBalanceRequest) GetName() services.Request2ServicesNameType {
 	return services.SetLoadBalance
 }
 
+func (e *equipSetLoadBalanceRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipSetLoadBalanceRequest) IsCallback() bool {
 	return true
 }

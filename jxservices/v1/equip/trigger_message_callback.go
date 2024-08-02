@@ -19,6 +19,10 @@ func (equipCallStatusNotificationCallbackRequest) GetName() services.Request2Ser
 	return services.CallStatusNotification
 }
 
+func (e *equipCallStatusNotificationCallbackRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipCallStatusNotificationCallbackRequest) IsCallback() bool {
 	return true
 }
@@ -70,6 +74,12 @@ func CallStatusNotificationCallbackRequest(ctx context.Context, req services.Req
 	return services.Transport(ctx, req)
 }
 
+// func CallStatusNotificationCallbackRequest(ctx context.Context, req services.Request) error {
+// 	header := services.GetCallbackHeaderValue(services.CallStatusNotification)
+// 	url := services.GetCallbackURL(req)
+// 	return services.RequestWithoutResponse(ctx, req, url, header, &equipCallStatusNotificationCallbackResponse{})
+// }
+
 var _ services.CallbackRequest = &equipTriggerMessageCallbackRequest{}
 
 type equipTriggerMessageCallbackRequest struct {
@@ -79,6 +89,10 @@ type equipTriggerMessageCallbackRequest struct {
 
 func (equipTriggerMessageCallbackRequest) GetName() services.Request2ServicesNameType {
 	return services.TriggerMessage
+}
+
+func (e equipTriggerMessageCallbackRequest) TraceId() string {
+	return e.MsgID
 }
 
 func (equipTriggerMessageCallbackRequest) IsCallback() bool {

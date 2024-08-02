@@ -15,15 +15,12 @@ type equipSetChargingTimerCallbackRequest struct {
 	Callback services.CB `json:"callback"`
 }
 
-//func (e *equipSetChargingTimerRequest) SetError(err *callback.CallbackError) {
-//	code := err.Code()
-//	msg := err.Error()
-//	e.Data.Code = &code
-//	e.Data.Msg = &msg
-//}
-
 func (equipSetChargingTimerCallbackRequest) GetName() services.Request2ServicesNameType {
 	return services.SetChargingTimer
+}
+
+func (e *equipSetChargingTimerCallbackRequest) TraceId() string {
+	return e.MsgID
 }
 
 func (equipSetChargingTimerCallbackRequest) IsCallback() bool {

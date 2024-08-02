@@ -32,6 +32,10 @@ func (*equipGetIntellectChargeRequest) GetName() services.Request2ServicesNameTy
 	return services.GetIntellectCharge
 }
 
+func (e *equipGetIntellectChargeRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipGetIntellectChargeRequest) IsCallback() bool {
 	return true
 }

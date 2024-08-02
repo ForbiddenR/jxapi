@@ -23,6 +23,10 @@ func (*equipSetFactoryResetRequest) GetName() services.Request2ServicesNameType 
 	return services.SetFactoryReset
 }
 
+func (e *equipSetFactoryResetRequest) TraceId() string {
+	return e.MsgID
+}
+
 func (equipSetFactoryResetRequest) IsCallback() bool {
 	return true
 }

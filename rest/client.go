@@ -26,16 +26,16 @@ type RESTClient struct {
 	base *url.URL
 
 	// content describes how a RESTClient encodes and decodes response.
-	content ClientContentConfig
+	// content ClientContentConfig
 
 	// Set specific behavior of the client.
 	Client *fasthttp.Client
 }
 
 func NewRestClient(baseURL *url.URL, config ClientContentConfig, client *fasthttp.Client) (*RESTClient, error) {
-	if len(config.ContentType) == 0 {
-		config.ContentType = "application/json"
-	}
+	// if len(config.ContentType) == 0 {
+	// 	config.ContentType = "application/json"
+	// }
 
 	base := *baseURL
 	if !strings.HasSuffix(base.Path, "/") {
@@ -44,7 +44,7 @@ func NewRestClient(baseURL *url.URL, config ClientContentConfig, client *fasthtt
 
 	return &RESTClient{
 		base:    &base,
-		content: config,
+		// content: config,
 
 		Client: client,
 	}, nil

@@ -431,10 +431,14 @@ func GetCallbackURL(req Request) string {
 }
 
 func getHeader(req Request) map[string]string {
+	var headers map[string]string
 	if req.IsCallback() {
-		return GetCallbackHeaderValue(req.GetName())
+		headers = GetCallbackHeaderValue(req.GetName())
+	} else {
+		headers = GetSimpleHeaderValue(req.GetName())
 	}
-	return GetSimpleHeaderValue(req.GetName())
+	headers["TraceId"] = req.TraceId()
+	return headers
 }
 
 func getURI(req Request) string {
@@ -487,6 +491,7 @@ func Transport(ctx context.Context, req Request) error {
 // }
 
 func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
+	header["TraceId"] = req.TraceId()
 	message, err := api.SendRequest(ctx, url, req, header)
 	if err != nil {
 		return
@@ -505,6 +510,7 @@ func RequestWithoutResponse[T Response](ctx context.Context, req Request, url st
 }
 
 func RequestWithResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (resp T, err error) {
+	header["TraceId"] = req.TraceId()
 	message, err := api.SendRequest(ctx, url, req, header)
 	if err != nil {
 		return resp, err
