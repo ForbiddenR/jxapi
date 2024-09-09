@@ -49,6 +49,7 @@ type accessVerifyResponseData struct {
 	TransactionInterval int            `json:"transactionInterval"`
 	Registered          bool           `json:"registered"`
 	ReadWait            utils.Duration `json:"readWait"`
+	Blocked             bool           `json:"blocked"`
 }
 
 func AccessVerifyRequest(ctx context.Context, ticket string, traceId string, request *accessVerifyRequest) (*accessVerifyResponse, error) {
