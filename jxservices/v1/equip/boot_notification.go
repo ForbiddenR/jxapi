@@ -17,9 +17,11 @@ type equipBootNotificationRequest struct {
 type equipBootNotificationRequestDetail struct {
 	ModelCode        string  `json:"modelCode"`
 	ManufacturerCode string  `json:"manufacturerCode"`
-	FirmwareVersion  *string `json:"firmwareVersion"`
-	Iccid            *string `json:"iccid"`
-	Imsi             *string `json:"imsi"`
+	FirmwareVersion  *string `json:"firmwareVersion,omitempty"`
+	Iccid            *string `json:"iccid,omitempty"`
+	Imsi             *string `json:"imsi,omitempty"`
+	BtName           *string `json:"btName,omitempty"`
+	BtMac            *string `json:"btMac,omitempty"`
 }
 
 func (equipBootNotificationRequest) GetName() services.Request2ServicesNameType {

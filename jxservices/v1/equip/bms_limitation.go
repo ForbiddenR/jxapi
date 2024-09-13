@@ -25,7 +25,7 @@ type equipBMSLimitRequest struct {
 }
 
 type equipBMSLimitRequestDetail struct {
-	EvseId           *string `json:"evseSerial"`
+	EvseId           *string `json:"evseSerial,omitempty"`
 	ConnectorId      string  `json:"connectorSerial"`
 	MaxTemp          uint64  `json:"maxTemp"`
 	MaxCurrent       float64 `json:"maxCurrent"`
