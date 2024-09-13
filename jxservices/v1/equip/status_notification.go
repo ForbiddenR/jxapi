@@ -19,7 +19,7 @@ type equipStatusNotificationRequestDetail struct {
 	ConnectorSerial string  `json:"connectorSerial"`
 	Status          int     `json:"status"`
 	ErrorCode       *string `json:"errorCode,omitempty"`
-	VendorErrorCode *string `json:"vendorErrorCode"`
+	VendorErrorCode *string `json:"vendorErrorCode,omitempty"`
 	Timestamp       int64   `json:"timestamp"`
 }
 

@@ -35,15 +35,15 @@ func (equipUpdateTransactionRequest) IsCallback() bool {
 type equipUpdateTransactionReqeustDetail struct {
 	Actime        int64       `json:"actime"`
 	TransactionId string      `json:"transactionId"`
-	EvseId        *string     `json:"evseSerial"`
+	EvseId        *string     `json:"evseSerial,omitempty"`
 	ConnectorId   string      `json:"connectorSerial"`
 	Offline       bool        `json:"offline"`
 	Timestamp     int64       `json:"timestamp"`
-	MeterValue    *MeterValue `json:"MeterValue"`
-	Tariff        *Tariff     `json:"tariff"`
+	MeterValue    *MeterValue `json:"MeterValue,omitempty"`
+	Tariff        *Tariff     `json:"tariff,omitempty"`
 	ChargingState uint8       `json:"chargingState"`
-	RemainingTime *int        `json:"remainingTime"`
-	VIN           *string     `json:"vin"`
+	RemainingTime *int        `json:"remainingTime,omitempty"`
+	VIN           *string     `json:"vin,omitempty"`
 }
 
 func NewUpdateTransactionRequest(sn, pod, msgID string, p *services.Protocol, transactionId, connectorId string, offline bool, timestamp int64, chargeState uint8) *equipUpdateTransactionRequest {
