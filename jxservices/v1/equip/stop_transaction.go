@@ -385,6 +385,7 @@ type equipStopTransactionRequestDetail struct {
 	ChargingState   uint8              `json:"chargingState"`
 	Vin             *string            `json:"vin,omitempty"`
 	StopReason      StoppingReasonType `json:"stopReason"`
+	Temperatures    *Temperatures      `json:"temperatures,omitempty"`
 }
 
 type StopTransactionRequestConfig struct {

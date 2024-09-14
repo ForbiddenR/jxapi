@@ -65,23 +65,6 @@ type IdTokenInfo struct {
 	Status        IdTokenStatusTypeEnum `json:"status"`
 }
 
-// const (
-// 	IdTokenTypeCentral IdTokenTypeEnum = iota
-// 	IdTokenTypeRFID
-// 	IdTokenTypeBluetooth
-// 	IdTokenTypeNFC
-// 	IdTokenTypeVIN
-// 	IdTokenTypeAPP
-// 	IdTokenTypeHLHT
-// 	IdTokenTypeeMAID
-// 	IdTokenTypeISO14443
-// 	IdTokenTypeISO15693
-// 	IdTokenTypeKeyCode
-// 	IdTokenTypeLocal
-// 	IdTokenTypeMacAddress
-// 	IdTokenTypeNoAuthorization
-// )
-
 type VariableAttribute struct {
 	Value    string     `json:"value"`
 	Readonly Mutability `json:"mutability"`
@@ -209,15 +192,6 @@ const MeterValueElemSampledValueElemUnitVarh MeterValueElemSampledValueElemUnit 
 const MeterValueElemSampledValueElemUnitW MeterValueElemSampledValueElemUnit = "W"
 const MeterValueElemSampledValueElemUnitWh MeterValueElemSampledValueElemUnit = "Wh"
 
-// type SampleValue struct {
-// 	Value     string  `json:"value"`
-// 	Context   string  `json:"context"`
-// 	Measurand string  `json:"measurand"`
-// 	Phase     *string `json:"phase"`
-// 	Location  *string `json:"location"`
-// 	Unit      string  `json:"unit"`
-// }
-
 type Tariff struct {
 	Id            int64   `json:"id"`
 	TotalMoney    float64 `json:"totalMoney"`
@@ -256,3 +230,11 @@ const (
 	TriggerMessageEnumTypeTransactionEvent
 	TriggerMessageEnumTypeHeartbeat
 )
+
+type Temperatures struct {
+	Temperature1 float64 `json:"temperature1"`
+	Temperature2 float64 `json:"temperature2"`
+	Temperature3 float64 `json:"temperature3"`
+	Temperature4 float64 `json:"temperature4"`
+	Temperature5 float64 `json:"temperature5"`
+}

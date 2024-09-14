@@ -15,22 +15,23 @@ type equipStartTransactionRequest struct {
 }
 
 type equipStartTransactionRequestDetail struct {
-	IdTokenType         IdTokenType `json:"idTokenType"`
-	MeterStart          *int        `json:"meterStart,omitempty"`
-	EvseSerial          *string     `json:"evseSerial,omitempty"`
-	ConnectorSerial     string      `json:"connectorSerial"`
-	ReservationId       *int64      `json:"reservationId,omitempty"`
-	TransactionId       *string     `json:"transactionId,omitempty"`
-	RemoteStartId       *int64      `json:"remoteStartId,omitempty"`
-	Offline             bool        `json:"offline"`
-	Timestamp           int64       `json:"timestamp"`
-	MeterValue          *MeterValue `json:"meterValue"`
-	Tariff              *Tariff     `json:"tariff,omitempty"`
-	ChargingState       uint8       `json:"chargingState"`
-	Vin                 *string     `json:"vin,omitempty"`
-	RemainingTime       *int        `json:"remainingTime,omitempty"`
-	ChargingProfileId   *int64      `json:"chargingProfileId,omitempty"`
-	ChargingProfileUnit *uint8      `json:"chargingProfileUnit,omitempty"`
+	IdTokenType         IdTokenType   `json:"idTokenType"`
+	MeterStart          *int          `json:"meterStart,omitempty"`
+	EvseSerial          *string       `json:"evseSerial,omitempty"`
+	ConnectorSerial     string        `json:"connectorSerial"`
+	ReservationId       *int64        `json:"reservationId,omitempty"`
+	TransactionId       *string       `json:"transactionId,omitempty"`
+	RemoteStartId       *int64        `json:"remoteStartId,omitempty"`
+	Offline             bool          `json:"offline"`
+	Timestamp           int64         `json:"timestamp"`
+	MeterValue          *MeterValue   `json:"meterValue"`
+	Tariff              *Tariff       `json:"tariff,omitempty"`
+	ChargingState       uint8         `json:"chargingState"`
+	Vin                 *string       `json:"vin,omitempty"`
+	RemainingTime       *int          `json:"remainingTime,omitempty"`
+	ChargingProfileId   *int64        `json:"chargingProfileId,omitempty"`
+	ChargingProfileUnit *uint8        `json:"chargingProfileUnit,omitempty"`
+	Temperatures        *Temperatures `json:"temperatures,omitempty"`
 }
 
 type StartTransactionRequestConfig struct {
@@ -43,7 +44,7 @@ type StartTransactionRequestConfig struct {
 }
 
 func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestConfig) *equipStartTransactionRequest {
-	req :=  &equipStartTransactionRequest{
+	req := &equipStartTransactionRequest{
 		Base: services.Base{
 			EquipmentSn: config.Sn,
 			Protocol:    config.Protocol,
@@ -64,7 +65,7 @@ func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestCo
 			},
 		},
 	}
-	
+
 	if !config.Protocol.Equal(services.OCPP16()) {
 		req.Data.MeterValue = &MeterValue{}
 	}
