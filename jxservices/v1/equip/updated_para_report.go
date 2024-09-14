@@ -39,7 +39,7 @@ func (equipUpdatedParaReportRequest) IsCallback() bool {
 	return false
 }
 
-func NewUpdatedParaReportRequest(sn, pod, msgID string, p *services.Protocol) *equipUpdatedParaReportRequest {
+func NewEquipUpdatedParaReportRequest(sn, pod, msgID string, p *services.Protocol) *equipUpdatedParaReportRequest {
 	return &equipUpdatedParaReportRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
