@@ -136,8 +136,10 @@ const (
 	GetIntellectCharge          Request2ServicesNameType = "getIntellectCharge"
 	OffPeakCharge               Request2ServicesNameType = "offPeakCharging"
 	// defined for Wukong
-	UpdatedParaReport       Request2ServicesNameType = "updatedParaReport"
-	ConnectorPositionReport Request2ServicesNameType = "connectorPositionReport"
+	UpdatedParaReport                  Request2ServicesNameType = "updatedParaReport"
+	ConnectorPositionReport            Request2ServicesNameType = "connectorPositionReport"
+	RequestStartDischargingTransaction Request2ServicesNameType = "requestStartDischargingTransaction"
+	RequestStopDischargingTransaction  Request2ServicesNameType = "requestStopDischargingTransaction"
 )
 
 // FirstUpper is only for the interfaces having a regular category.

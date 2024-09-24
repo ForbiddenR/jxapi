@@ -1,0 +1,56 @@
+package equip
+
+import (
+	"context"
+
+	"github.com/ForbiddenR/jxapi/apierrors"
+	services "github.com/ForbiddenR/jxapi/jxservices"
+)
+
+type equipRequestStopDischargingRequest struct {
+	services.Base
+	Callback services.CB `json:"callback"`
+}
+
+func (equipRequestStopDischargingRequest) GetName() services.Request2ServicesNameType {
+	return services.RequestStartDischargingTransaction
+}
+
+func (e *equipRequestStopDischargingRequest) TraceId() string {
+	return e.MsgID
+}
+
+func (equipRequestStopDischargingRequest) IsCallback() bool {
+	return true
+}
+
+func NewEquipRequestStopDischargingRequest(sn, pod, msgId string, p *services.Protocol, status int) *equipRequestStopDischargingRequest {
+	return &equipRequestStopDischargingRequest{
+		Base: services.Base{
+			EquipmentSn: sn,
+			Protocol:    p,
+			Category:    services.RequestStartDischargingTransaction.GetCallbackCategory(),
+			AccessPod:   pod,
+			MsgID:       msgId,
+		},
+		Callback: services.NewCB(status),
+	}
+}
+
+func NewEquipRequestStopDischargingRequestError(sn string, pod, msgId string, p *services.Protocol, err *apierrors.CallbackError) *equipRequestStopDischargingRequest {
+	req := &equipRequestStopDischargingRequest{
+		Base: services.Base{
+			EquipmentSn: sn,
+			Protocol:    p,
+			Category:    services.RequestStartDischargingTransaction.GetCallbackCategory(),
+			AccessPod:   pod,
+			MsgID:       msgId,
+		},
+		Callback: services.NewCBError(err),
+	}
+	return req
+}
+
+func RequestStopCallbackRequest(ctx context.Context, req *equipAuthorizeTransactionRequest) error {
+	return services.Transport(ctx, req)
+}
