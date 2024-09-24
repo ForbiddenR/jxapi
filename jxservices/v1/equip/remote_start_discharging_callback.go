@@ -51,6 +51,6 @@ func NewEquipRequestStartDischargingRequestError(sn string, pod, msgId string, p
 	return req
 }
 
-func RequestStartDischargingCallbackRequest(ctx context.Context, req services.CallbackRequest) error {
+func RequestStartDischargingCallbackRequest(ctx context.Context, req services.Request) error {
 	return services.Transport(ctx, req)
 }
