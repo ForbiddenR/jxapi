@@ -12,6 +12,7 @@ type EquipRequestStartDischargingRequest struct {
 }
 
 type EquipRequestStartDischargingRequestDetail struct {
+	VendorId    string `json:"vendorId"`
 	ConnectorId string `json:"connectorSerial"`
 }
 
