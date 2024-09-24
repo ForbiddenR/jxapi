@@ -51,6 +51,6 @@ func NewEquipRequestStartDischargingRequestError(sn string, pod, msgId string, p
 	return req
 }
 
-func RequestStartCallbackRequest(ctx context.Context, req *equipAuthorizeTransactionRequest) error {
+func RequestStartDischargingCallbackRequest(ctx context.Context, req *equipAuthorizeTransactionRequest) error {
 	return services.Transport(ctx, req)
 }
