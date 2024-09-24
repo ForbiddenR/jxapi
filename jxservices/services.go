@@ -77,9 +77,11 @@ const (
 	CancelIntellectChargeFeatureName = "cancelIntellectCharge"
 	SetPriceSchemeFeatureName        = "setPriceScheme"
 	// Customized Features about 104 protocol
-	SendQRCodeFeatureName         = "sendQRCode"
-	GetIntellectChargeFeatureName = "getIntellectCharge"
-	OffPeakChargeFeatureName      = "offPeakCharging"
+	SendQRCodeFeatureName              = "sendQRCode"
+	GetIntellectChargeFeatureName      = "getIntellectCharge"
+	OffPeakChargeFeatureName           = "offPeakCharging"
+	RequestStartDischargingFeatureName = "requestStartDischarging"
+	RequestStopDischargingFeatureName  = "requestStopDischarging"
 )
 
 type Request2ServicesNameType string
