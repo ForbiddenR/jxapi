@@ -140,8 +140,8 @@ const (
 	// defined for Wukong
 	UpdatedParaReport                  Request2ServicesNameType = "updatedParaReport"
 	ConnectorPositionReport            Request2ServicesNameType = "connectorPositionReport"
-	RequestStartDischargingTransaction Request2ServicesNameType = "requestStartDischargingTransaction"
-	RequestStopDischargingTransaction  Request2ServicesNameType = "requestStopDischargingTransaction"
+	RequestStartDischargingTransaction Request2ServicesNameType = "remoteStartDischarging"
+	RequestStopDischargingTransaction  Request2ServicesNameType = "remoteStopDischarging"
 )
 
 // FirstUpper is only for the interfaces having a regular category.
