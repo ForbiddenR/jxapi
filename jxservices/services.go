@@ -80,8 +80,8 @@ const (
 	SendQRCodeFeatureName              = "sendQRCode"
 	GetIntellectChargeFeatureName      = "getIntellectCharge"
 	OffPeakChargeFeatureName           = "offPeakCharging"
-	RequestStartDischargingFeatureName = "requestStartDischarging"
-	RequestStopDischargingFeatureName  = "requestStopDischarging"
+	RequestStartDischargingFeatureName = "remoteStartDischarging"
+	RequestStopDischargingFeatureName  = "remoteStopDischarging"
 )
 
 type Request2ServicesNameType string
