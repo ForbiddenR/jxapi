@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strings"
 	"time"
 
@@ -32,10 +33,6 @@ func NewAccessVerifyRequest(sn, requestPort, protocol, protocolVersion string) *
 		RequestPort:     requestPort,
 	}
 }
-
-// func (a *accessVerifyRequest) getName() string {
-// 	return "accessVerify"
-// }
 
 type accessVerifyResponse struct {
 	api.Response
@@ -67,7 +64,7 @@ func AccessVerifyRequest(ctx context.Context, ticket string, traceId string, req
 	accessResponse := new(accessVerifyResponse)
 	err = json.Unmarshal(resp, accessResponse)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("bad json format: %s", resp)
 	}
 	if accessResponse.Status == 1 {
 		return accessResponse, errors.New(accessResponse.Msg)

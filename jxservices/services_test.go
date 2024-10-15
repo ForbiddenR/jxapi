@@ -43,19 +43,6 @@ func TestURL(t *testing.T) {
 	assert.Equal(t, "ac/callback/sendQRCodeCallback", Equip+"/"+Callback+"/"+SendQRCode.String()+"Callback")
 }
 
-func TestRequestWithoutResponse(t *testing.T) {
-	//req := equip.NewEquipResetRequest("sn", "pod", api.Ocpp16, 1)
-	//url := ""
-	//header := make(map[string]string)
-	//err := RequestWithoutResponse(req, url, header)
-	//assert.NotNil(t, err)
-	//t.Log(err)
-
-	//resp, err :=RequestWithResponse(req, url, header)
-	//assert.Nil(t, err)
-	//t.Log(resp)
-}
-
 func TestFeatureCollection(t *testing.T) {
 	result, ok := UnsupportedFeatures.Get("test")
 	t.Log(result, ok)

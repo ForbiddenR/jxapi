@@ -39,14 +39,6 @@ func sendPostRequest(_ context.Context, url string, requestBody []byte, headers 
 		fasthttp.ReleaseRequest(req)
 	}()
 	err := client.DoTimeout(req, resp, 3*time.Second)
-
-	//if err != nil {
-	//	if _, know := httpConnError(err); know {
-	//		return nil, err
-	//	} else {
-	//		return nil, err
-	//	}
-	//}
 	if err != nil {
 		return nil, apierrors.GetFailedRequestDoTimeoutError(err)
 	}
@@ -64,43 +56,3 @@ func sendPostRequest(_ context.Context, url string, requestBody []byte, headers 
 	}
 	return respBody, nil
 }
-
-// not used
-//func httpConnError(err error) (string, bool) {
-//	errName := ""
-//	know := false
-//	if err == fasthttp.ErrTimeout {
-//		errName = "timeout"
-//		know = true
-//	} else if err == fasthttp.ErrNoFreeConns {
-//		errName = "conn_limit"
-//		know = true
-//	} else if err == fasthttp.ErrConnectionClosed {
-//		errName = "conn_close"
-//		know = true
-//	} else {
-//		errName = reflect.TypeOf(err).String()
-//		if errName == "net.OpError" {
-//			// Write and Read errors are not so often and in fact they just mean timeout problems
-//			errName = "timeout"
-//			know = true
-//		}
-//	}
-//	return errName, know
-//}
-
-// get request
-//func (a *ApiServer) sendGetRequest() {
-//	req := fasthttp.AcquireRequest()
-//	req.SetRequestURI("http://localhost:8080/")
-//	req.Header.SetMethod(fasthttp.MethodGet)
-//	resp := fasthttp.AcquireResponse()
-//	err := a.client.Do(req, resp)
-//	fasthttp.ReleaseRequest(req)
-//	if err == nil {
-//		fmt.Printf("DEBUG Response: %s\n", resp.Body())
-//	} else {
-//		fmt.Fprintf(os.Stderr, "Err Connection error: %v\n", err)
-//	}
-//	fasthttp.ReleaseResponse(resp)
-//}

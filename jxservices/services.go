@@ -226,7 +226,6 @@ type Base struct {
 	Category    string    `json:"category"`
 	AccessPod   string    `json:"accessPod"`
 	MsgID       string    `json:"msgId"`
-	// Callback    *CB       `json:"callback,omitempty"`
 }
 
 type BaseConfig struct {
