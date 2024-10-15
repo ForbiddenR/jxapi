@@ -43,7 +43,7 @@ func NewRestClient(baseURL *url.URL, config ClientContentConfig, client *fasthtt
 	}
 
 	return &RESTClient{
-		base:    &base,
+		base: &base,
 		// content: config,
 
 		Client: client,

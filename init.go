@@ -10,16 +10,6 @@ import (
 
 var ServiceClient rest.Interface
 
-func Init(esamUrl, servicesUrl string, readTimeout, writeTimeout, maxIdleConnDuration time.Duration, maxConnsPerHost int) {
-	EsamUrl, ServicesUrl = esamUrl, servicesUrl
-	client = &fasthttp.Client{
-		ReadTimeout:         readTimeout,
-		WriteTimeout:        writeTimeout,
-		MaxIdleConnDuration: maxIdleConnDuration,
-		MaxConnsPerHost:     maxConnsPerHost,
-	}
-}
-
 type options struct {
 	readTimeout         time.Duration
 	writeTimeout        time.Duration

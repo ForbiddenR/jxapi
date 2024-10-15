@@ -53,7 +53,7 @@ func TestWeight(t *testing.T) {
 		go DoWithMaxCurrentNum(context.Background(), func() error {
 			defer wg.Done()
 			fmt.Println(k)
-			time.Sleep(2*time.Second)
+			time.Sleep(2 * time.Second)
 			return nil
 		})
 	}

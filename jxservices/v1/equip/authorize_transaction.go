@@ -69,4 +69,3 @@ func AuthorizeTransactionRequest(ctx context.Context, req *equipAuthorizeTransac
 
 	return services.RequestWithResponse(ctx, req, url, header, &equipAuthorizeTransactionResponse{})
 }
-

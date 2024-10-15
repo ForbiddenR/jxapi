@@ -26,7 +26,7 @@ func DoOnlyOnceAtSameTime(key string, f func() error) error {
 }
 
 func DoWithMaxCurrentNum(ctx context.Context, f func() error) error {
-	err := weighted.Acquire(ctx , 1)
+	err := weighted.Acquire(ctx, 1)
 	if err != nil {
 		return err
 	}

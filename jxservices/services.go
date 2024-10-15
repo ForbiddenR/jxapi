@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ForbiddenR/jxapi/v2/jxutils/store"
 	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
+	"github.com/ForbiddenR/jxapi/v2/jxutils/store"
 )
 
 type callbackGenerator func(base Base, err *apierrors.CallbackError) Request
