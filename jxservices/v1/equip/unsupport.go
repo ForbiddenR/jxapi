@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ForbiddenR/jxapi/apierrors"
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	"github.com/ForbiddenR/jxapi/v2/apierrors"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 func UnspportedCallbackRequest(ctx context.Context, name string, base services.Base) error {

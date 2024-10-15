@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/ForbiddenR/jxapi/rest"
+	"github.com/ForbiddenR/jxapi/v2/rest"
 	"github.com/valyala/fasthttp"
 )
 

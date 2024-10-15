@@ -1,4 +1,4 @@
-module github.com/ForbiddenR/jxapi
+module github.com/ForbiddenR/jxapi/v2
 
 go 1.22.4
 

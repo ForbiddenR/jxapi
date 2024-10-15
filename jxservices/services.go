@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"strings"
 
-	api "github.com/ForbiddenR/jxapi"
-	"github.com/ForbiddenR/jxapi/apierrors"
-	"github.com/ForbiddenR/jxapi/jxutils/store"
+	"github.com/ForbiddenR/jxapi/v2/jxutils/store"
+	api "github.com/ForbiddenR/jxapi/v2"
+	"github.com/ForbiddenR/jxapi/v2/apierrors"
 )
 
 type callbackGenerator func(base Base, err *apierrors.CallbackError) Request
@@ -487,24 +487,6 @@ func Transport(ctx context.Context, req Request) error {
 	}
 	return err
 }
-
-// func RequestGeneral(ctx context.Context, req Request, url string, header map[string]string) error {
-// 	message, err := api.SendRequest(ctx, url, req, header)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	resp := &api.Response{}
-// 	err = json.Unmarshal(message, resp)
-// 	if err != nil {
-// 		request, _ := json.Marshal(req)
-// 		return apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
-// 	}
-
-// 	if resp.Status == 1 {
-// 		return errors.New(resp.Msg)
-// 	}
-// 	return err
-// }
 
 func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
 	header["TraceId"] = req.TraceId()

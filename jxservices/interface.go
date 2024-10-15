@@ -1,6 +1,6 @@
 package jxservices
 
-import "github.com/ForbiddenR/jxapi/apierrors"
+import "github.com/ForbiddenR/jxapi/v2/apierrors"
 
 // Request interface needs to be implemented by all api.
 type Request interface {

@@ -2,8 +2,9 @@ package apierrors_test
 
 import (
 	"errors"
-	"github.com/ForbiddenR/jxapi/apierrors"
 	"testing"
+
+	"github.com/ForbiddenR/jxapi/v2/apierrors"
 )
 
 func TestGetFailedRequestMarshalError(t *testing.T) {

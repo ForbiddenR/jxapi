@@ -3,7 +3,7 @@ package equip
 import (
 	"encoding/json"
 
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 type EquipDataTransferRequest struct {

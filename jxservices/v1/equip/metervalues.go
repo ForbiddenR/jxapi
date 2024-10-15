@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 
 	"github.com/makasim/amqpextra/publisher"
 	amqp "github.com/rabbitmq/amqp091-go"

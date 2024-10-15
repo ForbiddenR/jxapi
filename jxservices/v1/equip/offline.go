@@ -4,8 +4,8 @@ import (
 	"context"
 	"strings"
 
-	api "github.com/ForbiddenR/jxapi"
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	api "github.com/ForbiddenR/jxapi/v2"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 type OfflineReason string

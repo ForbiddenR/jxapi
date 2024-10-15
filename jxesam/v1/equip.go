@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	api "github.com/ForbiddenR/jxapi"
-	esam "github.com/ForbiddenR/jxapi/jxesam"
-	utils "github.com/ForbiddenR/jxapi/jxutils"
+	esam "github.com/ForbiddenR/jxapi/v2/jxesam"
+	utils "github.com/ForbiddenR/jxapi/v2/jxutils"
+	api "github.com/ForbiddenR/jxapi/v2"
 )
 
 const readWait = 80 * time.Second

@@ -3,8 +3,8 @@ package equip
 import (
 	"context"
 
-	"github.com/ForbiddenR/jxapi/apierrors"
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	"github.com/ForbiddenR/jxapi/v2/apierrors"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 type equipRequestStopDischargingRequest struct {

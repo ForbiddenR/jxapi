@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	api "github.com/ForbiddenR/jxapi"
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	api "github.com/ForbiddenR/jxapi/v2"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 	"github.com/makasim/amqpextra/publisher"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -115,8 +115,8 @@ func BMSInfoRequest(ctx context.Context, req services.Request, p *publisher.Publ
 	}
 
 	messsage := publisher.Message{
-		Context:      ctx,
-		Key:          bmsInfoQueue,
+		Context: ctx,
+		Key:     bmsInfoQueue,
 		Publishing: amqp.Publishing{
 			ContentType: "application/json",
 			Body:        bytes,

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 type EquipRemoteStartTransactionRequest struct {

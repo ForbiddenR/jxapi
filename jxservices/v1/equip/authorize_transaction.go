@@ -3,8 +3,8 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi"
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	api "github.com/ForbiddenR/jxapi/v2"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 var _ services.Request = &equipAuthorizeTransactionRequest{}
@@ -69,3 +69,4 @@ func AuthorizeTransactionRequest(ctx context.Context, req *equipAuthorizeTransac
 
 	return services.RequestWithResponse(ctx, req, url, header, &equipAuthorizeTransactionResponse{})
 }
+

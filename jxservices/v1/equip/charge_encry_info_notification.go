@@ -3,8 +3,8 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi"
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	api "github.com/ForbiddenR/jxapi/v2"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 var _ services.Request = &equipChargeEncryInfoNotificationRequest{}
@@ -46,9 +46,9 @@ type ChargeEncryInfoNotificationRequestConfig struct {
 	EncryType        uint64
 }
 
-func NewEquipChargeEncryInfoNotificationRequestWithConfig(config *ChargeEncryInfoNotificationRequestConfig) *equipChargeEncryInfoNotificationRequest{
-	return NewEquipChargeEncryInfoNotificationRequest(config.Sn, config.Protocol, config.Pod, config.MsgID, 
-	config.ConnectorId, config.TransactionId, config.EncryptedData, config.MeterNum, config.ElecmeterVersion, config.EncryType)
+func NewEquipChargeEncryInfoNotificationRequestWithConfig(config *ChargeEncryInfoNotificationRequestConfig) *equipChargeEncryInfoNotificationRequest {
+	return NewEquipChargeEncryInfoNotificationRequest(config.Sn, config.Protocol, config.Pod, config.MsgID,
+		config.ConnectorId, config.TransactionId, config.EncryptedData, config.MeterNum, config.ElecmeterVersion, config.EncryType)
 }
 
 func NewEquipChargeEncryInfoNotificationRequest(sn string, p *services.Protocol, pod, msgID string,

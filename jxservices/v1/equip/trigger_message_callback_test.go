@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ForbiddenR/jxapi/jxservices"
-	"github.com/ForbiddenR/jxapi/rest"
+	"github.com/ForbiddenR/jxapi/v2/jxservices"
+	"github.com/ForbiddenR/jxapi/v2/rest"
 	"github.com/stretchr/testify/assert"
 	"github.com/valyala/fasthttp"
 )
@@ -25,10 +25,10 @@ func TestCallStatusNotificationRequest(t *testing.T) {
 	serviceClient, err := rest.NewRestClient(service, rest.ClientContentConfig{}, client)
 	assert.Nil(t, err)
 	result := serviceClient.Post().
-	RequestURI("test").
-	Body(req).
-	SetHeader(map[string]string{"test": "test"}).
-	Do(context.Background())
+		RequestURI("test").
+		Body(req).
+		SetHeader(map[string]string{"test": "test"}).
+		Do(context.Background())
 	assert.Nil(t, result.Error())
-	
+
 }

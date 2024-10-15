@@ -3,9 +3,9 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi"
-	"github.com/ForbiddenR/jxapi/apierrors"
-	services "github.com/ForbiddenR/jxapi/jxservices"
+	api "github.com/ForbiddenR/jxapi/v2"
+	"github.com/ForbiddenR/jxapi/v2/apierrors"
+	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 var _ services.Request = &equipCancelIntellectChargeRequest{}
@@ -69,10 +69,6 @@ func (resp *equipCancelIntellectChargeResponse) GetMsg() string {
 	return resp.Msg
 }
 
-func CancelIntellectChargeRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.CancelIntellectCharge)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipCancelIntellectChargeResponse{})
+func CancelIntellectChargeCallbackRequest(ctx context.Context, req services.Request) error {
+	return services.Transport(ctx, req)
 }
