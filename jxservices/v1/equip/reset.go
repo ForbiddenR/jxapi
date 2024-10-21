@@ -45,7 +45,7 @@ func (r *EquipResetRequest) UnmarshalJSON(b []byte) error {
 		if aux.Data.ResetType == ResetTypeImmediate {
 			return errors.New(aux.Protocol.String() + ":resetType: immediate is invalid")
 		}
-	} else {
+	} else if !aux.Protocol.Equal(services.YunKuaiChong()) {
 		if aux.Data.ResetType == ResetTypeHard {
 			return errors.New(aux.Protocol.String() + ":resetType: hard is invalid")
 		}
