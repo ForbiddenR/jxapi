@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/tidwall/gjson"
 )
 
 var EsamUrl, ServicesUrl string
@@ -31,6 +32,8 @@ const (
 	Services = "services"
 	Esam     = "esam"
 )
+
+const msgId = "msgId"
 
 const Perms = "Perms"
 
@@ -65,4 +68,15 @@ func UnmarshalAndVerify(payload []byte, req any, validate *validator.Validate) e
 		return err
 	}
 	return nil
+}
+
+func Decode(payload []byte, req any, validate *validator.Validate) (string, error) {
+	msgId := gjson.GetBytes(payload, msgId).String()
+	if err := json.Unmarshal(payload, req); err != nil {
+		return msgId, err
+	}
+	if err := validate.Struct(req); err != nil {
+		return msgId, err
+	}
+	return msgId, nil
 }

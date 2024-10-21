@@ -151,6 +151,27 @@ const (
 	ConnectorPositionReport            Request2ServicesNameType = "connectorPositionReport"
 	RequestStartDischargingTransaction Request2ServicesNameType = "remoteStartDischarging"
 	RequestStopDischargingTransaction  Request2ServicesNameType = "remoteStopDischarging"
+	// defined for Yunkuaichong
+	AuthorizeChargeTemplate         Request2ServicesNameType = "authorizeChargeTemplate"
+	UploadParkingLockData           Request2ServicesNameType = "uploadParkingLockData"
+	ErrorReport                     Request2ServicesNameType = "errorReport"
+	ReadCurrentMonitor              Request2ServicesNameType = "readCurrentMonitor"
+	UpdateCurrentMonitor            Request2ServicesNameType = "updateCurrentMonitor"
+	ChargingHandshake               Request2ServicesNameType = "chargingHandshake"
+	FetechChargeTemplate            Request2ServicesNameType = "fetechChargeTemplate"
+	ConfigurationProfile            Request2ServicesNameType = "configurationProfile"
+	BmsTerminate                    Request2ServicesNameType = "bmsTerminate"
+	ChargerTerminate                Request2ServicesNameType = "chargerTerminate"
+	BmsRequirementWithChargerOutput Request2ServicesNameType = "bmsRequirementWithChargerOutput"
+	UploadTransactionRecord         Request2ServicesNameType = "uploadTransactionRecord"
+	RemoteUpdateAccountBalance      Request2ServicesNameType = "remoteUpdateAccountBalance"
+	ClearOfflineCards               Request2ServicesNameType = "clearOfflineCards"
+	QueryOfflineCards               Request2ServicesNameType = "queryOfflineCards"
+	SetParameters                   Request2ServicesNameType = "setParameters"
+	SetChargeTemplate               Request2ServicesNameType = "setChargeTemplate"
+	RemoteControlParkingLock        Request2ServicesNameType = "remoteControlParkingLock"
+	StartParallelTransaction        Request2ServicesNameType = "startParallelTransaction"
+	RemoteStartParallelTransaction  Request2ServicesNameType = "remoteStartParallelTransaction"
 )
 
 // FirstUpper is only for the interfaces having a regular category.
@@ -338,6 +359,7 @@ var iec002 = &Protocol{Name: "IEC104", Version: "0.2"}
 var iec003 = &Protocol{Name: "IEC104", Version: "0.3"}
 var iec004 = &Protocol{Name: "IEC104", Version: "0.4"}
 var iec005 = &Protocol{Name: "IEC104", Version: "0.5"}
+var yunKuaiChong = &Protocol{Name: "YunKuangChong", Version: "1.7"}
 
 func OCPP16() *Protocol {
 	return ocpp16p
@@ -365,6 +387,10 @@ func IEC004() *Protocol {
 
 func IEC005() *Protocol {
 	return iec005
+}
+
+func YunKuaiChong() *Protocol {
+	return yunKuaiChong
 }
 
 // CB includes callback information
