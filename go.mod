@@ -8,7 +8,6 @@ require (
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/stretchr/testify v1.8.4
 	github.com/valyala/fasthttp v1.56.0
-	golang.org/x/sync v0.8.0
 )
 
 require (
