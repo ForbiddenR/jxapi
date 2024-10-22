@@ -3,17 +3,13 @@ package apierrors
 type JsonErrorType int
 
 const (
-	// SyntaxJsonError json语法解析错误
 	// SyntaxJsonError happens when json messages fail to be parsed for grammar errors.
 	SyntaxJsonError JsonErrorType = 1
-	// RequiredJsonError json必须要的字段未解析到
 	// RequiredJsonError happens because of a lack of necessary fields.
 	RequiredJsonError JsonErrorType = 2
-	// FormatValueJsonError json一些字段的值解析错误 e.g 时间类型必须是RFC3339, 还有类型错误
 	// FormatValueJsonError happens because the values of some json fields fails to be parsed like type error or
 	// time fields' violating the RFC3339 standard etc.
 	FormatValueJsonError JsonErrorType = 3
-	// EnumValueJsonError json一些字段是枚举值 解析出来的内容不符合枚举值
 	// EnumValueJsonError occurs when some parsed values do not include in its enum domain.
 	EnumValueJsonError JsonErrorType = 4
 )

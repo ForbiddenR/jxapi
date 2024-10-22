@@ -12,8 +12,8 @@ type equipUpdatedParaReportRequest struct {
 }
 
 type equipUpdatedParaReportRequestDetail struct {
-	AuthFree           uint8    `json:"authFree"`
-	BtFastAuth         uint8    `json:"btFastAuth"`
+	AuthFree           bool     `json:"authFree"`
+	BtFastAuth         bool     `json:"btFastAuth"`
 	OutputType         string   `json:"outputType"`
 	OutputCurrentLimit float64  `json:"outputCurrentLimit"`
 	Entities           []Entity `json:"entities"`
@@ -39,7 +39,7 @@ func (equipUpdatedParaReportRequest) IsCallback() bool {
 	return false
 }
 
-func NewEquipUpdatedParaReportRequest(sn, pod, msgID string, p *services.Protocol, authFree, btFastAuth uint8, outputType string, outputCurrentLimit float64) *equipUpdatedParaReportRequest {
+func NewEquipUpdatedParaReportRequest(sn, pod, msgID string, p *services.Protocol, authFree, btFastAuth bool, outputType string, outputCurrentLimit float64) *equipUpdatedParaReportRequest {
 	return &equipUpdatedParaReportRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
