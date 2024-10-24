@@ -33,7 +33,7 @@ func (r *EquipRemoteStartTransactionRequest) UnmarshalJSON(data []byte) error {
 	if aux.Data == nil {
 		return errors.New("data is nil")
 	}
-	if !aux.Protocol.Equal(services.OCPP16()) {
+	if !aux.Protocol.Equal(services.OCPP16()) && !aux.Protocol.Equal(services.YunKuaiChong()) {
 		if aux.Data.EvseId == nil {
 			return errors.New(aux.Protocol.Name + ":evse serial is nil")
 		}
