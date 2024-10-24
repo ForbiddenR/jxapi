@@ -434,6 +434,17 @@ func getCallbackError(clientId string, command string, err *apierrors.Error) *ap
 	}
 }
 
+func PError(clientId string, command string, err error) *apierrors.CallbackError {
+	if cb , ok := err.(*apierrors.CallbackError); ok {
+		return cb
+	}
+	if ocp, ok := err.(*apierrors.Error); ok {
+		cb := getCallbackError(clientId, command, ocp)
+		return cb
+	}
+	return apierrors.NewCallbackErrorOffline(clientId, command)
+}
+
 // GetProperCallbackError turns an entering error into callback error
 func GetProperCallbackError(clientId string, command string, err error) *apierrors.CallbackError {
 	if cbErr, ok := err.(*apierrors.CallbackError); ok {
