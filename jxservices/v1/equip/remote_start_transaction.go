@@ -18,6 +18,10 @@ type EquipRemoteStartTransactionRequestDetail struct {
 	IdTokenType   IdTokenType `json:"idTokenType" validate:"required"`
 	RemoteStartId *uint64     `json:"remoteStartId,omitempty"`
 	Intellect     *Intellect  `json:"intellect,omitempty"`
+	TransactionId *string     `json:"transactionId,omitempty"`
+	LogicCard     string      `json:"logicCard"`
+	Card          string      `json:"card"`
+	Balance       float64     `json:"balance,omitempty"`
 }
 
 func (r *EquipRemoteStartTransactionRequest) UnmarshalJSON(data []byte) error {
@@ -33,7 +37,11 @@ func (r *EquipRemoteStartTransactionRequest) UnmarshalJSON(data []byte) error {
 	if aux.Data == nil {
 		return errors.New("data is nil")
 	}
-	if !aux.Protocol.Equal(services.OCPP16()) && !aux.Protocol.Equal(services.YunKuaiChong()) {
+	if aux.Protocol.Equal(services.YunKuaiChong()) {
+		if aux.Data.TransactionId == nil {
+			return errors.New(aux.Protocol.Name + ":transaction id is nil")
+		}
+	} else if !aux.Protocol.Equal(services.OCPP16()) {
 		if aux.Data.EvseId == nil {
 			return errors.New(aux.Protocol.Name + ":evse serial is nil")
 		}
