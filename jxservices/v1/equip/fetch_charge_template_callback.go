@@ -39,7 +39,7 @@ func NewEquipFetchChargeTemplateCallbackRequest(sn, pod, msgId string, p *servic
 	return req
 }
 
-func NewEquipFetchChargeTemplateCallbackRequestError(sn, pod, msgId string, p *services.Protocol, status int, err *apierrors.CallbackError) *equipFetchChargeTemplateCallbackRequest {
+func NewEquipFetchChargeTemplateCallbackRequestError(sn, pod, msgId string, p *services.Protocol, err *apierrors.CallbackError) *equipFetchChargeTemplateCallbackRequest {
 	req := &equipFetchChargeTemplateCallbackRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
