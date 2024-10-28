@@ -91,6 +91,7 @@ const (
 	SetParametersFeatureName                  = "setParameters"
 	RemoteControlParkingLockFeatureName       = "remoteControlParkingLock"
 	RemoteStartParallelTransactionFeatureName = "startParallelTransaction"
+	ResetOfflineCardsFeatureName              = "resetOfflineCards"
 )
 
 type Request2ServicesNameType string
@@ -167,6 +168,7 @@ const (
 	RemoteUpdateAccountBalance      Request2ServicesNameType = "remoteUpdateAccountBalance"
 	ClearOfflineCards               Request2ServicesNameType = "clearOfflineCards"
 	QueryOfflineCards               Request2ServicesNameType = "queryOfflineCards"
+	ResetOfflineCards               Request2ServicesNameType = "resetOfflineCards"
 	SetParameters                   Request2ServicesNameType = "setParameters"
 	SetChargeTemplate               Request2ServicesNameType = "setChargeTemplate"
 	RemoteControlParkingLock        Request2ServicesNameType = "remoteControlParkingLock"
@@ -435,7 +437,7 @@ func getCallbackError(clientId string, command string, err *apierrors.Error) *ap
 }
 
 func PError(clientId string, command string, err error) *apierrors.CallbackError {
-	if cb , ok := err.(*apierrors.CallbackError); ok {
+	if cb, ok := err.(*apierrors.CallbackError); ok {
 		return cb
 	}
 	if ocp, ok := err.(*apierrors.Error); ok {
