@@ -30,7 +30,7 @@ func (r *EquipReserveNowRequest) UnmarshalJSON(data []byte) error {
 			return errors.New(aux.Protocol.String() + ":id token type is nil")
 		}
 	} else {
-		if aux.Data.ConnectorID == nil {
+		if aux.Data.ConnectorId == nil {
 			return errors.New(aux.Protocol.String() + ":connector id is nil")
 		}
 	}
@@ -40,7 +40,7 @@ func (r *EquipReserveNowRequest) UnmarshalJSON(data []byte) error {
 type EquipReserveNowRequestDetail struct {
 	ID            int64        `json:"reserveId" validate:"required"`
 	ExpireDate    int64        `json:"expireDate" validate:"required"`
-	ConnectorID   *string      `json:"connectorSerial,omitempty"`
+	ConnectorId   *string      `json:"connectorSerial,omitempty"`
 	EvseID        *string      `json:"evseSerial,omitempty"`
 	IdTokenType   IdTokenType  `json:"idTokenType"`
 	ParentIdToken *string      `json:"parentIdToken,omitempty"`
