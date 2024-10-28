@@ -238,3 +238,8 @@ type Temperatures struct {
 	Temperature4 float64 `json:"temperature4"`
 	Temperature5 float64 `json:"temperature5"`
 }
+
+type CardPair struct {
+	LogicCard string `json:"logicCard"`
+	Card      string `json:"card"`
+}

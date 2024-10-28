@@ -12,7 +12,7 @@ type EquipResetOfflineCardsRequest struct {
 }
 
 type EquipResetOfflineCardsRequestDetail struct {
-	OfflineCard []string `json:"offlineCard"`
+	OfflineCards []CardPair `json:"offlineCards"`
 }
 
 func (r *EquipResetOfflineCardsRequest) UnmarshalJSON(data []byte) error {
