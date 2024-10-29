@@ -11,6 +11,21 @@ type equipConfigurationProfileRequest struct {
 	services.Base
 }
 
+type equipConfigurationProfileRequestDetail struct {
+	TransactionId            string  `json:"transactionId"`
+	ConnectorId              string  `json:"connectorSerial"`
+	BatteryAllowedMaxVoltage float64 `json:"batteryAllowedMaxVoltage"`
+	BMSDynamicBatteryPower   float64 `json:"bmsDynamicBatteryPower"`
+	MaxAllowedVoltage        float64 `json:"maxAllowedVoltage"`
+	MaxAllowedTemperature    int     `json:"maxAllowedTemperature"`
+	Soc                      float64 `json:"soc"`
+	CurrentVoltage           float64 `json:"currentVoltage"`
+	MaxOutputVoltage         float64 `json:"maxOutputVoltage"`
+	MinOutputVoltage         float64 `json:"minOutputVoltage"`
+	MaxOutputCurrent         float64 `json:"maxOutputCurrent"`
+	MinOutputCurrent         float64 `json:"minOutputCurrent"`
+}
+
 func (r *equipConfigurationProfileRequest) GetName() services.Request2ServicesNameType {
 	return services.ConfigurationProfile
 }
