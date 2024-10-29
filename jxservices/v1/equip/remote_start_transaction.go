@@ -22,6 +22,7 @@ type EquipRemoteStartTransactionRequestDetail struct {
 	LogicCard     string      `json:"logicCard"`
 	Card          string      `json:"card"`
 	Balance       float64     `json:"balance,omitempty"`
+	ParallelId    *string     `json:"parallelId,omitempty"`
 }
 
 func (r *EquipRemoteStartTransactionRequest) UnmarshalJSON(data []byte) error {
