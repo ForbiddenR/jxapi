@@ -9,6 +9,7 @@ import (
 
 type equipConfigurationProfileRequest struct {
 	services.Base
+	Data *equipConfigurationProfileRequestDetail `json:"data"`
 }
 
 type equipConfigurationProfileRequestDetail struct {

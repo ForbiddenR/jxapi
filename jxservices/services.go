@@ -92,6 +92,7 @@ const (
 	RemoteControlParkingLockFeatureName       = "remoteControlParkingLock"
 	RemoteStartParallelTransactionFeatureName = "startParallelTransaction"
 	ResetOfflineCardsFeatureName              = "resetOfflineCards"
+	SyncTimeFeatureName                       = "syncTime"
 )
 
 type Request2ServicesNameType string
@@ -175,6 +176,7 @@ const (
 	StartParallelTransaction        Request2ServicesNameType = "startParallelTransaction"
 	RemoteStartParallelTransaction  Request2ServicesNameType = "remoteStartParallelTransaction"
 	FetchChargeTemplate             Request2ServicesNameType = "fetchChargeTemplate"
+	SyncTime                        Request2ServicesNameType = "syncTime"
 )
 
 // FirstUpper is only for the interfaces having a regular category.
