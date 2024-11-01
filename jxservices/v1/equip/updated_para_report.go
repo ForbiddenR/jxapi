@@ -16,7 +16,7 @@ type equipUpdatedParaReportRequestDetail struct {
 	BtFastAuth         bool     `json:"btFastAuth"`
 	OutputType         string   `json:"outputType"`
 	OutputCurrentLimit float64  `json:"outputLimitCurrent"`
-	Entities           []Entity `json:"entities"`
+	Entities           []Entity `json:"entities,omitempty"`
 }
 
 type Entity struct {
