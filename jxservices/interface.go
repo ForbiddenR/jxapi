@@ -1,6 +1,10 @@
 package jxservices
 
-import "github.com/ForbiddenR/jxapi/v2/apierrors"
+import (
+	"context"
+
+	"github.com/ForbiddenR/jxapi/v2/apierrors"
+)
 
 // Request interface needs to be implemented by all api.
 type Request interface {
@@ -41,4 +45,9 @@ func WithError(err *apierrors.CallbackError) Option {
 		option.SetCallback(NewCBError(err))
 		return nil
 	}
+}
+
+type Deliver interface {
+	Response
+	Transport(ctx context.Context, req Request) error
 }

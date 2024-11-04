@@ -9,5 +9,4 @@ import (
 
 func TestUploadTransactionRecord(t *testing.T) {
 	assert.Implements(t, new(services.Request), &equipUploadTransactionRecordRequest{})
-	assert.Implements(t, new(services.Response), &equipUploadTransactionRecordResponse{})
 }

@@ -46,7 +46,7 @@ func (q *equipQRCodeRequest) IsCallback() bool {
 	return false
 }
 
-var _ services.Response = &equipQRCodeResponse{}
+// var _ services.Response = &equipQRCodeResponse{}
 
 type equipQRCodeResponse struct {
 	api.Response
@@ -66,9 +66,7 @@ func (q *equipQRCodeResponse) GetMsg() string {
 }
 
 func QRCodeRequest(ctx context.Context, req services.Request) (*equipQRCodeResponse, error) {
-	header := services.GetSimpleHeaderValue(services.QRCode)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithResponse(ctx, req, url, header, &equipQRCodeResponse{})
+	resp := new(equipQRCodeResponse)
+	err := services.TransportWithResp(ctx, req, resp)
+	return resp, err
 }

@@ -480,14 +480,6 @@ func GetCallbackHeaderValue(alias Request2ServicesNameType) map[string]string {
 	return header
 }
 
-func GetSimpleURL(req Request) string {
-	return api.ServicesUrl + Equip + "/" + req.GetName().String()
-}
-
-func GetCallbackURL(req Request) string {
-	return api.ServicesUrl + Equip + "/" + Callback + "/" + req.GetName().String() + CallbackSuffix
-}
-
 func getHeader(req Request) map[string]string {
 	var headers map[string]string
 	if req.IsCallback() {
@@ -530,41 +522,25 @@ func Transport(ctx context.Context, req Request) error {
 	return err
 }
 
-// func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
-// 	header["TraceId"] = req.TraceId()
-// 	message, err := api.SendRequest(ctx, url, req, header)
-// 	if err != nil {
-// 		return
-// 	}
-// 	err = json.Unmarshal(message, t)
-// 	if err != nil {
-// 		request, _ := json.Marshal(req)
-// 		return apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
-// 	}
-
-// 	// check whether it get an error from the services
-// 	if t.GetStatus() == 1 {
-// 		return errors.New(t.GetMsg())
-// 	}
-// 	return err
-// }
-
-func RequestWithResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (resp T, err error) {
-	header["TraceId"] = req.TraceId()
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return resp, err
-	}
-	err = json.Unmarshal(message, t)
-	if err != nil {
-		// The marshaling function has been verified before.
+func TransportWithResp[T Response](ctx context.Context, req Request, t T) error {
+	uri := getURI(req)
+	result := api.ServiceClient.
+		Post().
+		RequestURI(uri).
+		Body(req).
+		SetHeader(getHeader(req)).
+		Do(ctx)
+	if result.Error() != nil {
 		request, _ := json.Marshal(req)
-		return resp, apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
+		rBytes, err := result.Raw()
+		return apierrors.GetFailedResponseUnmarshalError(uri, request, rBytes, err)
 	}
-	resp = t
-	// check whether it get an error from the services
-	if resp.GetStatus() == 1 {
-		return resp, errors.New(resp.GetMsg())
+	err := result.Into(t)
+	if err != nil {
+		return err
 	}
-	return resp, err
+	if t.GetStatus() == 1 {
+		return errors.New(t.GetMsg())
+	}
+	return err
 }

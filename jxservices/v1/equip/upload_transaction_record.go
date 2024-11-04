@@ -3,12 +3,15 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
 type equipUploadTransactionRecordRequest struct {
 	services.Base
+	Data *equipUploadTransactionRecordRequestData `json:"data"`
+}
+
+type equipUploadTransactionRecordRequestData struct {
 }
 
 func (r *equipUploadTransactionRecordRequest) GetName() services.Request2ServicesNameType {
@@ -32,20 +35,21 @@ func NewUploadTransactionRecordRequest(sn, pod, msgId string, p *services.Protoc
 			AccessPod:   pod,
 			MsgID:       msgId,
 		},
+		Data: &equipUploadTransactionRecordRequestData{},
 	}
 }
 
-type equipUploadTransactionRecordResponse struct {
-	api.Response
-}
+// type equipUploadTransactionRecordResponse struct {
+// 	api.Response
+// }
 
-func (r *equipUploadTransactionRecordResponse) GetMsg() string {
-	return r.Msg
-}
+// func (r *equipUploadTransactionRecordResponse) GetMsg() string {
+// 	return r.Msg
+// }
 
-func (r *equipUploadTransactionRecordResponse) GetStatus() int {
-	return r.Status
-}
+// func (r *equipUploadTransactionRecordResponse) GetStatus() int {
+// 	return r.Status
+// }
 
 func UplaodTransactionRecordRequest(ctx context.Context, req services.Request) error {
 	return services.Transport(ctx, req)
