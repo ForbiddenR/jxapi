@@ -50,7 +50,6 @@ func NewEquipRemoteControlParkingLockCallbackRequestError(sn, pod, msgID string,
 	}
 }
 
-
 func RemoteControlParkingLockCallbackRequest(ctx context.Context, req services.Request) error {
 	return services.Transport(ctx, req)
 }

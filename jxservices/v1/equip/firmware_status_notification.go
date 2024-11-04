@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
@@ -19,29 +18,7 @@ const (
 	InstallationFailed FirmwareStatusNotificationType = 7
 )
 
-// func OCPP16GetFirmwareStatus(status protocol.FirmwareStatusNotificationJsonStatus) FirmwareStatusNotificationType {
-// 	var result FirmwareStatusNotificationType
-// 	switch status {
-// 	case protocol.FirmwareStatusNotificationJsonStatusIdle:
-// 		result = Idle
-// 	case protocol.FirmwareStatusNotificationJsonStatusDownloading:
-// 		result = Downloading
-// 	case protocol.FirmwareStatusNotificationJsonStatusDownloadFailed:
-// 		result = DownloadFailed
-// 	case protocol.FirmwareStatusNotificationJsonStatusDownloaded:
-// 		result = Downloaded
-// 	case protocol.FirmwareStatusNotificationJsonStatusInstalling:
-// 		result = Installing
-// 	case protocol.FirmwareStatusNotificationJsonStatusInstallationFailed:
-// 		result = InstallationFailed
-// 	case protocol.FirmwareStatusNotificationJsonStatusInstalled:
-// 		result = Installed
-// 	}
-
-// 	return result
-// }
-
-var _ services.Request = &equipFirmwareStatusNotificationRequest{}
+// var _ services.Request = &equipFirmwareStatusNotificationRequest{}
 
 type equipFirmwareStatusNotificationRequest struct {
 	services.Base
@@ -96,24 +73,20 @@ func NewEquipFirmwareStatusNotificationRequest(sn, pod, msgID string, p *service
 	}
 }
 
-var _ services.Response = &equipFirmwareStatusNotificationResponse{}
+// var _ services.Response = &equipFirmwareStatusNotificationResponse{}
 
-type equipFirmwareStatusNotificationResponse struct {
-	api.Response
-}
+// type equipFirmwareStatusNotificationResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipFirmwareStatusNotificationResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipFirmwareStatusNotificationResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipFirmwareStatusNotificationResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipFirmwareStatusNotificationResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func FirmwareStatusNotificationRequest(ctx context.Context, req services.Request) error {
-	header := services.GetSimpleHeaderValue(services.FirmwareStatusNotification)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipFirmwareStatusNotificationResponse{})
+	return services.Transport(ctx, req)
 }

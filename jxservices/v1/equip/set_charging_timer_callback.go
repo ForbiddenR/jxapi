@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -55,24 +54,20 @@ func NewEquipSetChargingTimerCallbackRequestError(sn, pod, msgID string, p *serv
 	return req
 }
 
-var _ services.Response = &equipSetChargingTimerCallbackResponse{}
+// var _ services.Response = &equipSetChargingTimerCallbackResponse{}
 
-type equipSetChargingTimerCallbackResponse struct {
-	api.Response
-}
+// type equipSetChargingTimerCallbackResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipSetChargingTimerCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipSetChargingTimerCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipSetChargingTimerCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipSetChargingTimerCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func SetChargingTimerCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.SetChargingTimer)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetChargingTimerCallbackResponse{})
+	return services.Transport(ctx, req)
 }

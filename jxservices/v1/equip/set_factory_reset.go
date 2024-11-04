@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -61,28 +60,24 @@ func NewEquipSetFactoryResetRequestError(sn, pod, msgID string, p *services.Prot
 	return req
 }
 
-type equipSetFactoryResetResponse struct {
-	api.Response
-	Data *equipSetFactoryResetResponseDetail `json:"data"`
-}
+// type equipSetFactoryResetResponse struct {
+// 	api.Response
+// 	Data *equipSetFactoryResetResponseDetail `json:"data"`
+// }
 
-var _ services.Response = &equipSetFactoryResetResponse{}
+// var _ services.Response = &equipSetFactoryResetResponse{}
 
-func (e *equipSetFactoryResetResponse) GetStatus() int {
-	return e.Status
-}
+// func (e *equipSetFactoryResetResponse) GetStatus() int {
+// 	return e.Status
+// }
 
-func (e *equipSetFactoryResetResponse) GetMsg() string {
-	return e.Msg
-}
+// func (e *equipSetFactoryResetResponse) GetMsg() string {
+// 	return e.Msg
+// }
 
-type equipSetFactoryResetResponseDetail struct {
-}
+// type equipSetFactoryResetResponseDetail struct {
+// }
 
 func SetFactoryResetRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.SetFactoryReset)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetFactoryResetResponse{})
+	return services.Transport(ctx, req)
 }

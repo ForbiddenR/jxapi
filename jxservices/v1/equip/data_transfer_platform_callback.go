@@ -7,8 +7,6 @@ import (
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
-var _ services.Request = &equipDataTransferRequest{}
-
 type equipDataTransferRequest struct {
 	services.Base
 	Callback *equipDataTransferRequestDetail `json:"data"`
@@ -51,9 +49,5 @@ func (resp *equipDataTransferResponse) GetMsg() string {
 }
 
 func DataTransferRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.DataTransfer)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipDataTransferResponse{})
+	return services.Transport(ctx, req)
 }

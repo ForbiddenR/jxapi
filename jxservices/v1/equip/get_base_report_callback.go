@@ -3,12 +3,11 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
-var _ services.Request = &equipGetBaseReportCallbackRequest{}
+// var _ services.Request = &equipGetBaseReportCallbackRequest{}
 
 type equipGetBaseReportCallbackRequest struct {
 	services.Base
@@ -61,10 +60,6 @@ func NewEquipGetBaseReportCallbackRequestOCPP16(sn, pod, msgID string, status in
 		Callback: services.NewCB(status),
 		Data:     &equipGetBaseReportCallbackRequestDetail{},
 	}
-	// if len(variable) > 0 {
-	// 	req.Callback.Variable = variable
-	// }
-
 	req.Data.Variable = make([]Variable, 0, length)
 	req.Data.Variables = []Variable(nil)
 
@@ -104,28 +99,24 @@ func NewEquipGetBaseReportRequestError(sn, pod, msgID string, p *services.Protoc
 	return req
 }
 
-var _ services.Response = &equipGetBaseReportCallbackResponse{}
+// var _ services.Response = &equipGetBaseReportCallbackResponse{}
 
-type equipGetBaseReportCallbackResponse struct {
-	api.Response
-	Data *equipGetBaseReportResponseDetail `json:"data"`
-}
+// type equipGetBaseReportCallbackResponse struct {
+// 	api.Response
+// 	Data *equipGetBaseReportResponseDetail `json:"data"`
+// }
 
-func (resp *equipGetBaseReportCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipGetBaseReportCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipGetBaseReportCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipGetBaseReportCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
-type equipGetBaseReportResponseDetail struct {
-}
+// type equipGetBaseReportResponseDetail struct {
+// }
 
 func GetBaseReportCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.GetConfiguration)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipGetBaseReportCallbackResponse{})
+	return services.Transport(ctx, req)
 }

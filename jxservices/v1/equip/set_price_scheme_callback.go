@@ -3,12 +3,9 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-var _ services.Request = &equipSetPriceSchemeRequest{}
 
 type equipSetPriceSchemeRequest struct {
 	services.Base
@@ -55,24 +52,20 @@ func NewEquipSetPriceSchemeCallbackRequestError(sn, pod, msgID string, p *servic
 	return req
 }
 
-var _ services.Response = &equipSetIntellectChargeResponse{}
+// var _ services.Response = &equipSetIntellectChargeResponse{}
 
-type equipSetPriceSchemeResponse struct {
-	api.Response
-}
+// type equipSetPriceSchemeResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipSetPriceSchemeResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipSetPriceSchemeResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipSetPriceSchemeResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipSetPriceSchemeResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func SetPriceSchemeRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.SetPriceScheme)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetPriceSchemeResponse{})
+	return services.Transport(ctx, req)
 }

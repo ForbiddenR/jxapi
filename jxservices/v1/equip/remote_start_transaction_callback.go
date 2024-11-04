@@ -3,12 +3,11 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
-var _ services.Request = &equipRemoteStartTransactionCallbackRequest{}
+// var _ services.Request = &equipRemoteStartTransactionCallbackRequest{}
 
 type equipRemoteStartTransactionCallbackRequest struct {
 	services.Base
@@ -55,24 +54,20 @@ func NewEquipRemoteStartTransactionCallbackRequestError(sn, pod, msgID string, p
 	return req
 }
 
-var _ services.Response = &equipRemoteStartTransactionCallbackResponse{}
+// var _ services.Response = &equipRemoteStartTransactionCallbackResponse{}
 
-type equipRemoteStartTransactionCallbackResponse struct {
-	api.Response
-}
+// type equipRemoteStartTransactionCallbackResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipRemoteStartTransactionCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipRemoteStartTransactionCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipRemoteStartTransactionCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipRemoteStartTransactionCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func RemoteStartTransactionCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.RemoteStartTransaction)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipRemoteStartTransactionCallbackResponse{})
+	return services.Transport(ctx, req)
 }

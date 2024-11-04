@@ -3,12 +3,11 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
-var _ services.Request = &equipGetDiagnosticsCallbackRequest{}
+// var _ services.Request = &equipGetDiagnosticsCallbackRequest{}
 
 type equipGetDiagnosticsCallbackRequest struct {
 	services.Base
@@ -63,28 +62,24 @@ func NewEquipGetDiagnosticsCallbackRequestError(sn, pod, msgID string, p *servic
 	return req
 }
 
-var _ services.Response = &equipGetDiagnosticsCallbackResponse{}
+// var _ services.Response = &equipGetDiagnosticsCallbackResponse{}
 
-type equipGetDiagnosticsCallbackResponse struct {
-	api.Response
-	Data *equipGetDiagnosticsResponseDetail `json:"data"`
-}
+// type equipGetDiagnosticsCallbackResponse struct {
+// 	api.Response
+// 	Data *equipGetDiagnosticsResponseDetail `json:"data"`
+// }
 
-type equipGetDiagnosticsResponseDetail struct {
-}
+// type equipGetDiagnosticsResponseDetail struct {
+// }
 
-func (resp *equipGetDiagnosticsCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipGetDiagnosticsCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipGetDiagnosticsCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipGetDiagnosticsCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func GetDiagnosticsCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.GetDiagnostics)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipGetDiagnosticsCallbackResponse{})
+	return services.Transport(ctx, req)
 }

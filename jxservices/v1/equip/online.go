@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
@@ -18,12 +17,16 @@ type equipOnlineRequestDetail struct {
 	RemoteAddress *string `json:"remoteAddress"`
 }
 
-type OnlineConfig struct {
-	services.ReusedConfig
+func (equipOnlineRequest) GetName() services.Request2ServicesNameType {
+	return services.Online
 }
 
-func NewEquipOnlineRequestWithConfig(config OnlineConfig) *equipOnlineRequest {
-	return NewEquipOnlineRequest(config.Sn, config.Protocol, config.Pod, config.MsgID)
+func (e *equipOnlineRequest) TraceId() string {
+	return e.MsgID
+}
+
+func (equipOnlineRequest) IsCallback() bool {
+	return false
 }
 
 func NewEquipOnlineRequest(sn string, protocol *services.Protocol, pod, msgID string) *equipOnlineRequest {
@@ -40,40 +43,34 @@ func NewEquipOnlineRequest(sn string, protocol *services.Protocol, pod, msgID st
 	}
 }
 
-func (equipOnlineRequest) GetName() services.Request2ServicesNameType {
-	return services.Online
+type OnlineConfig struct {
+	services.ReusedConfig
 }
 
-func (e *equipOnlineRequest) TraceId() string {
-	return e.MsgID
+func NewEquipOnlineRequestWithConfig(config OnlineConfig) *equipOnlineRequest {
+	return NewEquipOnlineRequest(config.Sn, config.Protocol, config.Pod, config.MsgID)
 }
 
-func (equipOnlineRequest) IsCallback() bool {
-	return false
-}
+// var _ services.Response = &equipOnlineResponse{}
 
-var _ services.Response = &equipOnlineResponse{}
+// type equipOnlineResponse struct {
+// 	api.Response
+// 	Data *equipOnlineResponseDetail `json:"data"`
+// }
 
-type equipOnlineResponse struct {
-	api.Response
-	Data *equipOnlineResponseDetail `json:"data"`
-}
+// type equipOnlineResponseDetail struct {
+// 	EquipmentID string `json:"equipmentId" validate:"-"`
+// 	EquipmentSN string `json:"equipmentSN" validate:"-"`
+// }
 
-type equipOnlineResponseDetail struct {
-	EquipmentID string `json:"equipmentId" validate:"-"`
-	EquipmentSN string `json:"equipmentSN" validate:"-"`
-}
+// func (resp *equipOnlineResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipOnlineResponse) GetStatus() int {
-	return resp.Status
-}
-
-func (resp *equipOnlineResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipOnlineResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func OnlineRequest(ctx context.Context, req *equipOnlineRequest) error {
-	header := services.GetSimpleHeaderValue(services.Online)
-	url := services.GetSimpleURL(req)
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipOnlineResponse{})
+	return services.Transport(ctx, req)
 }

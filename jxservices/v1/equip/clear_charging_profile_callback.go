@@ -3,12 +3,9 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-var _ services.Request = &equipClearChargingProfileRequest{}
 
 type equipClearChargingProfileRequest struct {
 	services.Base
@@ -56,24 +53,20 @@ func NewClearChargingProfileCallbackRequestError(sn, pod, msgID string, p *servi
 	return req
 }
 
-var _ services.Response = &equipClearChargingProfileResponse{}
+// var _ services.Response = &equipClearChargingProfileResponse{}
 
-type equipClearChargingProfileResponse struct {
-	api.Response
-}
+// type equipClearChargingProfileResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipClearChargingProfileResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipClearChargingProfileResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipClearChargingProfileResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipClearChargingProfileResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func ClearChargingProfileRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.ClearChargingProfile)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipClearChargingProfileResponse{})
+	return services.Transport(ctx, req)
 }

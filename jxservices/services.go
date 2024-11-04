@@ -530,24 +530,24 @@ func Transport(ctx context.Context, req Request) error {
 	return err
 }
 
-func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
-	header["TraceId"] = req.TraceId()
-	message, err := api.SendRequest(ctx, url, req, header)
-	if err != nil {
-		return
-	}
-	err = json.Unmarshal(message, t)
-	if err != nil {
-		request, _ := json.Marshal(req)
-		return apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
-	}
+// func RequestWithoutResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (err error) {
+// 	header["TraceId"] = req.TraceId()
+// 	message, err := api.SendRequest(ctx, url, req, header)
+// 	if err != nil {
+// 		return
+// 	}
+// 	err = json.Unmarshal(message, t)
+// 	if err != nil {
+// 		request, _ := json.Marshal(req)
+// 		return apierrors.GetFailedResponseUnmarshalError(url, request, message, err)
+// 	}
 
-	// check whether it get an error from the services
-	if t.GetStatus() == 1 {
-		return errors.New(t.GetMsg())
-	}
-	return err
-}
+// 	// check whether it get an error from the services
+// 	if t.GetStatus() == 1 {
+// 		return errors.New(t.GetMsg())
+// 	}
+// 	return err
+// }
 
 func RequestWithResponse[T Response](ctx context.Context, req Request, url string, header map[string]string, t T) (resp T, err error) {
 	header["TraceId"] = req.TraceId()

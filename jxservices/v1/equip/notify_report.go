@@ -68,9 +68,5 @@ func (resp *equipNotifyReportResponse) GetMsg() string {
 }
 
 func NotifyReportRequest(ctx context.Context, req *equipNotifyReportRequest) error {
-	header := services.GetSimpleHeaderValue(services.NotifyReport)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipNotifyReportResponse{})
+	return services.Transport(ctx, req)
 }

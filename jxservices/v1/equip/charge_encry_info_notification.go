@@ -3,11 +3,8 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-var _ services.Request = &equipChargeEncryInfoNotificationRequest{}
 
 type equipChargeEncryInfoNotificationRequest struct {
 	services.Base
@@ -73,28 +70,24 @@ func NewEquipChargeEncryInfoNotificationRequest(sn string, p *services.Protocol,
 	return req
 }
 
-var _ services.Response = &equipChargeEncryInfoNotificationResponse{}
+// var _ services.Response = &equipChargeEncryInfoNotificationResponse{}
 
-type equipChargeEncryInfoNotificationResponse struct {
-	api.Response
-	Data *equipChargeEncryInfoNotificationResponseDetail `json:"data"`
-}
+// type equipChargeEncryInfoNotificationResponse struct {
+// 	api.Response
+// 	Data *equipChargeEncryInfoNotificationResponseDetail `json:"data"`
+// }
 
-func (resp *equipChargeEncryInfoNotificationResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipChargeEncryInfoNotificationResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipChargeEncryInfoNotificationResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipChargeEncryInfoNotificationResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
-type equipChargeEncryInfoNotificationResponseDetail struct {
-}
+// type equipChargeEncryInfoNotificationResponseDetail struct {
+// }
 
 func ChargeEncryInfoNotificationReqeust(ctx context.Context, req services.Request) error {
-	header := services.GetSimpleHeaderValue(services.ChargeEncryInfoNotification)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipChargeEncryInfoNotificationResponse{})
+	return services.Transport(ctx, req)
 }

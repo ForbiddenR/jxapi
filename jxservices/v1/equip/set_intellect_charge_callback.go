@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -53,24 +52,20 @@ func NewEquipSetIntellectChargeCallbackRequestError(sn, pod, msgID string, p *se
 	return req
 }
 
-var _ services.Response = &equipSetIntellectChargeResponse{}
+// var _ services.Response = &equipSetIntellectChargeResponse{}
 
-type equipSetIntellectChargeResponse struct {
-	api.Response
-}
+// type equipSetIntellectChargeResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipSetIntellectChargeResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipSetIntellectChargeResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipSetIntellectChargeResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipSetIntellectChargeResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func SetIntellectChargeRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.SendQRCode)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetIntellectChargeResponse{})
+	return services.Transport(ctx, req)
 }

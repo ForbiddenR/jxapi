@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -14,21 +13,6 @@ const (
 	SetVariablesRebootRequired = 2
 	SetVariablesNotSupported   = 3
 )
-
-// func OCPP16SetVariablesStatus(status protocol.ChangeConfigurationResponseJsonStatus) int {
-// 	switch status {
-// 	case protocol.ChangeConfigurationResponseJsonStatusAccepted:
-// 		return SetVariablesAccept
-// 	case protocol.ChangeConfigurationResponseJsonStatusRejected:
-// 		return SetVariablesRejected
-// 	case protocol.ChangeConfigurationResponseJsonStatusRebootRequired:
-// 		return SetVariablesRebootRequired
-// 	default:
-// 		return SetVariablesNotSupported
-// 	}
-// }
-
-var _ services.Request = &equipSetVariablesCallbackRequest{}
 
 type equipSetVariablesCallbackRequest struct {
 	services.Base
@@ -75,22 +59,20 @@ func NewEquipSetVariablesRequestError(sn, pod, msgID string, p *services.Protoco
 	return req
 }
 
-var _ services.Response = &equipSetVariablesCallbackResponse{}
+// var _ services.Response = &equipSetVariablesCallbackResponse{}
 
-type equipSetVariablesCallbackResponse struct {
-	api.Response
-}
+// type equipSetVariablesCallbackResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipSetVariablesCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipSetVariablesCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipSetVariablesCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipSetVariablesCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func SetVariablesRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.ChangeConfiguration)
-	url := services.GetCallbackURL(req)
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetVariablesCallbackResponse{})
+	return services.Transport(ctx, req)
 }

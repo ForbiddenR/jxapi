@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -59,28 +58,24 @@ func NewEquipSetLoadBalanceRequestError(sn, pod, msgID string, p *services.Proto
 	return req
 }
 
-var _ services.Response = &equipSetLoadBalanceResponse{}
+// var _ services.Response = &equipSetLoadBalanceResponse{}
 
-type equipSetLoadBalanceResponse struct {
-	api.Response
-	Data *equipSetLoadBalanceResponseDetail `json:"data"`
-}
+// type equipSetLoadBalanceResponse struct {
+// 	api.Response
+// 	Data *equipSetLoadBalanceResponseDetail `json:"data"`
+// }
 
-func (e *equipSetLoadBalanceResponse) GetStatus() int {
-	return e.Status
-}
+// func (e *equipSetLoadBalanceResponse) GetStatus() int {
+// 	return e.Status
+// }
 
-func (e *equipSetLoadBalanceResponse) GetMsg() string {
-	return e.Msg
-}
+// func (e *equipSetLoadBalanceResponse) GetMsg() string {
+// 	return e.Msg
+// }
 
-type equipSetLoadBalanceResponseDetail struct {
-}
+// type equipSetLoadBalanceResponseDetail struct {
+// }
 
 func SetLoadBalanceRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.SetLoadBalance)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetLoadBalanceResponse{})
+	return services.Transport(ctx, req)
 }

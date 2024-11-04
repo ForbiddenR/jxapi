@@ -85,9 +85,5 @@ func (resp *equipLoginResponse) GetMsg() string {
 }
 
 func LoginRequest(ctx context.Context, req services.Request) error {
-	header := services.GetSimpleHeaderValue(services.Login)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipLoginResponse{})
+	return services.Transport(ctx, req)
 }

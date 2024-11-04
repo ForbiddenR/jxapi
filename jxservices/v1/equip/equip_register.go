@@ -3,11 +3,10 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
-var _ services.Request = &equipRegisterRequest{}
+// var _ services.Request = &equipRegisterRequest{}
 
 type equipRegisterRequest struct {
 	services.Base
@@ -44,30 +43,26 @@ func (equipRegisterRequest) IsCallback() bool {
 	return false
 }
 
-var _ services.Response = &equipRegisterResponse{}
+// var _ services.Response = &equipRegisterResponse{}
 
-type equipRegisterResponse struct {
-	api.Response
-	Data *equipRegisterResponseDetail `json:"data"`
-}
+// type equipRegisterResponse struct {
+// 	api.Response
+// 	Data *equipRegisterResponseDetail `json:"data"`
+// }
 
-type equipRegisterResponseDetail struct {
-	EquipmentID string `json:"equipmentId" validate:"required"`
-	EquipmentSN string `json:"equipmentSN" validate:"required"`
-}
+// type equipRegisterResponseDetail struct {
+// 	EquipmentID string `json:"equipmentId" validate:"required"`
+// 	EquipmentSN string `json:"equipmentSN" validate:"required"`
+// }
 
-func (resp *equipRegisterResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipRegisterResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipRegisterResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipRegisterResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func RegisterRequest(ctx context.Context, req *equipRegisterRequest) error {
-	header := services.GetSimpleHeaderValue(services.Register)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipRegisterResponse{})
+	return services.Transport(ctx, req)
 }

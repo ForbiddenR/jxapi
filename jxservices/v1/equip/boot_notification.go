@@ -3,11 +3,8 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-var _ services.Request = &equipBootNotificationRequest{}
 
 type equipBootNotificationRequest struct {
 	services.Base
@@ -50,22 +47,20 @@ func NewEquipBootNotificationRequest(sn, pod, msgID string, p *services.Protocol
 	return request
 }
 
-var _ services.Response = &equipBootNotificationResponse{}
+// var _ services.Response = &equipBootNotificationResponse{}
 
-type equipBootNotificationResponse struct {
-	api.Response
-}
+// type equipBootNotificationResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipBootNotificationResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipBootNotificationResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipBootNotificationResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipBootNotificationResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func BootNotificationRequest(ctx context.Context, req *equipBootNotificationRequest) error {
-	header := services.GetSimpleHeaderValue(services.Register)
-	url := services.GetSimpleURL(req)
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipBootNotificationResponse{})
+	return services.Transport(ctx, req)
 }

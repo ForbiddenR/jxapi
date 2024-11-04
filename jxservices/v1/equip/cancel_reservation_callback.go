@@ -3,12 +3,9 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-var _ services.Request = &equipCancelReservationCallbackRequest{}
 
 type equipCancelReservationCallbackRequest struct {
 	services.Base
@@ -55,24 +52,20 @@ func NewEquipCancelReservationCallbackRequestError(sn, pod, msgID string, p *ser
 	return req
 }
 
-var _ services.Response = &equipCancelReservationCallbackResponse{}
+// var _ services.Response = &equipCancelReservationCallbackResponse{}
 
-type equipCancelReservationCallbackResponse struct {
-	api.Response
-}
+// type equipCancelReservationCallbackResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipCancelReservationCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipCancelReservationCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipCancelReservationCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipCancelReservationCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func CancelReservationCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.CancelReservation)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipCancelReservationCallbackResponse{})
+	return services.Transport(ctx, req)
 }

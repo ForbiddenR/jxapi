@@ -3,12 +3,9 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-var _ services.Request = &equipClearCacheCallbackRequest{}
 
 type equipClearCacheCallbackRequest struct {
 	services.Base
@@ -56,24 +53,20 @@ func NewEquipClearCacheCallbackRequestError(sn, pod, msgID string, p *services.P
 	return req
 }
 
-var _ services.Response = &equipClearCacheCallbackResponse{}
+// var _ services.Response = &equipClearCacheCallbackResponse{}
 
-type equipClearCacheCallbackResponse struct {
-	api.Response
-}
+// type equipClearCacheCallbackResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipClearCacheCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipClearCacheCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipClearCacheCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipClearCacheCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func ClearCacheCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.ClearCache)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipClearCacheCallbackResponse{})
+	return services.Transport(ctx, req)
 }

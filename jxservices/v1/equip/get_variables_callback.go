@@ -3,12 +3,11 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
-var _ services.Request = &equipGetVariablesCallbackRequest{}
+// var _ services.Request = &equipGetVariablesCallbackRequest{}
 
 type equipGetVariablesCallbackRequest struct {
 	services.Base
@@ -72,28 +71,24 @@ func NewEquipGetVariablesRequestError(sn, pod, msgID string, p *services.Protoco
 	return req
 }
 
-var _ services.Response = &equipGetVariablesCallbackResponse{}
+// var _ services.Response = &equipGetVariablesCallbackResponse{}
 
-type equipGetVariablesCallbackResponse struct {
-	api.Response
-	Data *equipGetVariablesResponseDetail `json:"data"`
-}
+// type equipGetVariablesCallbackResponse struct {
+// 	api.Response
+// 	Data *equipGetVariablesResponseDetail `json:"data"`
+// }
 
-func (resp *equipGetVariablesCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipGetVariablesCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipGetVariablesCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipGetVariablesCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
-type equipGetVariablesResponseDetail struct {
-}
+// type equipGetVariablesResponseDetail struct {
+// }
 
 func GetVariablesCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.GetConfiguration)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipGetVariablesCallbackResponse{})
+	return services.Transport(ctx, req)
 }

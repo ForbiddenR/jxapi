@@ -82,9 +82,5 @@ func (resp *equipSendQRCodeResponse) GetMsg() string {
 }
 
 func SendQRCodeRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.SendQRCode)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSendQRCodeResponse{})
+	return services.Transport(ctx, req)
 }

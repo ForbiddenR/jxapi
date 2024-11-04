@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -80,28 +79,24 @@ func NewEquipGetIntellectChargeCallbackRequestError(sn, pod, msgID string, p *se
 	return req
 }
 
-var _ services.Response = &equipGetIntellectChargeResponse{}
+// var _ services.Response = &equipGetIntellectChargeResponse{}
 
-type equipGetIntellectChargeResponse struct {
-	api.Response
-	Data *equipGetIntellectChargeResponseDetail `json:"data"`
-}
+// type equipGetIntellectChargeResponse struct {
+// 	api.Response
+// 	Data *equipGetIntellectChargeResponseDetail `json:"data"`
+// }
 
-func (resp *equipGetIntellectChargeResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipGetIntellectChargeResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipGetIntellectChargeResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipGetIntellectChargeResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
-type equipGetIntellectChargeResponseDetail struct {
-}
+// type equipGetIntellectChargeResponseDetail struct {
+// }
 
 func GetIntellectChargeCallbackRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.GetIntellectCharge)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipGetIntellectChargeResponse{})
+	return services.Transport(ctx, req)
 }

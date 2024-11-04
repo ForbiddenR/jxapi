@@ -3,11 +3,8 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-var _ services.Request = &equipChargingTimerNotificationRequest{}
 
 type equipChargingTimerNotificationRequest struct {
 	services.Base
@@ -66,24 +63,20 @@ func NewEquipChargingTimerNotificationRequest(sn, pod, msgID string, connectorId
 	}
 }
 
-var _ services.Response = &equipChargingTimerNotificationResponse{}
+// var _ services.Response = &equipChargingTimerNotificationResponse{}
 
-type equipChargingTimerNotificationResponse struct {
-	api.Response
-}
+// type equipChargingTimerNotificationResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipChargingTimerNotificationResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipChargingTimerNotificationResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipChargingTimerNotificationResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipChargingTimerNotificationResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func ChargingTimerNotificationRequest(ctx context.Context, req services.Request) error {
-	header := services.GetSimpleHeaderValue(services.ChargingTimerNotification)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipChargingTimerNotificationResponse{})
+	return services.Transport(ctx, req)
 }

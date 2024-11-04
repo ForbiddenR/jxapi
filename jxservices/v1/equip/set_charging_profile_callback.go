@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -56,24 +55,20 @@ func NewSetChargingProfileCallbackRequestError(sn, pod, msgID string, p *service
 	return req
 }
 
-var _ services.Response = &equipSetChargingProfileResponse{}
+// var _ services.Response = &equipSetChargingProfileResponse{}
 
-type equipSetChargingProfileResponse struct {
-	api.Response
-}
+// type equipSetChargingProfileResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipSetChargingProfileResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipSetChargingProfileResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipSetChargingProfileResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipSetChargingProfileResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func SetChargingProfileRequest(ctx context.Context, req services.Request) error {
-	header := services.GetCallbackHeaderValue(services.SetChargingProfile)
-
-	url := services.GetCallbackURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipSetChargingProfileResponse{})
+	return services.Transport(ctx, req)
 }

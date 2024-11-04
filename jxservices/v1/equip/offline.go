@@ -4,7 +4,6 @@ import (
 	"context"
 	"strings"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
@@ -29,7 +28,7 @@ func GetOfflineReason(err error) string {
 	return Timeout
 }
 
-var _ services.Request = &equipOfflineRequest{}
+// var _ services.Request = &equipOfflineRequest{}
 
 type equipOfflineRequest struct {
 	services.Base
@@ -67,22 +66,20 @@ func (equipOfflineRequest) IsCallback() bool {
 	return false
 }
 
-var _ services.Response = &equipOfflineResponse{}
+// var _ services.Response = &equipOfflineResponse{}
 
-type equipOfflineResponse struct {
-	api.Response
-}
+// type equipOfflineResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipOfflineResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipOfflineResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipOfflineResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipOfflineResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func OfflineRequest(ctx context.Context, req *equipOfflineRequest) error {
-	header := services.GetSimpleHeaderValue(services.Offline)
-	url := services.GetSimpleURL(req)
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipOfflineResponse{})
+	return services.Transport(ctx, req)
 }

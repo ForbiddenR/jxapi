@@ -10,8 +10,8 @@ import (
 
 type equipFetchChargeTemplateCallbackRequest struct {
 	services.Base
-	Callback services.CB `json:"callback"`
-	Data *equipFetchChargeTemplateCallbackRequestDetail `json:"data"`
+	Callback services.CB                                    `json:"callback"`
+	Data     *equipFetchChargeTemplateCallbackRequestDetail `json:"data"`
 }
 
 func (r *equipFetchChargeTemplateCallbackRequest) GetName() services.Request2ServicesNameType {
@@ -39,7 +39,7 @@ func NewEquipFetchChargeTemplateCallbackRequest(sn, pod, msgId string, p *servic
 			AccessPod:   pod,
 			MsgID:       msgId,
 		},
-		Data: &equipFetchChargeTemplateCallbackRequestDetail{},
+		Data:     &equipFetchChargeTemplateCallbackRequestDetail{},
 		Callback: services.NewCB(status),
 	}
 	return req
@@ -54,7 +54,7 @@ func NewEquipFetchChargeTemplateCallbackRequestError(sn, pod, msgId string, p *s
 			AccessPod:   pod,
 			MsgID:       msgId,
 		},
-		Data: &equipFetchChargeTemplateCallbackRequestDetail{},
+		Data:     &equipFetchChargeTemplateCallbackRequestDetail{},
 		Callback: services.NewCBError(err),
 	}
 	return req

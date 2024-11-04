@@ -7,7 +7,7 @@ import (
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
-var _ services.Request = &equipNotifyEventRequest{}
+// var _ services.Request = &equipNotifyEventRequest{}
 
 type equipNotifyEventRequest struct {
 	services.Base
@@ -69,9 +69,5 @@ func NewNotifyEventRequest(sn, pod, msgID string, p *services.Protocol, code, ti
 }
 
 func NotifyEventRequest(ctx context.Context, req *equipNotifyEventRequest) error {
-	header := services.GetSimpleHeaderValue(services.NotifyEvent)
-
-	url := services.GetSimpleURL(req)
-
-	return services.RequestWithoutResponse(ctx, req, url, header, &equipNotifyEventResponse{})
+	return services.Transport(ctx, req)
 }
