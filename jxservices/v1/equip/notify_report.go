@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
@@ -38,10 +37,6 @@ type ReportData struct {
 	VariableAttribute VariableAttribute `json:"variableAttribute"`
 }
 
-type equipNotifyReportResponse struct {
-	api.Response
-}
-
 func NewEquipNotifyReportRequest(sn, pod, msgID string, p *services.Protocol, requestId int64, tbc bool, reportDatas ...ReportData) *equipNotifyReportRequest {
 	return &equipNotifyReportRequest{
 		Base: services.Base{
@@ -59,13 +54,17 @@ func NewEquipNotifyReportRequest(sn, pod, msgID string, p *services.Protocol, re
 	}
 }
 
-func (resp *equipNotifyReportResponse) GetStatus() int {
-	return resp.Status
-}
+// type equipNotifyReportResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipNotifyReportResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipNotifyReportResponse) GetStatus() int {
+// 	return resp.Status
+// }
+
+// func (resp *equipNotifyReportResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func NotifyReportRequest(ctx context.Context, req *equipNotifyReportRequest) error {
 	return services.Transport(ctx, req)

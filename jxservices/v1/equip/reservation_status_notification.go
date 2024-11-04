@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
 
@@ -54,21 +53,21 @@ func NewEquipReservationStatusNotification(sn, pod, msgID string, p *services.Pr
 	}
 }
 
-type equipReservationStatusNotificationResponse struct {
-	api.Response
-	Data *equipReservationStatusNotificationResponseDetail `json:"data"`
-}
+// type equipReservationStatusNotificationResponse struct {
+// 	api.Response
+// 	Data *equipReservationStatusNotificationResponseDetail `json:"data"`
+// }
 
-type equipReservationStatusNotificationResponseDetail struct {
-}
+// type equipReservationStatusNotificationResponseDetail struct {
+// }
 
-func (resp *equipReservationStatusNotificationResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipReservationStatusNotificationResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipReservationStatusNotificationResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipReservationStatusNotificationResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func ReservationStatusNotificationRequest(ctx context.Context, req *equipReservationStatusNotificationRequest) error {
 	return services.Transport(ctx, req)

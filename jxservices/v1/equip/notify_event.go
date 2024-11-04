@@ -3,11 +3,8 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
-
-// var _ services.Request = &equipNotifyEventRequest{}
 
 type equipNotifyEventRequest struct {
 	services.Base
@@ -36,17 +33,17 @@ type equipNotifyEventRequestData struct {
 	Level         *int   `json:"level,omitempty"`
 }
 
-type equipNotifyEventResponse struct {
-	api.Response
-}
+// type equipNotifyEventResponse struct {
+// 	api.Response
+// }
 
-func (r *equipNotifyEventResponse) GetStatus() int {
-	return r.Status
-}
+// func (r *equipNotifyEventResponse) GetStatus() int {
+// 	return r.Status
+// }
 
-func (r *equipNotifyEventResponse) GetMsg() string {
-	return r.Msg
-}
+// func (r *equipNotifyEventResponse) GetMsg() string {
+// 	return r.Msg
+// }
 
 func NewNotifyEventRequest(sn, pod, msgID string, p *services.Protocol, code, time int64, clean bool, eventID int64, remoteAddress, connectorId string) *equipNotifyEventRequest {
 	return &equipNotifyEventRequest{

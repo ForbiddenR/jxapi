@@ -3,7 +3,6 @@ package equip
 import (
 	"context"
 
-	api "github.com/ForbiddenR/jxapi/v2"
 	"github.com/ForbiddenR/jxapi/v2/apierrors"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
 )
@@ -55,17 +54,17 @@ func NewEquipReserveNowCallbackRequestError(sn, pod, msgID string, p *services.P
 	return req
 }
 
-type equipReserveNowCallbackResponse struct {
-	api.Response
-}
+// type equipReserveNowCallbackResponse struct {
+// 	api.Response
+// }
 
-func (resp *equipReserveNowCallbackResponse) GetStatus() int {
-	return resp.Status
-}
+// func (resp *equipReserveNowCallbackResponse) GetStatus() int {
+// 	return resp.Status
+// }
 
-func (resp *equipReserveNowCallbackResponse) GetMsg() string {
-	return resp.Msg
-}
+// func (resp *equipReserveNowCallbackResponse) GetMsg() string {
+// 	return resp.Msg
+// }
 
 func ReserveNowCallbackRequest(ctx context.Context, req services.Request) error {
 	return services.Transport(ctx, req)
