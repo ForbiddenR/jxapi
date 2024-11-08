@@ -13,11 +13,8 @@ type EquipSetPriceSchemeRequest struct {
 }
 
 type EquipSetPriceSchemeRequestDetail struct {
-	VendorId      string         `json:"vendorId"`
-	TariffId      uint64         `json:"tariffId"`
-	BaseTime      int64          `json:"baseTime"`
-	ChargeTariffs []ChargeTariff `json:"chargeTariffs"`
-	TimePrices    []TimePrice    `json:"timePrices"`
+	VendorId            string         `json:"vendorId"`
+	PriceScheme
 }
 
 // TODO: the format of TImeStart.

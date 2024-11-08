@@ -8,6 +8,6 @@ import (
 )
 
 func TestFetchChargeTemplateCallback(t *testing.T) {
-	assert.Implements(t, new(services.Request), &equipFetchChargeTemplateCallbackRequest{})
-	assert.Implements(t, new(services.Response), &equipFetchChargeTemplateCallbackResponse{})
+	assert.Implements(t, new(services.Request), &equipFetchChargeTemplateRequest{})
+	assert.Implements(t, new(services.Response), &equipFetchChargeTemplateResponse{})
 }

@@ -243,3 +243,11 @@ type CardPair struct {
 	LogicCard string `json:"logicCard"`
 	Card      string `json:"card"`
 }
+
+type PriceScheme struct {
+	TariffId            uint64         `json:"tariffId"`
+	BaseTime            int64          `json:"baseTime"`
+	LossCalculationRate int            `json:"lossCalculationRate"`
+	ChargeTariffs       []ChargeTariff `json:"chargeTariffs"`
+	TimePrices          []TimePrice    `json:"timePrices"`
+}

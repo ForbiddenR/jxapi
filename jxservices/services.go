@@ -83,7 +83,6 @@ const (
 	RequestStartDischargingFeatureName = "remoteStartDischarging"
 	RequestStopDischargingFeatureName  = "remoteStopDischarging"
 	// New for Yunkuaichong 104 protocol
-	TemplateFetchFeatureName                  = "templateFetch"
 	ReadCurrentMonitorFeatureName             = "readCurrentMonitor"
 	RemoteUpdateAccountBalanceFeatureName     = "remoteUpdateAccountBalance"
 	ClearOfflineCardsFeatureName              = "clearOfflineCards"
@@ -171,7 +170,6 @@ const (
 	QueryOfflineCards               Request2ServicesNameType = "queryOfflineCards"
 	ResetOfflineCards               Request2ServicesNameType = "resetOfflineCards"
 	SetParameters                   Request2ServicesNameType = "setParameters"
-	SetChargeTemplate               Request2ServicesNameType = "setChargeTemplate"
 	RemoteControlParkingLock        Request2ServicesNameType = "remoteControlParkingLock"
 	StartParallelTransaction        Request2ServicesNameType = "startParallelTransaction"
 	RemoteStartParallelTransaction  Request2ServicesNameType = "remoteStartParallelTransaction"
