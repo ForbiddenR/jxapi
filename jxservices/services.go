@@ -363,7 +363,7 @@ var iec002 = &Protocol{Name: "IEC104", Version: "0.2"}
 var iec003 = &Protocol{Name: "IEC104", Version: "0.3"}
 var iec004 = &Protocol{Name: "IEC104", Version: "0.4"}
 var iec005 = &Protocol{Name: "IEC104", Version: "0.5"}
-var yunKuaiChong = &Protocol{Name: "YunKuangChong", Version: "1.7"}
+var yunKuaiChong = &Protocol{Name: "YunKuangChong", Version: "1"}
 
 func OCPP16() *Protocol {
 	return ocpp16p
