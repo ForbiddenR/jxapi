@@ -22,6 +22,10 @@ type equipLoginRequestDetail struct {
 	Iccid              *string `json:"iccid"`
 	Imsi               *string `json:"imsi"`
 	ReconnectingReason *string `json:"reason"`
+	Sim                *string `json:"sim"`
+	ChargerType        *int16  `json:"chargerType"`
+	NetworkLink        *int16  `json:"networkLink"`
+	Carrier            *int16  `json:"carrier"`
 }
 
 func (equipLoginRequest) GetName() services.Request2ServicesNameType {
