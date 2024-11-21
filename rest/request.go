@@ -3,7 +3,6 @@ package rest
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/url"
 	"time"
 
@@ -122,7 +121,6 @@ func (r *Request) transformResponse(resp *fasthttp.Response, _ *fasthttp.Request
 		if statusCode == fasthttp.StatusNotFound {
 			return Result{err: ErrNotFound}
 		}
-		fmt.Println("error code is", statusCode)
 		return Result{err: ErrServicesException}
 	}
 	return Result{body: body}

@@ -52,7 +52,9 @@ func WithMaxConnsPerHost(maxConnsPerHost int) Option {
 }
 
 func InitApi(esamUrl, servicesUrl string, opts ...Option) (err error) {
-	Log = slog.New(slog.NewTextHandler(os.Stdout, nil))
+	Log = slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{
+		Level: slog.LevelDebug,
+	}))
 	options := options{}
 	for _, opt := range opts {
 		err = opt(&options)
