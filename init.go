@@ -55,6 +55,7 @@ func InitApi(esamUrl, servicesUrl string, opts ...Option) (err error) {
 	Log = slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{
 		Level: slog.LevelDebug,
 	}))
+	Log.Info("InitApi", slog.String("esamUrl", esamUrl), slog.String("servicesUrl", servicesUrl))
 	options := options{}
 	for _, opt := range opts {
 		err = opt(&options)
