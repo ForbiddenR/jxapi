@@ -346,7 +346,7 @@ func (p *Protocol) UnmarshalJSON(data []byte) error {
 		if v.Version != "0.1" && v.Version != "0.2" && v.Version != "0.3" && v.Version != "0.4" && v.Version != "0.5" && v.Version != "0.6" {
 			return errors.New("invalid IEC104 version: " + v.Version)
 		}
-	case "YunKuangChong":
+	case "YunKuaiChong":
 	default:
 		return errors.New("invalid protocol name: " + v.Name)
 	}
