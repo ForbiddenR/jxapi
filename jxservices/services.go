@@ -467,20 +467,22 @@ func GetProperCallbackError(clientId string, command string, err error) *apierro
 }
 
 func GetSimpleHeaderValue(alias Request2ServicesNameType) map[string]string {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services, Equipment)
-	headerValue = append(headerValue, alias.Split()...)
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-	return header
+	// headerValue := make([]string, 0)
+	// headerValue = append(headerValue, api.Services, Equipment)
+	// headerValue = append(headerValue, alias.Split()...)
+	// header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
+	// return header
+	return make(map[string]string)
 }
 
 func GetCallbackHeaderValue(alias Request2ServicesNameType) map[string]string {
-	headerValue := make([]string, 0)
-	headerValue = append(headerValue, api.Services)
-	headerValue = append(headerValue, alias.Split()...)
-	headerValue = append(headerValue, Callback)
-	header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
-	return header
+	// headerValue := make([]string, 0)
+	// headerValue = append(headerValue, api.Services)
+	// headerValue = append(headerValue, alias.Split()...)
+	// headerValue = append(headerValue, Callback)
+	// header := map[string]string{api.Perms: strings.Join(headerValue, ":")}
+	// return header
+	return make(map[string]string)
 }
 
 func getHeader(req Request) map[string]string {
