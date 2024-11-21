@@ -511,6 +511,8 @@ func Transport(ctx context.Context, req Request) error {
 		Body(req).
 		SetHeader(getHeader(req)).
 		Do(ctx)
+	message, _ := json.Marshal(req)
+	api.Log.Info(fmt.Sprintf("send request to services. url: %s data: %s", req, message))
 	if result.Error() != nil {
 		request, _ := json.Marshal(req)
 		rBytes, err := result.Raw()
@@ -524,8 +526,6 @@ func Transport(ctx context.Context, req Request) error {
 	if resp.Status == 1 {
 		return errors.New(resp.Msg)
 	}
-	message, _ := json.Marshal(req)
-	api.Log.Info(fmt.Sprintf("send request to services. url: %s data: %s", req, message))
 	return err
 }
 
