@@ -1,7 +1,9 @@
 package api
 
 import (
+	"log/slog"
 	"net/url"
+	"os"
 	"time"
 
 	"github.com/ForbiddenR/jxapi/v2/rest"
@@ -9,6 +11,8 @@ import (
 )
 
 var ServiceClient rest.Interface
+
+var Log *slog.Logger
 
 type options struct {
 	readTimeout         time.Duration
@@ -48,6 +52,7 @@ func WithMaxConnsPerHost(maxConnsPerHost int) Option {
 }
 
 func InitApi(esamUrl, servicesUrl string, opts ...Option) (err error) {
+	Log = slog.New(slog.NewTextHandler(os.Stdout, nil))
 	options := options{}
 	for _, opt := range opts {
 		err = opt(&options)

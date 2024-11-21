@@ -190,55 +190,55 @@ func (r Request2ServicesNameType) String() string {
 //type Request2ServicesPermsType string
 
 // Split returns the value of "Perms".
-func (r Request2ServicesNameType) Split() []string {
-	switch r {
-	case UpdateFirmware:
-		return []string{"push", "firmware", "equipment"}
-	case FirmwareStatusNotification:
-		return []string{"push", "firmware", "notification"}
-	case RemoteStartTransaction:
-		return []string{"remote", "Start"}
-	case RemoteStopTransaction:
-		return []string{"remote", "stop"}
-	case SendLocalList:
-		return []string{"set", "local", "authorize"}
-	case StartTransaction:
-		return []string{"start", "transaction"}
-	case StopTransaction:
-		return []string{"stop", "transaction"}
-	}
-	for i := 0; i < len(r.String()); i++ {
-		str := r.String()[i : i+1]
-		if str == strings.ToUpper(str) {
-			switch r.String()[:i] {
-			case "equip":
-				return []string{strings.ToLower(r.String()[i:])}
-			case "authorize":
-				return []string{r.String()[:i]}
-			default:
-				return r.SplitName()
-			}
-		}
-	}
-	return []string{r.String()}
-}
+// func (r Request2ServicesNameType) Split() []string {
+// 	switch r {
+// 	case UpdateFirmware:
+// 		return []string{"push", "firmware", "equipment"}
+// 	case FirmwareStatusNotification:
+// 		return []string{"push", "firmware", "notification"}
+// 	case RemoteStartTransaction:
+// 		return []string{"remote", "Start"}
+// 	case RemoteStopTransaction:
+// 		return []string{"remote", "stop"}
+// 	case SendLocalList:
+// 		return []string{"set", "local", "authorize"}
+// 	case StartTransaction:
+// 		return []string{"start", "transaction"}
+// 	case StopTransaction:
+// 		return []string{"stop", "transaction"}
+// 	}
+// 	for i := 0; i < len(r.String()); i++ {
+// 		str := r.String()[i : i+1]
+// 		if str == strings.ToUpper(str) {
+// 			switch r.String()[:i] {
+// 			case "equip":
+// 				return []string{strings.ToLower(r.String()[i:])}
+// 			case "authorize":
+// 				return []string{r.String()[:i]}
+// 			default:
+// 				return r.SplitName()
+// 			}
+// 		}
+// 	}
+// 	return []string{r.String()}
+// }
 
 // SplitName will be used by the function above to parser all the regular attributes.
-func (r Request2ServicesNameType) SplitName() []string {
-	var head, tail int
-	var result []string
-	for tail = 0; tail < len(r.String()); tail++ {
-		str := r.String()[tail : tail+1]
-		if str == strings.ToUpper(str) && tail != 0 {
-			result = append(result, strings.ToLower(r.String()[head:tail]))
-			head = tail
-		}
-	}
-	if head < tail {
-		result = append(result, strings.ToLower(r.String()[head:tail]))
-	}
-	return result
-}
+// func (r Request2ServicesNameType) SplitName() []string {
+// 	var head, tail int
+// 	var result []string
+// 	for tail = 0; tail < len(r.String()); tail++ {
+// 		str := r.String()[tail : tail+1]
+// 		if str == strings.ToUpper(str) && tail != 0 {
+// 			result = append(result, strings.ToLower(r.String()[head:tail]))
+// 			head = tail
+// 		}
+// 	}
+// 	if head < tail {
+// 		result = append(result, strings.ToLower(r.String()[head:tail]))
+// 	}
+// 	return result
+// }
 
 func (r Request2ServicesNameType) GetCallbackCategory() string {
 	return r.FirstUpper() + CallbackSuffix
@@ -524,6 +524,8 @@ func Transport(ctx context.Context, req Request) error {
 	if resp.Status == 1 {
 		return errors.New(resp.Msg)
 	}
+	message, _ := json.Marshal(req)
+	api.Log.Info(fmt.Sprintf("send request to services. url: %s data: %s", req, message))
 	return err
 }
 
