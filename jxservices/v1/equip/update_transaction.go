@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"time"
 
+	api "github.com/ForbiddenR/jxapi/v2"
 	services "github.com/ForbiddenR/jxapi/v2/jxservices"
-
 	"github.com/makasim/amqpextra/publisher"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -79,6 +79,7 @@ func UpdateTransactionReqeust(req *equipUpdateTransactionRequest, p *publisher.P
 	if err != nil {
 		return err
 	}
+	api.Log.Info("send request to services. queue: " + updateTransactionQueue + " data: " + string(bytes))
 	message := publisher.Message{
 		Context: ctx,
 		Key:     updateTransactionQueue,
