@@ -28,6 +28,7 @@ func sendPostRequest(_ context.Context, url string, requestBody []byte, headers 
 	req.SetRequestURI(url)
 	req.Header.SetMethod(fasthttp.MethodPost)
 	req.Header.SetContentTypeBytes(headerContentTypeJson)
+	req.Header.DisableNormalizing()
 	req.SetBodyRaw(requestBody)
 	for k, v := range headers {
 		req.Header.Set(k, v)

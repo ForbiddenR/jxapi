@@ -49,6 +49,7 @@ func (r *Request) SetHeader(header map[string]string) *Request {
 		r.req.Header.Set(k, v)
 	}
 	r.req.Header.SetContentTypeBytes(headerContentTypeJson)
+	r.req.Header.DisableNormalizing()
 	return r
 }
 
