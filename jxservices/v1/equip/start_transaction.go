@@ -66,7 +66,7 @@ func NewEquipStartTransactionRequestWithConfig(config *StartTransactionRequestCo
 		},
 	}
 
-	if !config.Protocol.Equal(services.OCPP16()) {
+	if !config.Protocol.Equal(services.OCPP16()) && !config.Protocol.Equal(services.YunKuaiChong()) {
 		req.Data.MeterValue = &MeterValue{}
 	}
 	return req

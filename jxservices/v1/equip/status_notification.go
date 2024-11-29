@@ -89,20 +89,20 @@ func (equipStatusNotificationRequest) IsCallback() bool {
 	return false
 }
 
-type ConnectorStatusTypeEnum int
+// type ConnectorStatusTypeEnum int
 
-const (
-	ConnectorStatusUnavailable ConnectorStatusTypeEnum = iota
-	ConnectorStatusAvailable
-	ConnectorStatusPreparing
-	ConnectorStatusCharging
-	ConnectorStatusSuspendedEV
-	ConnectorStatusSuspendedEVSE
-	ConnectorStatusFinishing
-	ConnectorStatusFaulted
-	ConnectorStatusReserved
-	ConnectorStatusOccupied
-)
+// const (
+// 	ConnectorStatusUnavailable ConnectorStatusTypeEnum = iota
+// 	ConnectorStatusAvailable
+// 	ConnectorStatusPreparing
+// 	ConnectorStatusCharging
+// 	ConnectorStatusSuspendedEV
+// 	ConnectorStatusSuspendedEVSE
+// 	ConnectorStatusFinishing
+// 	ConnectorStatusFaulted
+// 	ConnectorStatusReserved
+// 	ConnectorStatusOccupied
+// )
 
 type ConnectorStatus201TypeEnum int
 
