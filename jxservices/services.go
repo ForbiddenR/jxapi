@@ -153,7 +153,7 @@ const (
 	RequestStartDischargingTransaction Request2ServicesNameType = "remoteStartDischarging"
 	RequestStopDischargingTransaction  Request2ServicesNameType = "remoteStopDischarging"
 	// defined for Yunkuaichong
-	AuthorizeChargeTemplate         Request2ServicesNameType = "authorizeChargeTemplate"
+	AuthorizeChargeTemplate         Request2ServicesNameType = "priceSchemeAuthorize"
 	UploadParkingLockData           Request2ServicesNameType = "uploadParkingLockData"
 	ErrorReport                     Request2ServicesNameType = "errorReport"
 	ReadCurrentMonitor              Request2ServicesNameType = "readCurrentMonitor"
@@ -173,7 +173,7 @@ const (
 	RemoteControlParkingLock        Request2ServicesNameType = "remoteControlParkingLock"
 	StartParallelTransaction        Request2ServicesNameType = "startParallelTransaction"
 	RemoteStartParallelTransaction  Request2ServicesNameType = "remoteStartParallelTransaction"
-	FetchChargeTemplate             Request2ServicesNameType = "fetchChargeTemplate"
+	FetchChargeTemplate             Request2ServicesNameType = "getPriceScheme"
 	SyncTime                        Request2ServicesNameType = "syncTime"
 )
 

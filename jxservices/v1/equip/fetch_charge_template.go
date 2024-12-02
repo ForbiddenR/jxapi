@@ -9,7 +9,6 @@ import (
 
 type equipFetchChargeTemplateRequest struct {
 	services.Base
-	Data *equipFetchChargeTemplateRequestDetail `json:"data"`
 }
 
 func (r *equipFetchChargeTemplateRequest) GetName() services.Request2ServicesNameType {
@@ -21,11 +20,7 @@ func (r *equipFetchChargeTemplateRequest) TraceId() string {
 }
 
 func (r *equipFetchChargeTemplateRequest) IsCallback() bool {
-	return true
-}
-
-type equipFetchChargeTemplateRequestDetail struct {
-	TemplateId string `json:"template_id"`
+	return false
 }
 
 func NewequipFetchChargeTemplateRequest(sn, pod, msgId string, p *services.Protocol) *equipFetchChargeTemplateRequest {
@@ -37,7 +32,6 @@ func NewequipFetchChargeTemplateRequest(sn, pod, msgId string, p *services.Proto
 			AccessPod:   pod,
 			MsgID:       msgId,
 		},
-		Data: &equipFetchChargeTemplateRequestDetail{},
 	}
 	return req
 }

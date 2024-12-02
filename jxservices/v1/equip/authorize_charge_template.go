@@ -13,7 +13,7 @@ type equipAuthorizeChargeTemplateRequest struct {
 }
 
 type equipAuthorizeChargeTemplateRequestDetail struct {
-	ChargeTemplateId string `json:"chargeTemplateSerial"`
+	ChargeTemplateId string `json:"priceSchemeId"`
 }
 
 func (r equipAuthorizeChargeTemplateRequest) GetName() services.Request2ServicesNameType {
