@@ -398,6 +398,13 @@ func YunKuaiChong() *Protocol {
 	return yunKuaiChong
 }
 
+func YKC(version string) *Protocol {
+	return &Protocol{
+		Name:    "YKC",
+		Version: version,
+	}
+}
+
 func Fleetin() *Protocol {
 	return fleetin
 }
