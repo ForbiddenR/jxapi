@@ -16,13 +16,13 @@ type equipLoginRequest struct {
 
 type equipLoginRequestDetail struct {
 	RemoteAddress      *string `json:"remoteAddress"`
-	ModelCode          string  `json:"modelCode"`
-	ManufacturerCode   string  `json:"manufacturerCode"`
+	ModelCode          *string `json:"modelCode,omitempty"`
+	ManufacturerCode   *string `json:"manufacturerCode,omitempty"`
 	FirmwareVersion    *string `json:"firmwareVersion"`
 	Iccid              *string `json:"iccid"`
-	Imsi               *string `json:"imsi"`
-	ReconnectingReason *string `json:"reason"`
-	Sim                *string `json:"sim"`
+	Imsi               *string `json:"imsi,omitempty"`
+	ReconnectingReason *string `json:"reason,omitempty"`
+	Sim                *string `json:"sim,omitempty"`
 	ChargerType        *int16  `json:"chargerType"`
 	NetworkLink        *int16  `json:"networkLink"`
 	Carrier            *int16  `json:"carrier"`
@@ -40,24 +40,19 @@ func (equipLoginRequest) IsCallback() bool {
 	return false
 }
 
-type LoginRequestConfig struct {
-	ModelCode        string
-	ManufacturerCode string
-}
+// type LoginRequestConfig struct {
+// 	ModelCode        string
+// 	ManufacturerCode string
+// }
 
-func NewLogin(base services.Base, config *LoginRequestConfig) *equipLoginRequest {
+func NewLogin(base services.Base) *equipLoginRequest {
 	req := &equipLoginRequest{
 		Base: base,
-		Data: &equipLoginRequestDetail{
-			ModelCode:        config.ModelCode,
-			ManufacturerCode: config.ManufacturerCode,
-		},
 	}
 	return req
 }
 
-func NewEquipLoginRequest(sn, pod, msgID string, p *services.Protocol,
-	modelCode, manufacturerCode string) *equipLoginRequest {
+func NewEquipLoginRequest(sn, pod, msgID string, p *services.Protocol) *equipLoginRequest {
 	request := &equipLoginRequest{
 		Base: services.Base{
 			EquipmentSn: sn,
@@ -66,10 +61,6 @@ func NewEquipLoginRequest(sn, pod, msgID string, p *services.Protocol,
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
-	}
-	request.Data = &equipLoginRequestDetail{
-		ModelCode:        modelCode,
-		ManufacturerCode: manufacturerCode,
 	}
 	return request
 }
