@@ -48,6 +48,7 @@ func (equipLoginRequest) IsCallback() bool {
 func NewLogin(base services.Base) *equipLoginRequest {
 	req := &equipLoginRequest{
 		Base: base,
+		Data: &equipLoginRequestDetail{},
 	}
 	return req
 }
@@ -61,6 +62,7 @@ func NewEquipLoginRequest(sn, pod, msgID string, p *services.Protocol) *equipLog
 			AccessPod:   pod,
 			MsgID:       msgID,
 		},
+		Data: &equipLoginRequestDetail{},
 	}
 	return request
 }
