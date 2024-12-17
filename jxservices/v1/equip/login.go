@@ -19,10 +19,9 @@ type equipLoginRequestDetail struct {
 	ModelCode          *string `json:"modelCode,omitempty"`
 	ManufacturerCode   *string `json:"manufacturerCode,omitempty"`
 	FirmwareVersion    *string `json:"firmwareVersion"`
-	Iccid              *string `json:"iccid"`
+	Iccid              *string `json:"iccid,omitempty"`
 	Imsi               *string `json:"imsi,omitempty"`
 	ReconnectingReason *string `json:"reason,omitempty"`
-	Sim                *string `json:"sim,omitempty"`
 	ChargerType        *int16  `json:"chargerType"`
 	NetworkLink        *int16  `json:"networkLink"`
 	Carrier            *int16  `json:"carrier"`
