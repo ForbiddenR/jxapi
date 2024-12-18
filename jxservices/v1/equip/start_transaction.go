@@ -24,7 +24,7 @@ type equipStartTransactionRequestDetail struct {
 	RemoteStartId       *int64        `json:"remoteStartId,omitempty"`
 	Offline             bool          `json:"offline"`
 	Timestamp           int64         `json:"timestamp"`
-	MeterValue          *MeterValue   `json:"meterValue"`
+	MeterValue          *MeterValue   `json:"meterValue,omitempty"`
 	Tariff              *Tariff       `json:"tariff,omitempty"`
 	ChargingState       uint8         `json:"chargingState"`
 	Vin                 *string       `json:"vin,omitempty"`
