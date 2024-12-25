@@ -9,8 +9,8 @@ var _ services.Request = &equipGetVariablesCallbackRequest{}
 
 type equipGetVariableListCallbackRequest struct {
 	services.Base
-	Callback services.CB                              `json:"callback"`
-	Data     []equipGetVariablesCallbackRequestDetail `json:"data"`
+	Callback services.CB      `json:"callback"`
+	Data     []CustomVariable `json:"data"`
 }
 
 func (equipGetVariableListCallbackRequest) GetName() services.Request2ServicesNameType {

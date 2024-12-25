@@ -10,6 +10,11 @@ const (
 	ConcurrentTx
 )
 
+type CustomVariable struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
 type Component struct {
 	Name string `json:"name"`
 	Evse *EVSE  `json:"evse,omitempty"`
