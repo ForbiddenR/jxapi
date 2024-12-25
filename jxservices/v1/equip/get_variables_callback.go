@@ -24,8 +24,6 @@ type equipGetVariablesCallbackRequestDetail struct {
 		Readonly Mutability `json:"readonly"`
 	} `json:"variable"`
 	Variables []Variable `json:"variables"`
-	// Value      string     `json:"value"`
-	// Readonly   Mutability `json:"readonly"`
 	UnknownKey []string `json:"unknownKey,omitempty"`
 }
 
