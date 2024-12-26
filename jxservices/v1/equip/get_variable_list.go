@@ -9,7 +9,7 @@ import (
 
 type EquipGetVariableListRequest struct {
 	services.Base
-	Data []EquipGetVariablesRequestDetail `json:"data"`
+	Data []EquipGetVariableListRequestDetail `json:"data"`
 }
 
 func (r *EquipGetVariableListRequest) UnmarshalJSON(data []byte) error {
@@ -31,4 +31,9 @@ func (r *EquipGetVariableListRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+type EquipGetVariableListRequestDetail struct {
+	Component Component `json:"component" validate:"required"`
+	Key       string    `json:"key" validate:"required"`
 }
