@@ -530,7 +530,7 @@ func Transport(ctx context.Context, req Request) error {
 	if err != nil {
 		return err
 	}
-	if resp.Status == 1 {
+	if resp.Status == 1 || resp.Status == 3 {
 		return errors.New(resp.Msg)
 	}
 	return err
@@ -555,7 +555,7 @@ func TransportWithResp[T Response](ctx context.Context, req Request, t T) error 
 	if err != nil {
 		return err
 	}
-	if t.GetStatus() == 1 {
+	if t.GetStatus() == 1 || t.GetStatus() == 3 {
 		return errors.New(t.GetMsg())
 	}
 	return err
