@@ -530,6 +530,8 @@ func Transport(ctx context.Context, req Request) error {
 	if err != nil {
 		return err
 	}
+	message, _ = json.Marshal(resp)
+	api.Log.Info(fmt.Sprintf("response from services. url: %s data: %s", uri, message))
 	if resp.Status == 1 || resp.Status == 3 {
 		return errors.New(resp.Msg)
 	}
@@ -555,6 +557,8 @@ func TransportWithResp[T Response](ctx context.Context, req Request, t T) error 
 	if err != nil {
 		return err
 	}
+	message, _ = json.Marshal(t)
+	api.Log.Info(fmt.Sprintf("response from services. url: %s data: %s", uri, message))
 	if t.GetStatus() == 1 || t.GetStatus() == 3 {
 		return errors.New(t.GetMsg())
 	}
